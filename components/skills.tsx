@@ -1,36 +1,15 @@
-"use client"
-
 import HackerText from "./HackerText"
 
 export default function Skills() {
   const fullStackSkills = [
-    "React.js",
-    "Next.js",
-    "TypeScript",
-    "JavaScript",
-    "Node.js",
-    "Express.js",
-    "Python",
-    "PostgreSQL",
-    "Prisma ORM",
-    "REST APIs",
-    "Tailwind CSS",
-    "Web Performance",
+    "React.js", "Next.js", "TypeScript", "JavaScript", "Node.js", "Express.js",
+    "Python", "PostgreSQL", "Prisma ORM", "REST APIs", "Tailwind CSS", "Web Performance",
   ]
 
   const devopsSkills = [
-    "Docker",
-    "CI/CD Pipelines",
-    "GitHub Actions",
-    "Linux",
-    "AWS (EC2, S3)",
-    "Nginx",
-    "Terraform",
-    "Shell Scripting",
-    "System Administration",
-    "Infrastructure as Code",
-    "Cloud Security",
-    "Git & Version Control",
+    "Docker", "CI/CD Pipelines", "GitHub Actions", "Linux", "AWS (EC2, S3)", "Nginx",
+    "Terraform", "Shell Scripting", "System Administration", "Infrastructure as Code",
+    "Cloud Security", "Git & Version Control",
   ]
 
   return (
@@ -47,6 +26,7 @@ export default function Skills() {
           </p>
         </div>
 
+        {/* ... Rest of the JSX remains exactly the same ... */}
         {/* Full-Stack Skills */}
         <div className="animate-fade-in-up">
           <div className="space-y-6">

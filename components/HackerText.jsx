@@ -1,3 +1,5 @@
+"use client" // <--- ADD THIS LINE AT THE VERY TOP
+
 import React, { useState, useEffect } from "react";
 
 const HackerText = ({ text, className }) => {

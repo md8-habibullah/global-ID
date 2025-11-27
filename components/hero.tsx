@@ -1,6 +1,7 @@
 import HackerText from "./HackerText"
-import { Github, Linkedin, Mail, Facebook, MessageCircle, Terminal } from "lucide-react"
+import { Github, Linkedin, Mail, Facebook, MessageCircle } from "lucide-react"
 
+// ... keep socialLinks array ...
 const socialLinks = [
   { href: "https://gh.habibullah.dev", label: "GitHub", Icon: Github },
   { href: "https://li.habibullah.dev", label: "LinkedIn", Icon: Linkedin },
@@ -12,15 +13,15 @@ const socialLinks = [
 export default function Hero() {
   return (
     <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center">
+      {/* ... keep the rest of the JSX exactly the same ... */}
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl w-full">
-
-        {/* Left: Profile Image with hacker glow */}
+        {/* Left: Profile Image */}
         <div className="flex justify-center md:justify-end animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
           <div className="relative">
             <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow" />
             <img
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=300"
-              alt="MD. HABIBULLAH SHARIF - Full-Stack Developer & Security Enthusiast__"
+              alt="MD. HABIBULLAH SHARIF"
               className="profile-pic animate-float-up border border-primary/50 rounded-2xl shadow-lg"
               width={224}
               height={224}
@@ -38,13 +39,13 @@ export default function Hero() {
               <span className="text-primary">SHARIF</span>
             </h1>
 
-            {/* Hacker Terminal Text */}
+            {/* HackerText is a Client Component, but it's safe to render here */}
             <HackerText
               text="Full-Stack Developer & Security Enthusiast__"
               className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono"
             />
           </div>
-
+          
           <p className="section-subtitle text-base sm:text-lg">
             Building scalable, secure web applications with modern technologies. Full-stack development expertise
             combined with DevOps automation and security-first mindset. Computer Science student from Northern
@@ -65,7 +66,6 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Social Links */}
           <div className="flex flex-wrap gap-4 pt-8">
             {socialLinks.map(({ href, label, Icon }) => (
               <a
@@ -77,16 +77,11 @@ export default function Hero() {
                 className="group relative flex items-center rounded-full border border-border/50 bg-card p-2 text-muted-foreground
                            transition-all duration-300 hover:bg-primary hover:text-white hover:scale-105 hover:shadow-lg overflow-hidden"
               >
-                {/* Icon with glow pulse */}
                 <Icon className="w-6 h-6 flex-shrink-0 transition-colors duration-300 group-hover:text-white group-hover:animate-glow-pulse" />
-
-                {/* Label slides in on hover */}
                 <span className="ml-0 max-w-0 opacity-0 whitespace-nowrap font-mono font-semibold transition-all duration-300
                                  group-hover:ml-2 group-hover:max-w-xs group-hover:opacity-100">
                   {label}
                 </span>
-
-                {/* Terminal cursor effect */}
                 <span className="absolute right-2 opacity-0 group-hover:opacity-100 animate-blink">_</span>
               </a>
             ))}

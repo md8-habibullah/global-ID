@@ -1,5 +1,3 @@
-"use client"
-
 import ProjectCard from "./project-card"
 import HackerText from "./HackerText"
 
@@ -13,6 +11,7 @@ export default function Projects() {
       github: "https://github.com/md8-habibullah",
       featured: true,
     },
+    // ... rest of your projects array ...
     {
       title: "DevOps Pipeline Automation",
       description:
@@ -72,6 +71,7 @@ export default function Projects() {
               style={{ animationDelay: `${index * 0.1}s` }}
               className="animate-fade-in-up"
             >
+              {/* ProjectCard is a Client Component, this is allowed */}
               <ProjectCard project={project} />
             </div>
           ))}
