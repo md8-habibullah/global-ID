@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import { GoogleTagManager } from '@next/third-parties/google'
+import MouseCursor from "@/components/mouse-cursor"
 
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -83,6 +84,7 @@ export default function RootLayout({
 
       <body className="font-sans antialiased bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+          <MouseCursor />
           {children}
         </ThemeProvider>
         {/* <Analytics /> */}
