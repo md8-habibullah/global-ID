@@ -1,7 +1,8 @@
 import HackerText from "./HackerText"
 import { Github, Linkedin, Mail, Facebook, MessageCircle } from "lucide-react"
+import Image from "next/image" // <--- Import Next.js Image
 
-// ... keep socialLinks array ...
+// ... keep socialLinks array exactly as is ...
 const socialLinks = [
   { href: "https://gh.habibullah.dev", label: "GitHub", Icon: Github },
   { href: "https://li.habibullah.dev", label: "LinkedIn", Icon: Linkedin },
@@ -13,18 +14,21 @@ const socialLinks = [
 export default function Hero() {
   return (
     <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center cursor-target">
-      {/* ... keep the rest of the JSX exactly the same ... */}
       <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl w-full cursor-target">
         {/* Left: Profile Image */}
         <div className="flex justify-center md:justify-end animate-fade-in-up cursor-target" style={{ animationDelay: "0.1s" }}>
-          <div className="relative cursor-target">
+          <div className="relative cursor-target w-56 h-56 md:w-64 md:h-64">
             <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow" />
-            <img
-              src="https://avatars.githubusercontent.com/u/149287500?v=4&s=300"
+            
+            {/* OPTIMIZED IMAGE COMPONENT */}
+            <Image
+              src="https://avatars.githubusercontent.com/u/149287500?v=4&s=400" // Increased quality slightly
               alt="MD. HABIBULLAH SHARIF"
-              className="profile-pic animate-float-up border border-primary/50 rounded-2xl shadow-lg"
-              width={224}
-              height={224}
+              className="profile-pic animate-float-up border border-primary/50 rounded-2xl shadow-lg relative z-10"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority // <--- Crucial for LCP Score
+              style={{ objectFit: "cover" }}
             />
           </div>
         </div>
@@ -39,7 +43,6 @@ export default function Hero() {
               <span className="text-primary">SHARIF</span>
             </h1>
 
-            {/* HackerText is a Client Component, but it's safe to render here */}
             <HackerText
               text="Full-Stack Developer & Security Enthusiast--"
               className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono cursor-target"

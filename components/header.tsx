@@ -3,9 +3,10 @@
 import { useEffect, useState, useRef } from "react"
 import { useTheme } from "next-themes"
 import { Lock, Sun, Moon, Menu, X, BookOpen } from "lucide-react"
+import Image from "next/image" // <--- Import
 import SiteFakeUptime from "./SiteFakeUptime"
 
-const SiteFakeUptimeAny: any = SiteFakeUptime as any
+// ... (keep SiteFakeUptimeAny and component setup exactly the same) ...
 
 export default function Header() {
   const { theme, setTheme } = useTheme()
@@ -15,15 +16,13 @@ export default function Header() {
   const menuRef = useRef<HTMLElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Mark component as mounted to prevent hydration mismatch
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Handle clicks outside menu & scroll
+  // ... (keep click outside logic same) ...
   useEffect(() => {
     if (!isMenuOpen) return
-
     const handleClickOutside = (event: MouseEvent) => {
       if (
         (menuRef.current && event.target instanceof Node && menuRef.current.contains(event.target)) ||
@@ -31,9 +30,7 @@ export default function Header() {
       ) return
       setIsMenuOpen(false)
     }
-
     const handleScroll = () => setIsMenuOpen(false)
-
     document.addEventListener("mousedown", handleClickOutside)
     window.addEventListener("scroll", handleScroll)
     return () => {
@@ -42,7 +39,6 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
-  // Don't render until mounted to avoid hydration mismatch
   if (!mounted) return null
 
   const wiki = "https://wiki.habibullah.dev"
@@ -53,13 +49,16 @@ export default function Header() {
       {/* Logo */}
       <a href="/#">
         <div className="flex items-center gap-4">
-          <img
-            src="https://avatars.githubusercontent.com/u/149287500?v=4&s=300"
-            alt="MD. Habibullah Sharif"
-            className="w-10 h-10 rounded-lg object-cover shadow-lg"
-            width={40}
-            height={40}
-          />
+          <div className="relative w-10 h-10">
+             {/* OPTIMIZED IMAGE */}
+            <Image
+              src="https://avatars.githubusercontent.com/u/149287500?v=4&s=100"
+              alt="MD. Habibullah Sharif"
+              className="rounded-lg object-cover shadow-lg"
+              fill
+              sizes="40px"
+            />
+          </div>
           <div>
             <h1 className="text-lg font-bold tracking-tight">HABIBULLAH</h1>
             <p className="text-xs text-muted-foreground uppercase tracking-wider">Full-Stack Dev</p>
@@ -67,6 +66,8 @@ export default function Header() {
         </div>
       </a>
 
+      {/* ... (Keep the rest of the file EXACTLY the same from here) ... */}
+      
       {/* Desktop Nav */}
       <nav className="hidden md:flex items-center gap-8">
         <a href="#about" className="nav-link">About</a>
@@ -76,16 +77,13 @@ export default function Header() {
           <BookOpen className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>Wiki</span>
         </a>
-
       </nav>
 
       {/* Right-side Icons */}
       <div className="flex items-center gap-4 sm:gap-6">
-        {/* SiteFakeUptime */}
         <div className="hidden md:block"><SiteFakeUptime /></div>
-        <div className="md:hidden"><SiteFakeUptimeAny compact /></div>
+        <div className="md:hidden"><SiteFakeUptime compact /></div>
 
-        {/* Dark mode toggle */}
         <button
           className="theme-toggle-btn p-2 rounded-full border border-border/30 hover:bg-primary/10 transition cursor-pointer"
           onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -95,7 +93,6 @@ export default function Header() {
           {isDark ? <Moon className="w-5 h-5 text-primary" /> : <Sun className="w-5 h-5 text-yellow-400" />}
         </button>
 
-        {/* Mobile menu toggle */}
         <button
           ref={buttonRef}
           className="md:hidden p-2"
@@ -106,7 +103,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       <nav
         ref={menuRef}
         className={`
