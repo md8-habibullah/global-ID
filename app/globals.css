@@ -478,3 +478,69 @@
   border-right: none;
   border-top: none;
 }
+
+/* ... keep all your existing styles above ... */
+
+/* --- Target Cursor Styles --- */
+.target-cursor-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference; /* Optional: Keep or remove depending on preference */
+  transform: translate(-50%, -50%);
+}
+
+.target-cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Removed fixed width/height/bg to allow the Icon to size itself */
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  /* "Small bigger" - The size is controlled by the SVG width/height in the component */
+  color: var(--primary); /* Use your theme's green color */
+}
+
+.target-cursor-corner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #ffffff; /* White corners for contrast */
+  will-change: transform;
+}
+
+/* Curved Corners ("not 100% box") */
+.corner-tl {
+  transform: translate(-150%, -150%);
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 12px; /* Curve */
+}
+
+.corner-tr {
+  transform: translate(50%, -150%);
+  border-left: none;
+  border-bottom: none;
+  border-top-right-radius: 12px; /* Curve */
+}
+
+.corner-br {
+  transform: translate(50%, 50%);
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 12px; /* Curve */
+}
+
+.corner-bl {
+  transform: translate(-150%, 50%);
+  border-right: none;
+  border-top: none;
+  border-bottom-left-radius: 12px; /* Curve */
+}
+
