@@ -51,11 +51,11 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="section-spacing bg-card/20">
-      <div className="max-w-6xl mx-auto space-y-16">
-        <div className="space-y-4 animate-fade-in-up">
+    <section id="projects" className="section-spacing bg-card/20 cursor-target">
+      <div className="max-w-6xl mx-auto space-y-16 cursor-target">
+        <div className="space-y-4 animate-fade-in-u cursor-targetp">
           <HackerText
-            text="Featured Projects"
+            text="Featured Projects--"
             className="section-title font-mono text-3xl sm:text-4xl"
           />
           <div className="accent-line" />
@@ -64,12 +64,12 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 cursor-target">
           {projects.map((project, index) => (
             <div
               key={project.title}
               style={{ animationDelay: `${index * 0.1}s` }}
-              className="animate-fade-in-up"
+              className="animate-fade-in-up cursor-target"
             >
               {/* ProjectCard is a Client Component, this is allowed */}
               <ProjectCard project={project} />

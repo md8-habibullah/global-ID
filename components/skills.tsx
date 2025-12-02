@@ -13,11 +13,11 @@ export default function Skills() {
   ]
 
   return (
-    <section id="skills" className="section-spacing bg-card/20">
-      <div className="max-w-6xl mx-auto space-y-16">
-        <div className="space-y-4 animate-fade-in-up">
+    <section id="skills" className="section-spacing bg-card/20 cursor-target">
+      <div className="max-w-6xl mx-auto space-y-16 cursor-target">
+        <div className="space-y-4 animate-fade-in-up cursor-target">
           <HackerText
-            text="Skills & Expertise"
+            text="Skills & Expertise--"
             className="section-title font-mono text-3xl sm:text-4xl"
           />
           <div className="accent-line" />
@@ -28,7 +28,7 @@ export default function Skills() {
 
         {/* ... Rest of the JSX remains exactly the same ... */}
         {/* Full-Stack Skills */}
-        <div className="animate-fade-in-up">
+        <div className="animate-fade-in-up cursor-target">
           <div className="space-y-6">
             <div>
               <h3 className="text-2xl sm:text-3xl font-bold mb-3 font-mono text-primary hover:text-primary/80 transition-colors duration-300">
@@ -56,7 +56,7 @@ export default function Skills() {
         <div className="divider" />
 
         {/* DevOps & Infrastructure Skills */}
-        <div className="animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+        <div className="animate-fade-in-up cursor-target" style={{ animationDelay: "0.1s" }}>
           <div className="space-y-6">
             <div>
               <h3 className="text-2xl sm:text-3xl font-bold mb-3 font-mono text-primary hover:text-primary/80 transition-colors duration-300">

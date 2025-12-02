@@ -25,8 +25,8 @@ const whatIDo = [
 
 export default function About() {
   return (
-    <section id="about" className="section-spacing bg-card/20">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <section id="about" className="section-spacing bg-card/20 cursor-target">
+      <div className="max-w-5xl mx-auto space-y-12 cursor-target">
         {/* Section Header */}
         <div className="space-y-4 animate-fade-in-up">
           <h2 className="section-title">About Me</h2>
@@ -35,15 +35,15 @@ export default function About() {
 
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {/* Main Content */}
-          <div className="md:col-span-2 space-y-6 text-muted-foreground leading-relaxed animate-fade-in-up">
-            <p className="text-base sm:text-lg">
+          <div className="md:col-span-2 space-y-6 text-muted-foreground leading-relaxed animate-fade-in-up cursor-target">
+            <p className="text-base sm:text-lg cursor-target">
               I'm <strong className="text-foreground">Habibullah</strong> — a Full-Stack Developer and Computer Science student
               who builds <strong>secure, scalable web applications</strong> with modern technologies. I specialize in
               crafting clean, maintainable code that solves real problems while keeping <strong>security and automation</strong>
               at the core of everything I build.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-4 cursor-target">
               <div>
                 <h3 className="text-foreground font-semibold mb-2">What I Do</h3>
                 <ul className="space-y-2 text-sm">
@@ -58,7 +58,7 @@ export default function About() {
                 </ul>
               </div>
 
-              <div>
+              <div className="cursor-target">
                 <h3 className="text-foreground font-semibold mb-2">How I Work</h3>
                 <p className="text-sm font-mono text-muted-foreground">
                   I focus on writing testable, documented, and maintainable code. Whether building user-facing dashboards or backend APIs, I prioritize
@@ -74,9 +74,9 @@ export default function About() {
           </div>
 
           {/* Stats */}
-          <div className="space-y-4 animate-fade-in-up">
+          <div className="space-y-4 animate-fade-in-up cursor-target">
             {stats.map(({ value, label }) => (
-              <div key={label} className="minimal-card text-center hover:scale-105 transition-transform duration-300">
+              <div key={label} className="minimal-card text-center hover:scale-105 transition-transform duration-300 cursor-target">
                 <div className="text-4xl sm:text-5xl font-bold text-primary font-mono">{value}</div>
                 <p className="text-sm text-muted-foreground mt-3 font-medium">{label}</p>
               </div>

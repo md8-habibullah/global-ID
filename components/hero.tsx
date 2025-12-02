@@ -12,12 +12,12 @@ const socialLinks = [
 
 export default function Hero() {
   return (
-    <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center">
+    <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center cursor-target">
       {/* ... keep the rest of the JSX exactly the same ... */}
-      <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl w-full">
+      <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl w-full cursor-target">
         {/* Left: Profile Image */}
-        <div className="flex justify-center md:justify-end animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          <div className="relative">
+        <div className="flex justify-center md:justify-end animate-fade-in-up cursor-target" style={{ animationDelay: "0.1s" }}>
+          <div className="relative cursor-target">
             <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow" />
             <img
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=300"
@@ -30,10 +30,10 @@ export default function Hero() {
         </div>
 
         {/* Right: Content */}
-        <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+        <div className="space-y-8 animate-fade-in-up cursor-target" style={{ animationDelay: "0.2s" }}>
           <div className="space-y-4">
             <div className="accent-line" />
-            <h1 className="section-title">
+            <h1 className="section-title cursor-target">
               MD. HABIBULLAH
               <br />
               <span className="text-primary">SHARIF</span>
@@ -41,12 +41,12 @@ export default function Hero() {
 
             {/* HackerText is a Client Component, but it's safe to render here */}
             <HackerText
-              text="Full-Stack Developer & Security Enthusiast__"
-              className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono"
+              text="Full-Stack Developer & Security Enthusiast--"
+              className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono cursor-target"
             />
           </div>
           
-          <p className="section-subtitle text-base sm:text-lg">
+          <p className="section-subtitle text-base sm:text-lg cursor-target">
             Building scalable, secure web applications with modern technologies. Full-stack development expertise
             combined with DevOps automation and security-first mindset. Computer Science student from Northern
             University Bangladesh.

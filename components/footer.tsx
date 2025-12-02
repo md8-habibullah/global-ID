@@ -23,19 +23,19 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-border/50 bg-card/50">
+    <footer className="border-t border-border/50 bg-card/50 cursor-target">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="py-16 sm:py-20 px-4 sm:px-8 lg:px-12"
+        className="py-16 sm:py-20 px-4 sm:px-8 lg:px-12 cursor-target"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
+        <div className="max-w-6xl mx-auto cursor-target">
+          <div className="grid md:grid-cols-3 gap-12 mb-12 cursor-target cursor-target">
 
             {/* Brand */}
-            <motion.div variants={itemVariants} className="space-y-4">
+            <motion.div variants={itemVariants} className="space-y-4 cursor-target">
               <div className="flex items-center gap-3">
                 <Terminal className="w-6 h-6 text-primary animate-pulse-slow" />
                 <h3 className="text-xl font-bold tracking-tight text-foreground">MD. Habibullah</h3>
@@ -46,7 +46,7 @@ export default function Footer() {
             </motion.div>
 
             {/* Quick Links */}
-            <motion.div variants={itemVariants} className="space-y-4">
+            <motion.div variants={itemVariants} className="space-y-4 cursor-target">
               <h4 className="font-semibold text-foreground uppercase tracking-wide text-sm">Quick Links</h4>
               <div className="space-y-2 text-sm">
                 {["About", "Skills", "Projects"].map((link) => (
@@ -63,7 +63,7 @@ export default function Footer() {
             </motion.div>
 
             {/* Connect */}
-            <motion.div variants={itemVariants} className="space-y-4">
+            <motion.div variants={itemVariants} className="space-y-4 cursor-target">
               <h4 className="font-semibold text-foreground uppercase tracking-wide text-sm">Connect</h4>
               <p className="text-sm text-muted-foreground">Open to collaborations and exciting opportunities.</p>
               <div className="flex flex-wrap gap-4 pt-2">
@@ -97,7 +97,7 @@ export default function Footer() {
           {/* Bottom */}
           <motion.div
             variants={containerVariants}
-            className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground"
+            className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground cursor-target"
           >
             <motion.p variants={itemVariants} className="font-mono font-bold text-xs">
               $ cd /portfolio && cat README.md

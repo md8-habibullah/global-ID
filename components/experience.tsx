@@ -33,7 +33,7 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-spacing bg-card/10">
+    <section id="experience" className="section-spacing bg-card/10 cursor-target">
       <div className="max-w-5xl mx-auto space-y-12">
         {/* Header */}
         <div className="space-y-4 animate-fade-in-up">
@@ -45,11 +45,11 @@ export default function Experience() {
         </div>
 
         {/* Experiences List */}
-        <div className="space-y-6 animate-fade-in-up">
+        <div className="space-y-6 animate-fade-in-up cursor-target">
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="minimal-card p-6 border-l-4 border-l-primary/20 hover:border-l-primary hover:bg-primary/5 transition-all duration-300 relative group"
+              className="minimal-card p-6 border-l-4 border-l-primary/20 hover:border-l-primary hover:bg-primary/5 transition-all duration-300 relative group cursor-target"
             >
               {/* Hacker glow effect */}
               <span className="absolute top-0 left-0 w-1 h-full bg-primary/10 rounded-full transition-all duration-300 group-hover:bg-primary/30 animate-pulse-slow" />
