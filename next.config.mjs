@@ -28,7 +28,7 @@ const nextConfig = {
       },
       {
         source: '/linkedin',
-        destination: 'https://www.linkedin.com/in/md8-habibullahs',
+        destination: 'https://www.linkedin.com/in/md-habibullahs',
         permanent: true,
       },
       {
