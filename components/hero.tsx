@@ -4,10 +4,10 @@ import Image from "next/image" // <--- Import Next.js Image
 
 // ... keep socialLinks array exactly as is ...
 const socialLinks = [
-  { href: "https://go.habibullah.dev/github/", label: "GitHub", Icon: Github },
-  { href: "https://go.habibullah.dev/linkedin/", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://go.habibullah.dev/facebook/", label: "Facebook", Icon: Facebook },
-  { href: "https://go.habibullah.dev/whatsapp/", label: "WhatsApp", Icon: MessageCircle },
+  { href: "https://habibullah.dev/github/", label: "GitHub", Icon: Github },
+  { href: "https://habibullah.dev/linkedin/", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://habibullah.dev/facebook/", label: "Facebook", Icon: Facebook },
+  { href: "https://habibullah.dev/whatsapp/", label: "WhatsApp", Icon: MessageCircle },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ]
 

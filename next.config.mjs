@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remove "output: export" unless you are hosting on GitHub Pages manually.
-  // Remove "unoptimized: true" to enable the Image Optimization API.
-  
+  // --- Your existing Image settings ---
   images: {
     remotePatterns: [
       {
@@ -11,12 +9,39 @@ const nextConfig = {
       },
     ],
   },
-  
+
+  // --- Your existing ESLint/TypeScript settings ---
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+
+  // --- ADDED: Your Redirects ---
+  async redirects() {
+    return [
+      {
+        source: '/github',
+        destination: 'https://github.com/md8-habibullah',
+        permanent: true,
+      },
+      {
+        source: '/linkedin',
+        destination: 'https://www.linkedin.com/in/md8-habibullahs',
+        permanent: true,
+      },
+      {
+        source: '/whatsapp',
+        destination: 'https://wa.me/8801329876070',
+        permanent: true,
+      },
+      {
+        source: '/facebook',
+        destination: 'https://facebook.com/md8.habibullah',
+        permanent: true,
+      },
+    ];
   },
 };
 
