@@ -4,10 +4,10 @@ import { motion } from "framer-motion"
 import { Github, Linkedin, Mail, Terminal, Facebook, MessageCircle } from "lucide-react"
 
 const socialLinks = [
-  { href: "https://gh.habibullah.dev", label: "GitHub", Icon: Github },
-  { href: "https://li.habibullah.dev", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://fb.habibullah.dev", label: "Facebook", Icon: Facebook },
-  { href: "https://wa.habibullah.dev", label: "WhatsApp", Icon: MessageCircle },
+  { href: "https://go.habibullah.dev/github/", label: "GitHub", Icon: Github },
+  { href: "https://go.habibullah.dev/linkedin/", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://go.habibullah.dev/facebook/", label: "Facebook", Icon: Facebook },
+  { href: "https://go.habibullah.dev/whatsapp/", label: "WhatsApp", Icon: MessageCircle },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ]
 
