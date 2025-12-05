@@ -3,22 +3,22 @@ module.exports = {
     return [
       {
         source: '/github',
-        destination: 'https://github.com/your-username',
+        destination: 'https://github.com/md8-habibullah',
         permanent: true,
       },
       {
         source: '/linkedin',
-        destination: 'https://www.linkedin.com/in/your-profile',
+        destination: 'https://www.linkedin.com/in/md8-habibullahs',
         permanent: true,
       },
       {
         source: '/whatsapp',
-        destination: 'https://wa.me/your-number',
+        destination: 'https://wa.me/8801329876070',
         permanent: true,
       },
       {
         source: '/facebook',
-        destination: 'https://facebook.com/your-profile',
+        destination: 'https://facebook.com/md8.habibullah',
         permanent: true,
       },
     ]
