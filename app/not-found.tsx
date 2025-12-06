@@ -55,12 +55,12 @@ export default function NotFound() {
         }
       `}</style>
 
-      <div className="flex items-center justify-center min-h-screen bg-background text-foreground font-mono p-4">
+      <div className="flex items-center justify-center min-h-screen bg-background text-foreground font-mono p-4 cursor-target">
         {/* Main terminal window card.
           The box-shadow is now more subtle and less "neon".
         */}
         <div
-          className="w-full max-w-2xl bg-card border border-border rounded-lg shadow-2xl overflow-hidden animate-fade-in-up-notfound"
+          className="w-full max-w-2xl bg-card border border-border rounded-lg shadow-2xl overflow-hidden animate-fade-in-up-notfound cursor-target"
           style={{
             /* This shadow is a much subtler, static glow */
             boxShadow:
@@ -69,13 +69,13 @@ export default function NotFound() {
           }}
         >
           {/* Terminal Header Bar */}
-          <div className="flex items-center justify-between p-3 bg-border/20 border-b border-border">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between p-3 bg-border/20 border-b border-border cursor-target">
+            <div className="flex items-center gap-2 cursor-target">
               <span className="w-3 h-3 bg-[#f87171] rounded-full"></span>
               <span className="w-3 h-3 bg-[#facc15] rounded-full"></span>
               <span className="w-3 h-3 bg-[#34d399] rounded-full"></span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground cursor-target">
               <Terminal className="w-4 h-4" />
               <span>/bin/bash -- 404</span>
             </div>
@@ -83,19 +83,19 @@ export default function NotFound() {
           </div>
 
           {/* Terminal Body Content */}
-          <div className="p-8 sm:p-12 text-center space-y-8">
+          <div className="p-8 sm:p-12 text-center space-y-8 cursor-target">
             {/* The 404 number (no longer glowing) */}
-            <h1 className="text-8xl sm:text-9xl font-bold text-primary">
+            <h1 className="text-8xl sm:text-9xl font-bold text-primary cursor-target">
               404
             </h1>
 
             {/* Your HackerText component */}
             <HackerText
               text=">_ RESOURCE_NOT_FOUND _<"
-              className="text-2xl sm:text-3xl font-semibold text-primary"
+              className="text-2xl sm:text-3xl font-semibold text-primary cursor-target"
             />
 
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground cursor-target">
               The entity you're tracking has vanished.
               <br />
               The matrix has been altered, or the path is corrupted.
@@ -106,7 +106,7 @@ export default function NotFound() {
               href="/"
               className="inline-flex items-center gap-2.5 px-6 py-3 bg-primary text-primary-foreground font-bold rounded-lg shadow-lg transition-all duration-300 ease-in-out
                          hover:scale-105 hover:shadow-xl hover:shadow-primary/30
-                         focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                         focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card cursor-target"
             >
               <Home className="w-5 h-5" />
               <span>RETURN TO BASE</span>
