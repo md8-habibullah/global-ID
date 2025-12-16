@@ -45,10 +45,10 @@ export default function Header() {
   const isDark = theme === "dark"
 
   return (
-    <header className="header-bar relative">
+    <header className="header-bar relative cursor-target">
       {/* Logo */}
       <a href="/#">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 cursor-target">
           <div className="relative w-10 h-10">
              {/* OPTIMIZED IMAGE */}
             <Image
@@ -69,7 +69,7 @@ export default function Header() {
       {/* ... (Keep the rest of the file EXACTLY the same from here) ... */}
       
       {/* Desktop Nav */}
-      <nav className="hidden md:flex items-center gap-8">
+      <nav className="hidden md:flex items-center gap-8 cursor-target">
         <a href="#about" className="nav-link">About</a>
         <a href="#skills" className="nav-link">Skills</a>
         <a href="#projects" className="nav-link">Projects</a>
@@ -80,7 +80,7 @@ export default function Header() {
       </nav>
 
       {/* Right-side Icons */}
-      <div className="flex items-center gap-4 sm:gap-6">
+      <div className="flex items-center gap-4 sm:gap-6 cursor-target">
         <div className="hidden md:block"><SiteFakeUptime /></div>
         <div className="md:hidden"><SiteFakeUptime compact /></div>
 
