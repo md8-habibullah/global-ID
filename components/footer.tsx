@@ -58,7 +58,7 @@ export default function Footer() {
                     {link}
                   </a>
                 ))}
-                <a href="https://wiki.habibullah.dev" target="_blank" className="link-arrow text-muted-foreground hover:text-primary transition-colors duration-300 block">Wiki</a>
+                <a href="https://blog.habibullah.dev" target="_blank" className="link-arrow text-muted-foreground hover:text-primary transition-colors duration-300 block">Blog</a>
               </div>
             </motion.div>
 

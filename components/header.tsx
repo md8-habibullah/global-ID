@@ -2,11 +2,10 @@
 
 import { useEffect, useState, useRef } from "react"
 import { useTheme } from "next-themes"
-import { Lock, Sun, Moon, Menu, X, BookOpen } from "lucide-react"
-import Image from "next/image" // <--- Import
+import { Lock, Sun, Moon, Menu, X, NotebookPen } from "lucide-react"
+import Image from "next/image"
 import SiteFakeUptime from "./SiteFakeUptime"
 
-// ... (keep SiteFakeUptimeAny and component setup exactly the same) ...
 
 export default function Header() {
   const { theme, setTheme } = useTheme()
@@ -20,7 +19,6 @@ export default function Header() {
     setMounted(true)
   }, [])
 
-  // ... (keep click outside logic same) ...
   useEffect(() => {
     if (!isMenuOpen) return
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,7 +39,7 @@ export default function Header() {
 
   if (!mounted) return null
 
-  const wiki = "https://wiki.habibullah.dev"
+  const blog = "https://blog.habibullah.dev"
   const isDark = theme === "dark"
 
   return (
@@ -50,7 +48,7 @@ export default function Header() {
       <a href="/#">
         <div className="flex items-center gap-4 cursor-target">
           <div className="relative w-10 h-10">
-             {/* OPTIMIZED IMAGE */}
+            {/* OPTIMIZED IMAGE */}
             <Image
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=100"
               alt="MD. Habibullah Sharif"
@@ -67,15 +65,15 @@ export default function Header() {
       </a>
 
       {/* ... (Keep the rest of the file EXACTLY the same from here) ... */}
-      
+
       {/* Desktop Nav */}
       <nav className="hidden md:flex items-center gap-8 cursor-target">
         <a href="#about" className="nav-link">About</a>
         <a href="#skills" className="nav-link">Skills</a>
         <a href="#projects" className="nav-link">Projects</a>
-        <a href={wiki} target="_blank" className="nav-link flex items-center gap-2 group">
-          <BookOpen className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
-          <span>Wiki</span>
+        <a href={blog} target="_blank" className="nav-link flex items-center gap-2 group">
+          <NotebookPen className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
+          <span>Blog</span>
         </a>
       </nav>
 
@@ -114,9 +112,9 @@ export default function Header() {
         <a href="#about" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>About</a>
         <a href="#skills" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>Skills</a>
         <a href="#projects" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>Projects</a>
-        <a href={wiki} target="_blank" className="nav-link text-lg flex items-center gap-2">
-          <BookOpen className="w-5 h-5" />
-          <span>Wiki</span>
+        <a href={blog} target="_blank" className="nav-link text-lg flex items-center gap-2">
+          <NotebookPen className="w-5 h-5" />
+          <span>Blog</span>
         </a>
       </nav>
     </header>
