@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function InfoPage() {
-  redirect("/info/system");
+  redirect("/info/prayer");
 }

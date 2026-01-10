@@ -6,19 +6,16 @@ import {
   Wifi,
   Cpu,
   Monitor,
-  Battery,
   Globe,
   Shield,
-  Smartphone,
   Clock,
   AlertTriangle,
   CheckCircle,
 } from "lucide-react";
 
-// Note: Header, Footer, and CSS are now in layout.tsx
-
 export default function DeviceInfoPage() {
-  const [time, setTime] = useState(new Date());
+  // FIX: Initialize with null to prevent hydration mismatch
+  const [time, setTime] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [ping, setPing] = useState<number | null>(null);
 
@@ -29,6 +26,8 @@ export default function DeviceInfoPage() {
 
   // Real-time clock
   useEffect(() => {
+    // Set initial time only on client mount
+    setTime(new Date());
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -131,8 +130,13 @@ export default function DeviceInfoPage() {
             <div className="text-xs text-muted-foreground font-mono">
               LOCAL TIME
             </div>
-            <div className="text-xl font-mono font-bold">
-              {format(time, "HH:mm:ss")}
+            <div className="text-xl font-mono font-bold min-w-[100px] text-right">
+              {/* FIX: Only render time if available, otherwise show skeleton to avoid layout shift */}
+              {time ? (
+                format(time, "HH:mm:ss")
+              ) : (
+                <span className="opacity-50">--:--:--</span>
+              )}
             </div>
           </div>
         </div>
@@ -299,7 +303,7 @@ export default function DeviceInfoPage() {
   );
 }
 
-// Reusable Sub-components (kept same as before)
+// Reusable Sub-components
 const InfoItem = ({ label, value, loading, highlight, className }: any) => (
   <div className="flex flex-col cursor-target">
     <span className="data-label">{label}</span>

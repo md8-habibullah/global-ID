@@ -1,338 +1,544 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
+  MoonStar,
   MapPin,
-  Calendar,
-  Clock,
-  Moon,
   Sunrise,
   Sunset,
-  ChevronDown,
+  Sun,
+  CloudSun,
+  AlertTriangle,
+  ShieldAlert,
+  Wifi,
+  WifiOff,
+  Coffee,
+  Utensils,
+  Clock,
+  Wind,
+  Droplets,
+  Thermometer,
 } from "lucide-react";
 
-export default function PrayerPage() {
-  const [mounted, setMounted] = useState(false);
-  const [times, setTimes] = useState<any>(null);
-  const [next, setNext] = useState<any>(null);
-  const [timeLeft, setTimeLeft] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [city, setCity] = useState("Dhaka");
-  const [dateInfo, setDateInfo] = useState<any>({});
+// --- ACCURATE COORDINATES FOR WEATHER ---
+const DISTRICT_DATA: Record<string, { lat: number; lon: number }> = {
+  Dhaka: { lat: 23.8103, lon: 90.4125 },
+  Chittagong: { lat: 22.3569, lon: 91.7832 },
+  Khulna: { lat: 22.8456, lon: 89.5403 },
+  Rajshahi: { lat: 24.3636, lon: 88.6241 },
+  Sylhet: { lat: 24.8949, lon: 91.8687 },
+  Barisal: { lat: 22.701, lon: 90.3535 },
+  Rangpur: { lat: 25.7439, lon: 89.2752 },
+  Mymensingh: { lat: 24.7471, lon: 90.4203 },
+  Comilla: { lat: 23.4607, lon: 91.1809 },
+  Gazipur: { lat: 24.0023, lon: 90.4264 },
+  Narayanganj: { lat: 23.6238, lon: 90.5 },
+  Bogra: { lat: 24.8481, lon: 89.373 },
+  Jessore: { lat: 23.1634, lon: 89.2182 },
+  "Cox's Bazar": { lat: 21.4272, lon: 92.0058 },
+  Feni: { lat: 23.0186, lon: 91.3966 },
+  Faridpur: { lat: 23.6071, lon: 89.8429 },
+  Dinajpur: { lat: 25.6217, lon: 88.6355 },
+  Pabna: { lat: 24.004, lon: 89.25 },
+  Tangail: { lat: 24.2513, lon: 89.9167 },
+  Kushtia: { lat: 23.9013, lon: 89.1204 },
+  Noakhali: { lat: 22.8724, lon: 91.0973 },
+  Gopalganj: { lat: 23.0051, lon: 89.8267 },
+  Kishoreganj: { lat: 24.4449, lon: 90.7765 },
+  Jamalpur: { lat: 24.9375, lon: 89.9378 },
+  Sherpur: { lat: 25.0205, lon: 90.0153 },
+  Netrokona: { lat: 24.8709, lon: 90.7279 },
+  Munshiganj: { lat: 23.5422, lon: 90.5305 },
+  Manikganj: { lat: 23.8617, lon: 90.0003 },
+  Narsingdi: { lat: 23.9229, lon: 90.7177 },
+  Bagerhat: { lat: 22.6516, lon: 89.7859 },
+  Satkhira: { lat: 22.7185, lon: 89.0705 },
+  Bhola: { lat: 22.6859, lon: 90.6482 },
+  Patuakhali: { lat: 22.3596, lon: 90.3299 },
+};
 
-  // Bangladesh Cities
-  const cities = [
-    "Dhaka",
-    "Chittagong",
-    "Sylhet",
-    "Rajshahi",
-    "Khulna",
-    "Barisal",
-    "Rangpur",
-    "Mymensingh",
+const DISTRICT_NAMES = Object.keys(DISTRICT_DATA).sort();
+
+interface PrayerTimings {
+  Fajr: string;
+  Sunrise: string;
+  Dhuhr: string;
+  Asr: string;
+  Sunset: string;
+  Maghrib: string;
+  Isha: string;
+  Midnight: string;
+  [key: string]: string;
+}
+interface HijriDate {
+  day: string;
+  month: { en: string; ar: string };
+  year: string;
+}
+interface WeatherData {
+  temp: number;
+  feelsLike: number;
+  humidity: number;
+  windSpeed: number;
+  code: number;
+  desc: string;
+}
+
+// --- Utilities ---
+const to12h = (time: string | undefined) => {
+  if (!time) return "--:--";
+  const [h, m] = time.split(":").map(Number);
+  const hour = h % 12 || 12;
+  return `${hour}:${m.toString().padStart(2, "0")} ${h >= 12 ? "PM" : "AM"}`;
+};
+
+const parseTime = (time: string) => {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+};
+
+const adjustTime = (time: string, mins: number) => {
+  const [h, m] = time.split(":").map(Number);
+  const date = new Date();
+  date.setHours(h, m + mins);
+  return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+};
+
+const getBanglaDate = (date: Date) => {
+  const weekDays = [
+    "রবিবার",
+    "সোমবার",
+    "মঙ্গলবার",
+    "বুধবার",
+    "বৃহস্পতিবার",
+    "শুক্রবার",
+    "শনিবার",
   ];
+  const months = [
+    "পৌষ",
+    "মাঘ",
+    "ফাল্গুন",
+    "চৈত্র",
+    "বৈশাখ",
+    "জ্যৈষ্ঠ",
+    "আষাঢ়",
+    "শ্রাবণ",
+    "ভাদ্র",
+    "আশ্বিন",
+    "কার্তিক",
+    "অগ্রহায়ু",
+  ];
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const banglaYear =
+    month < 3 || (month === 3 && day < 14) ? year - 594 : year - 593;
+  let mIndex = (month + 10) % 12;
+  if (day >= 15) mIndex = (mIndex + 1) % 12;
+  if (month === 3 && day >= 14) mIndex = 4;
+  const convertDigit = (n: number) =>
+    n.toString().replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[parseInt(d)]);
+  return `${weekDays[date.getDay()]}, ${convertDigit(day)} ${months[mIndex]} ${convertDigit(banglaYear)}`;
+};
 
-  // Fetch Prayer Times
-  const fetchPrayerTimes = async () => {
-    try {
-      // Method 1 = Karachi (Standard for BD), School 1 = Hanafi
-      const res = await fetch(
-        `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Bangladesh&method=1&school=1`,
-      );
-      const data = await res.json();
-      if (data.data) {
-        setTimes(data.data.timings);
-        setDateInfo(data.data.date);
-      }
-    } catch (e) {
-      console.error("Prayer fetch failed");
-    }
-  };
+const getWeatherDesc = (code: number) => {
+  if (code === 0) return "Clear Sky";
+  if (code <= 3) return "Partly Cloudy";
+  if (code <= 48) return "Foggy";
+  if (code <= 67) return "Rainy";
+  if (code <= 77) return "Snow/Hail";
+  if (code <= 82) return "Heavy Rain";
+  if (code <= 99) return "Thunderstorm";
+  return "Unknown";
+};
 
+// --- Main Component ---
+export default function PrayerDashboard() {
+  const [now, setNow] = useState<Date | null>(null);
+  const [timeOffset, setTimeOffset] = useState(0);
+  const [isSynced, setIsSynced] = useState(false);
+  const [selectedCity, setSelectedCity] = useState("Dhaka");
+  // Default Coords
+  const [coords, setCoords] = useState(DISTRICT_DATA["Dhaka"]);
+
+  const [timings, setTimings] = useState<PrayerTimings | null>(null);
+  const [hijri, setHijri] = useState<HijriDate | null>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+
+  // Time Sync
   useEffect(() => {
-    setMounted(true);
-    fetchPrayerTimes();
-  }, [city]);
+    setNow(new Date());
+    const sync = async () => {
+      try {
+        const res = await fetch(
+          "https://worldtimeapi.org/api/timezone/Asia/Dhaka",
+        );
+        const data = await res.json();
+        const offset = new Date(data.datetime).getTime() - Date.now();
+        setTimeOffset(offset);
+        setIsSynced(true);
+      } catch (e) {
+        setIsSynced(false);
+      }
+    };
+    sync();
+  }, []);
 
-  // Timer Logic
+  // Clock Tick
   useEffect(() => {
-    if (!times) return;
-
-    const timer = setInterval(() => {
-      const now = new Date();
-      const timeStr = (t: string) => {
-        const [h, m] = t.split(":").map(Number);
-        const d = new Date();
-        d.setHours(h, m, 0, 0);
-        return d;
-      };
-
-      const prayerList = [
-        { name: "Fajr", time: timeStr(times.Fajr) },
-        { name: "Sunrise", time: timeStr(times.Sunrise) },
-        { name: "Dhuhr", time: timeStr(times.Dhuhr) },
-        { name: "Asr", time: timeStr(times.Asr) },
-        { name: "Maghrib", time: timeStr(times.Maghrib) },
-        { name: "Isha", time: timeStr(times.Isha) },
-      ];
-
-      // Find next prayer
-      let nextP = null;
-      let currP = null;
-
-      for (let i = 0; i < prayerList.length; i++) {
-        if (prayerList[i].time > now) {
-          nextP = prayerList[i];
-          currP = i > 0 ? prayerList[i - 1] : prayerList[prayerList.length - 1]; // Previous day Isha if Fajr is next
-          break;
-        }
-      }
-
-      // If no next prayer found today, it's Fajr tomorrow
-      if (!nextP) {
-        nextP = {
-          name: "Fajr",
-          time: new Date(prayerList[0].time.getTime() + 86400000),
-        };
-        currP = prayerList[prayerList.length - 1];
-      }
-
-      setNext(nextP);
-
-      // Countdown
-      const diff = nextP.time.getTime() - now.getTime();
-      const h = Math.floor(diff / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-      setTimeLeft(`${h}h ${m}m ${s}s`);
-
-      // Progress Circle (Total Waqt Duration vs Time Passed)
-      if (currP) {
-        let startTime = currP.time.getTime();
-        // Handle edge case where current prayer was yesterday (e.g. after midnight before Fajr)
-        if (startTime > now.getTime()) startTime -= 86400000;
-
-        const totalDuration = nextP.time.getTime() - startTime;
-        const elapsed = now.getTime() - startTime;
-        const pct = (elapsed / totalDuration) * 100;
-        setProgress(Math.min(100, Math.max(0, pct)));
-      }
-    }, 1000);
-
+    const tick = () => setNow(new Date(Date.now() + timeOffset));
+    const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
-  }, [times]);
+  }, [timeOffset]);
 
-  // Bengali Date Formatter
-  const getBengaliDate = () => {
-    if (!mounted) return "";
-    try {
-      return new Intl.DateTimeFormat("bn-BD-u-ca-beng", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      }).format(new Date());
-    } catch (e) {
-      return "Bangla Date Unavailable";
+  // Handle Location Change (INSTANT UPDATE)
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const city = e.target.value;
+    setSelectedCity(city);
+    // Update Coords immediately from local data
+    if (DISTRICT_DATA[city]) {
+      setCoords(DISTRICT_DATA[city]);
     }
   };
 
-  if (!mounted) return null;
+  // Data Fetch (Prayer)
+  useEffect(() => {
+    const fetchPrayer = async () => {
+      try {
+        const d = new Date();
+        // Use exact lat/lon for precision prayer times
+        const res = await fetch(
+          `https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}?latitude=${coords.lat}&longitude=${coords.lon}&method=1&school=1`,
+        );
+        const json = await res.json();
+        if (json.data) {
+          setTimings(json.data.timings);
+          setHijri(json.data.date.hijri);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchPrayer();
+  }, [coords]); // Re-run when coords change
 
-  // Circle Config
-  const radius = 120;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (progress / 100) * circumference;
+  // Weather Fetch (Detailed)
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const res = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m`,
+        );
+        const data = await res.json();
+        if (data.current) {
+          setWeather({
+            temp: Math.round(data.current.temperature_2m),
+            feelsLike: Math.round(data.current.apparent_temperature),
+            humidity: data.current.relative_humidity_2m,
+            windSpeed: data.current.wind_speed_10m,
+            code: data.current.weather_code,
+            desc: getWeatherDesc(data.current.weather_code),
+          });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchWeather();
+  }, [coords]); // Re-run when coords change
+
+  const { status, displayEvents } = useMemo(() => {
+    if (!timings || !now) return { status: null, displayEvents: [] };
+
+    const events = [
+      {
+        id: "tahajjud",
+        name: "Tahajjud",
+        time: adjustTime(timings.Fajr, -90),
+        icon: MoonStar,
+        type: "optional",
+      },
+      {
+        id: "sahur",
+        name: "Sahur Ends",
+        time: timings.Fajr,
+        icon: Coffee,
+        type: "alert",
+      },
+      {
+        id: "fajr",
+        name: "Fajr",
+        time: timings.Fajr,
+        icon: Sunrise,
+        type: "fard",
+      },
+      {
+        id: "sunrise",
+        name: "Sunrise",
+        time: timings.Sunrise,
+        icon: Sun,
+        type: "forbidden",
+      },
+      {
+        id: "ishraq",
+        name: "Ishraq",
+        time: adjustTime(timings.Sunrise, 15),
+        icon: Sun,
+        type: "optional",
+      },
+      {
+        id: "zawaal",
+        name: "Zawaal",
+        time: adjustTime(timings.Dhuhr, -10),
+        icon: ShieldAlert,
+        type: "forbidden",
+      },
+      {
+        id: "dhuhr",
+        name: "Dhuhr",
+        time: timings.Dhuhr,
+        icon: Sun,
+        type: "fard",
+      },
+      { id: "asr", name: "Asr", time: timings.Asr, icon: Sun, type: "fard" },
+      {
+        id: "sunset",
+        name: "Sunset",
+        time: timings.Maghrib,
+        icon: Sunset,
+        type: "forbidden",
+      },
+      {
+        id: "maghrib",
+        name: "Maghrib",
+        time: timings.Maghrib,
+        icon: Utensils,
+        type: "fard",
+      },
+      {
+        id: "isha",
+        name: "Isha",
+        time: timings.Isha,
+        icon: MoonStar,
+        type: "fard",
+      },
+      {
+        id: "midnight",
+        name: "Midnight",
+        time: timings.Midnight,
+        icon: Clock,
+        type: "optional",
+      },
+    ];
+
+    const nowMins = now.getHours() * 60 + now.getMinutes();
+    let activeIndex = events.length - 1;
+    for (let i = 0; i < events.length - 1; i++) {
+      if (
+        nowMins >= parseTime(events[i].time) &&
+        nowMins < parseTime(events[i + 1].time)
+      ) {
+        activeIndex = i;
+        break;
+      }
+    }
+    if (nowMins < parseTime(events[0].time)) activeIndex = events.length - 1;
+
+    const activeEvent = events[activeIndex];
+    const nextEvent = events[(activeIndex + 1) % events.length];
+
+    let nextMins = parseTime(nextEvent.time);
+    if (nextMins < nowMins) nextMins += 1440;
+
+    const diff = nextMins * 60 - (nowMins * 60 + now.getSeconds());
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+
+    const startMins = parseTime(activeEvent.time);
+    let total = nextMins - startMins;
+    if (total < 0) total += 1440;
+    const elapsed =
+      (nowMins < startMins ? nowMins + 1440 : nowMins) - startMins;
+    const progress = Math.min(100, Math.max(0, (elapsed / total) * 100));
+
+    const count = events.length;
+    const indices = [
+      (activeIndex - 2 + count) % count,
+      (activeIndex - 1 + count) % count,
+      activeIndex,
+      (activeIndex + 1) % count,
+      (activeIndex + 2) % count,
+      (activeIndex + 3) % count,
+    ];
+
+    return {
+      status: {
+        ...activeEvent,
+        timeLeft: `${h}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`,
+        progress,
+        nextName: nextEvent.name,
+        nextTime: nextEvent.time,
+        isForbidden: activeEvent.type === "forbidden",
+      },
+      displayEvents: indices.map((i) => ({
+        ...events[i],
+        isRef: i === activeIndex,
+      })),
+    };
+  }, [now, timings]);
+
+  if (!now)
+    return (
+      <div className="p-8 text-center text-muted-foreground animate-pulse">
+        Initializing Clock...
+      </div>
+    );
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {/* HEADER: Location & Date */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <div>
-          <h2 className="text-3xl font-bold flex items-center gap-2">
-            <Moon className="text-primary fill-primary/20" /> Prayer{" "}
-            <span className="text-muted-foreground font-normal">
-              Intelligence
-            </span>
-          </h2>
-          <div className="flex items-center gap-2 mt-2 text-muted-foreground text-sm font-mono">
-            <Calendar className="w-4 h-4" />
-            <span>
-              {dateInfo?.hijri?.day} {dateInfo?.hijri?.month?.en}{" "}
-              {dateInfo?.hijri?.year} • {getBengaliDate()}
-            </span>
+    // MAIN CONTAINER: Fixed Height for Desktop [650px]
+    <div className="w-full h-full lg:h-[650px] flex flex-col lg:flex-row bg-background/50 rounded-3xl overflow-hidden border border-border/10 shadow-sm">
+      {/* === LEFT: DASHBOARD (45%) === */}
+      <div className="lg:w-[45%] relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-secondary/5 to-transparent border-b lg:border-b-0 lg:border-r border-border/10">
+        {/* TOP HEADER: DATES */}
+        <div className="w-full flex justify-between items-start absolute top-4 md:top-8 px-4 md:px-8">
+          <div className="flex flex-col">
+            <h2 className="text-xl md:text-4xl font-black tracking-tighter text-foreground">
+              {now.toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+              })}
+            </h2>
+            <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mt-1">
+              <span className="text-[10px] md:text-base text-muted-foreground font-bangla font-medium">
+                {getBanglaDate(now)}
+              </span>
+              <span className="hidden md:inline text-border/40">|</span>
+              <span className="text-[10px] md:text-base text-muted-foreground font-mono">
+                {hijri ? `${hijri.day} ${hijri.month.en} ${hijri.year}` : "..."}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 bg-secondary/20 px-2 py-1 rounded text-[10px] md:text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            {isSynced ? (
+              <Wifi className="w-3 h-3 md:w-4 md:h-4 text-emerald-500" />
+            ) : (
+              <WifiOff className="w-3 h-3 md:w-4 md:h-4 text-red-500" />
+            )}
+            {isSynced ? "LIVE" : "SYS"}
           </div>
         </div>
 
-        <div className="relative group">
-          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <MapPin className="w-4 h-4 text-primary" />
+        {/* TIMER CIRCLE */}
+        <div className="relative w-56 h-56 md:w-80 md:h-80 flex items-center justify-center mt-6 md:mt-12">
+          <div className="absolute inset-0 rounded-full border-[8px] md:border-[12px] border-secondary/10" />
+          <div
+            className="absolute inset-0 rounded-full transition-all duration-1000 ease-linear"
+            style={{
+              background: `conic-gradient(${status?.isForbidden ? "#ef4444" : "#10b981"} ${status?.progress || 0}%, transparent 0)`,
+              maskImage: "radial-gradient(transparent 68%, black 69%)",
+              WebkitMaskImage: "radial-gradient(transparent 68%, black 69%)",
+            }}
+          />
+          <div className="flex flex-col items-center z-10 text-center">
+            <span
+              className={`text-[9px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-3 ${status?.isForbidden ? "text-red-500" : "text-emerald-500"}`}
+            >
+              {status?.isForbidden ? "FORBIDDEN" : "REMAINING"}
+            </span>
+            <span className="text-4xl md:text-6xl font-mono font-black tracking-tighter tabular-nums text-foreground">
+              {status?.timeLeft}
+            </span>
+            {status && (
+              <div className="mt-2 md:mt-4 flex items-center gap-2 bg-secondary/20 px-3 py-1 md:px-4 md:py-1.5 rounded-full border border-border/5">
+                <span className="text-[9px] md:text-xs uppercase text-muted-foreground font-bold">
+                  Next:
+                </span>
+                <span className="text-[10px] md:text-sm font-bold text-foreground">
+                  {status.nextName}
+                </span>
+              </div>
+            )}
           </div>
-          <select
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className="pl-10 pr-10 py-2 bg-white/5 border border-white/10 rounded-lg appearance-none cursor-pointer hover:bg-white/10 transition-colors outline-none focus:border-primary text-sm font-bold uppercase tracking-wider"
-          >
-            {cities.map((c) => (
-              <option key={c} value={c} className="bg-zinc-950">
-                {c}, BD
-              </option>
-            ))}
-          </select>
-          <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none opacity-50">
-            <ChevronDown className="w-4 h-4" />
+        </div>
+
+        {/* BOTTOM CONTROLS (EXPANDED WEATHER) */}
+        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex flex-col items-center gap-2">
+          {/* Location Selector */}
+          <div className="flex items-center gap-2 bg-secondary/10 backdrop-blur-sm px-1 py-1 rounded-full border border-border/10">
+            <select
+              value={selectedCity}
+              onChange={handleCityChange}
+              className="bg-transparent text-[10px] md:text-xs pl-3 pr-1 py-1 md:py-1.5 rounded-full appearance-none focus:outline-none cursor-pointer font-bold uppercase"
+            >
+              {DISTRICT_NAMES.map((d) => (
+                <option key={d} value={d} className="bg-background">
+                  {d}
+                </option>
+              ))}
+            </select>
+            <MapPin className="w-3 h-3 md:w-4 md:h-4 text-emerald-500 mr-2" />
           </div>
+
+          {/* Detailed Weather Stats */}
+          {weather && (
+            <div className="flex items-center gap-3 md:gap-4 text-[10px] md:text-xs font-bold text-muted-foreground bg-secondary/5 px-4 py-2 rounded-xl border border-border/5">
+              <div className="flex items-center gap-1.5">
+                <CloudSun className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
+                <span className="text-foreground">{weather.temp}°</span>
+                <span className="font-normal opacity-70">({weather.desc})</span>
+              </div>
+              <div className="w-px h-3 bg-border/20" />
+              <div className="flex items-center gap-1.5">
+                <Thermometer className="w-3 h-3 md:w-4 md:h-4 text-orange-400" />
+                <span>Feel {weather.feelsLike}°</span>
+              </div>
+              <div className="w-px h-3 bg-border/20 hidden md:block" />
+              <div className="hidden md:flex items-center gap-1.5">
+                <Droplets className="w-3 h-3 md:w-4 md:h-4 text-blue-400" />
+                <span>{weather.humidity}%</span>
+              </div>
+              <div className="hidden md:flex items-center gap-1.5">
+                <Wind className="w-3 h-3 md:w-4 md:h-4 text-gray-400" />
+                <span>{weather.windSpeed}km</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* LEFT: VISUAL TIMER */}
-        <div className="info-card flex flex-col items-center justify-center py-12 relative overflow-hidden min-h-[400px]">
-          {/* Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-
-          <div className="relative">
-            {/* SVG Progress Circle */}
-            <svg width="300" height="300" className="-rotate-90">
-              {/* Track */}
-              <circle
-                cx="150"
-                cy="150"
-                r={radius}
-                stroke="currentColor"
-                strokeWidth="8"
-                className="text-white/5"
-                fill="none"
-              />
-              {/* Progress */}
-              <circle
-                cx="150"
-                cy="150"
-                r={radius}
-                stroke="currentColor"
-                strokeWidth="8"
-                className="text-primary transition-all duration-1000 ease-linear"
-                fill="none"
-                strokeDasharray={circumference}
-                strokeDashoffset={offset}
-                strokeLinecap="round"
-              />
-            </svg>
-
-            {/* Center Content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <div className="text-xs uppercase font-bold text-muted-foreground tracking-widest mb-2">
-                Upcoming
+      {/* === RIGHT: ROTARY SCHEDULE (55%) === */}
+      <div className="lg:w-[55%] relative flex flex-col justify-center bg-card/30">
+        <div className="w-full max-w-sm md:max-w-md mx-auto px-4 space-y-2 py-4">
+          {displayEvents.map((event, i) => {
+            const isCenter = event.isRef;
+            return (
+              <div
+                key={`${event.id}-${i}`}
+                className={`flex items-center justify-between px-4 md:px-6 rounded-xl border border-transparent transition-all duration-500 ${isCenter ? "bg-emerald-500/10 border-emerald-500/20 py-3 md:py-5 scale-100 opacity-100 shadow-md" : "py-1.5 md:py-3 scale-95 opacity-50 grayscale"} ${event.type === "forbidden" && isCenter ? "bg-red-500/10 border-red-500/20" : ""}`}
+              >
+                <div className="flex items-center gap-3 md:gap-5">
+                  <div
+                    className={`p-1.5 md:p-3 rounded-lg ${isCenter ? (event.type === "forbidden" ? "bg-red-500 text-white" : "bg-emerald-500 text-white") : "bg-secondary/20"}`}
+                  >
+                    <event.icon className="w-3.5 h-3.5 md:w-6 md:h-6" />
+                  </div>
+                  <span
+                    className={`text-xs md:text-lg font-bold uppercase ${isCenter ? "text-foreground" : "text-muted-foreground"}`}
+                  >
+                    {event.name}
+                  </span>
+                </div>
+                <span
+                  className={`font-mono font-bold ${isCenter ? "text-xl md:text-3xl text-foreground" : "text-sm md:text-lg text-muted-foreground"}`}
+                >
+                  {to12h(event.time)}
+                </span>
               </div>
-              <div className="text-4xl md:text-5xl font-bold text-white mb-1">
-                {next?.name || "Loading..."}
-              </div>
-              <div className="text-xl font-mono text-primary font-bold tabular-nums">
-                -{timeLeft}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center space-y-1">
-            <div className="text-xs text-muted-foreground uppercase">
-              Next Prayer Time
-            </div>
-            <div className="text-xl font-bold">
-              {next?.time?.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT: PRAYER LIST & HOLIDAYS */}
-        <div className="space-y-6">
-          {/* Times List */}
-          <div className="info-card p-0 overflow-hidden">
-            <div className="p-4 border-b border-white/5 bg-white/5 font-bold flex justify-between items-center">
-              <span>Today's Schedule</span>
-              <Clock className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="divide-y divide-white/5">
-              {times &&
-                ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"].map(
-                  (name) => {
-                    const isNext = next?.name === name;
-                    return (
-                      <div
-                        key={name}
-                        className={`flex justify-between items-center p-4 transition-colors ${isNext ? "bg-primary/10" : "hover:bg-white/5"}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          {name === "Sunrise" ? (
-                            <Sunrise className="w-4 h-4 text-orange-400" />
-                          ) : name === "Maghrib" ? (
-                            <Sunset className="w-4 h-4 text-orange-500" />
-                          ) : (
-                            <div
-                              className={`w-2 h-2 rounded-full ${isNext ? "bg-primary animate-pulse" : "bg-white/20"}`}
-                            />
-                          )}
-                          <span
-                            className={`font-medium ${isNext ? "text-primary" : ""}`}
-                          >
-                            {name}
-                          </span>
-                        </div>
-                        <span className="font-mono font-bold text-muted-foreground">
-                          {new Date(
-                            `2000-01-01 ${times[name]}`,
-                          ).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </span>
-                      </div>
-                    );
-                  },
-                )}
-            </div>
-          </div>
-
-          {/* Upcoming Holidays (Mock Data or fetched if available) */}
-          <div className="info-card p-0 overflow-hidden">
-            <div className="p-4 border-b border-white/5 bg-white/5 font-bold flex justify-between items-center">
-              <span>Upcoming Holidays</span>
-              <Calendar className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div className="p-4 space-y-4">
-              {/* Example Static Holidays - You can dynamic this later */}
-              <HolidayRow
-                date="27 Ramadan"
-                name="Laylat al-Qadr"
-                timeLeft="~2 Months"
-              />
-              <HolidayRow
-                date="1 Shawwal"
-                name="Eid al-Fitr"
-                timeLeft="~2.5 Months"
-              />
-              <HolidayRow
-                date="10 Dhul Hijjah"
-                name="Eid al-Adha"
-                timeLeft="~5 Months"
-              />
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
-
-const HolidayRow = ({ date, name, timeLeft }: any) => (
-  <div className="flex justify-between items-center">
-    <div>
-      <div className="font-bold text-sm">{name}</div>
-      <div className="text-xs text-muted-foreground">{date}</div>
-    </div>
-    <div className="text-xs font-mono bg-white/10 px-2 py-1 rounded text-primary/80">
-      {timeLeft}
-    </div>
-  </div>
-);
