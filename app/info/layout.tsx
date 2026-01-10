@@ -4,7 +4,14 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Laptop, Coins, CalendarClock, LayoutGrid } from "lucide-react";
+import {
+  Laptop,
+  Coins,
+  CalendarClock,
+  LayoutGrid,
+  ShieldCheck,
+  Network,
+} from "lucide-react";
 import "./style.css"; // Import the shared styles here
 
 const tools = [
@@ -22,6 +29,16 @@ const tools = [
     name: "Age Calculator",
     path: "/info/age",
     icon: <CalendarClock className="w-4 h-4" />,
+  },
+  {
+    name: "GenPass", // New Tool
+    path: "/info/password",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    name: "IP Subnet",
+    path: "/info/subnet",
+    icon: <Network className="w-4 h-4" />,
   },
 ];
 

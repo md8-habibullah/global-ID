@@ -1,23 +1,23 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 // import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider"
-import "./globals.css"
-import { GoogleTagManager } from '@next/third-parties/google'
-import MouseCursor from "@/components/mouse-cursor"
+import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
+import MouseCursor from "@/components/mouse-cursor";
 
-
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://habibullah.dev"),
-  title: "MD. HABIBULLAH SHARIF - Full-Stack Developer & DevOps Engineer | Portfolio",
+  title:
+    "MD. HABIBULLAH SHARIF - Full-Stack Developer & DevOps Engineer | Portfolio",
   description:
     "Full-Stack Developer & DevOps Engineer specializing in scalable applications, infrastructure automation, and Linux systems. Building secure, performant solutions with React, Node.js, Docker, and Kubernetes.",
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   // icons: {
   //   icon: 'https://avatars.githubusercontent.com/u/149287500?v=4&s=300'
@@ -39,7 +39,8 @@ export const metadata: Metadata = {
   robots: "index, follow",
   openGraph: {
     title: "MD. HABIBULLAH SHARIF - Full-Stack Developer & DevOps Engineer",
-    description: "Crafting scalable applications and robust infrastructure with modern technologies",
+    description:
+      "Crafting scalable applications and robust infrastructure with modern technologies",
     url: "https://habibullah.dev",
     type: "website",
     locale: "en_US",
@@ -47,14 +48,15 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "MD. HABIBULLAH SHARIF - Full-Stack Developer",
-    description: "Full-Stack Developer & DevOps Engineer | React, Node.js, Docker, Kubernetes",
+    description:
+      "Full-Stack Developer & DevOps Engineer | React, Node.js, Docker, Kubernetes",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
@@ -83,7 +85,12 @@ export default function RootLayout({
       </head>
 
       <body className="font-sans antialiased bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
           <MouseCursor />
           {children}
         </ThemeProvider>
@@ -96,13 +103,17 @@ export default function RootLayout({
               "@type": "Person",
               name: "MD. HABIBULLAH SHARIF",
               url: "https://md8-habibullah.com",
-              image: "https://avatars.githubusercontent.com/u/149287500?v=4&s=300",
+              image:
+                "https://avatars.githubusercontent.com/u/149287500?v=4&s=300",
               jobTitle: "Full-Stack Developer & DevOps Engineer",
-              sameAs: ["https://github.com/md8-habibullah", "https://linkedin.com/in/md-habibullahs"],
+              sameAs: [
+                "https://github.com/md8-habibullah",
+                "https://linkedin.com/in/md-habibullahs",
+              ],
             }),
           }}
         />
       </body>
     </html>
-  )
+  );
 }
