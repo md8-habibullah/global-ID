@@ -44,7 +44,7 @@ export default function Hero() {
             </h1>
 
             <HackerText
-              text="Full-Stack Developer & Security Enthusiast--"
+              text="Full-Stack Developer & DevOps Engineer || Security Enthusiast --"
               className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono cursor-target"
             />
           </div>
