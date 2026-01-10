@@ -6,51 +6,51 @@
 /* LIGHT MODE - Balanced Polished Gray (Not 100% white, easier on eyes) */
 :root {
   /* Light mode: Balanced polished gray-white (not too bright, not too dark) */
-  --background: #f5f5f5;                    /* Light gray-white background */
-  --foreground: #1a1a1a;                    /* Dark text */
-  --card: #ffffff;                          /* White cards */
-  --card-foreground: #0d0d0d;               /* Dark text on cards */
- 
+  --background: #f5f5f5; /* Light gray-white background */
+  --foreground: #1a1a1a; /* Dark text */
+  --card: #ffffff; /* White cards */
+  --card-foreground: #0d0d0d; /* Dark text on cards */
+
   /* Islamic Green Primary Color (matching Bangladesh & Islamic heritage) */
-  --primary: #10b981;                       /* Green button color */
-  --primary-foreground: #ffffff;            /* White text on green buttons */
+  --primary: #10b981; /* Green button color */
+  --primary-foreground: #ffffff; /* White text on green buttons */
 
-  --secondary: #3b82f6;                     /* Blue accent */
-  --secondary-foreground: #ffffff;          /* White text */
+  --secondary: #3b82f6; /* Blue accent */
+  --secondary-foreground: #ffffff; /* White text */
 
-  --accent: #10b981;                        /* Green accent */
+  --accent: #10b981; /* Green accent */
 
-  --muted: #9ca3af;                         /* Medium gray for secondary text */
-  --muted-foreground: #6b7280;              /* Medium-dark gray */
-  --border: #e5e7eb;                        /* Light gray border */
-  --input: #f3f4f6;                         /* Light input background */
+  --muted: #9ca3af; /* Medium gray for secondary text */
+  --muted-foreground: #6b7280; /* Medium-dark gray */
+  --border: #e5e7eb; /* Light gray border */
+  --input: #f3f4f6; /* Light input background */
 
-  --ring: #10b981;                          /* Focus ring - green */
+  --ring: #10b981; /* Focus ring - green */
 
   --radius: 0.5rem;
 }
 
 /* DARK MODE - Softer DaisyUI-style Dark (#1d232a) */
 .dark {
-  --background: #1d232a;                    /* Softer dark bg (DaisyUI dark) */
-  --foreground: #e5e7eb;                    /* Light text */
-  --card: #2a3142;                          /* Slightly lighter card bg */
-  --card-foreground: #e5e7eb;               /* Light text on cards */
+  --background: #1d232a; /* Softer dark bg (DaisyUI dark) */
+  --foreground: #e5e7eb; /* Light text */
+  --card: #2a3142; /* Slightly lighter card bg */
+  --card-foreground: #e5e7eb; /* Light text on cards */
 
-  --primary: #34d399;                       /* BRIGHT vibrant green */
-  --primary-foreground: #1d232a;            /* Dark text on green buttons */
+  --primary: #34d399; /* BRIGHT vibrant green */
+  --primary-foreground: #1d232a; /* Dark text on green buttons */
 
-  --secondary: #60a5fa;                     /* Bright vibrant blue */
-  --secondary-foreground: #ffffff;          /* White text */
+  --secondary: #60a5fa; /* Bright vibrant blue */
+  --secondary-foreground: #ffffff; /* White text */
 
-  --accent: #34d399;                        /* Bright green */
+  --accent: #34d399; /* Bright green */
 
-  --muted: #6b7280;                         /* Medium gray for secondary text */
-  --muted-foreground: #9ca3af;              /* Light gray text */
-  --border: #3f4655;                        /* Softer borders */
-  --input: #252d38;                         /* Softer input background */
+  --muted: #6b7280; /* Medium gray for secondary text */
+  --muted-foreground: #9ca3af; /* Light gray text */
+  --border: #3f4655; /* Softer borders */
+  --input: #252d38; /* Softer input background */
 
-  --ring: #34d399;                          /* Bright green ring */
+  --ring: #34d399; /* Bright green ring */
 }
 
 @theme inline {
@@ -398,6 +398,19 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Add to app/globals.css */
+
+.nav-link.active::before {
+  content: "> ";
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Optional: Ensure the text color stays active too */
+.nav-link.active {
+  color: var(--foreground);
+}
+
 /* same hyphen or arrow for footer */
 .link-arrow {
   position: relative;
@@ -418,7 +431,6 @@
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* end */
-
 
 /* --- Target Cursor Styles --- */
 .target-cursor-wrapper {
@@ -543,4 +555,3 @@
   border-top: none;
   border-bottom-left-radius: 12px; /* Curve */
 }
-

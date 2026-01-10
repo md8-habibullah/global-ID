@@ -6,11 +6,11 @@ import { Lock, Sun, Moon, Menu, X, NotebookPen } from "lucide-react"
 import Image from "next/image"
 import SiteFakeUptime from "./SiteFakeUptime"
 
-
 export default function Header() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("") // New: Track active section
 
   const menuRef = useRef<HTMLElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -19,6 +19,7 @@ export default function Header() {
     setMounted(true)
   }, [])
 
+  // Handle Click Outside & Scroll to close menu
   useEffect(() => {
     if (!isMenuOpen) return
     const handleClickOutside = (event: MouseEvent) => {
@@ -37,10 +38,42 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
+  // New: Scroll Spy Logic
+  useEffect(() => {
+    const handleScrollSpy = () => {
+      const sections = ["about", "skills", "projects"]
+      let current = ""
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          // Check if section is in viewport (trigger line at 150px from top)
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = section
+            // We don't break here to allow bottom sections to take precedence if needed,
+            // but usually top-down 'current' assignment works best with specific ranges.
+            // For simple stacking, the last one matching the condition often wins 
+            // if we iterate top-down, but here we want the *first* one that spans the view.
+          }
+        }
+      }
+      setActiveSection(current)
+    }
+
+    window.addEventListener("scroll", handleScrollSpy)
+    handleScrollSpy() // Trigger once on mount
+    return () => window.removeEventListener("scroll", handleScrollSpy)
+  }, [])
+
   if (!mounted) return null
 
   const blog = "https://blog.habibullah.dev"
   const isDark = theme === "dark"
+
+  // Helper to generate class names
+  const getNavLinkClass = (id: string) =>
+    `nav-link ${activeSection === id ? "active" : ""} transition-colors`
 
   return (
     <header className="header-bar relative cursor-target">
@@ -48,7 +81,6 @@ export default function Header() {
       <a href="/#">
         <div className="flex items-center gap-4 cursor-target">
           <div className="relative w-10 h-10">
-            {/* OPTIMIZED IMAGE */}
             <Image
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=100"
               alt="MD. Habibullah Sharif"
@@ -64,13 +96,11 @@ export default function Header() {
         </div>
       </a>
 
-      {/* ... (Keep the rest of the file EXACTLY the same from here) ... */}
-
       {/* Desktop Nav */}
       <nav className="hidden md:flex items-center gap-8 cursor-target">
-        <a href="#about" className="nav-link">About</a>
-        <a href="#skills" className="nav-link">Skills</a>
-        <a href="#projects" className="nav-link">Projects</a>
+        <a href="#about" className={getNavLinkClass("about")}>About</a>
+        <a href="#skills" className={getNavLinkClass("skills")}>Skills</a>
+        <a href="#projects" className={getNavLinkClass("projects")}>Projects</a>
         <a href={blog} target="_blank" className="nav-link flex items-center gap-2 group">
           <NotebookPen className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" />
           <span>Blog</span>
@@ -109,9 +139,9 @@ export default function Header() {
           md:hidden ${isMenuOpen ? "flex" : "hidden"}
         `}
       >
-        <a href="#about" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>About</a>
-        <a href="#skills" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>Skills</a>
-        <a href="#projects" className="nav-link text-lg" onClick={() => setIsMenuOpen(false)}>Projects</a>
+        <a href="#about" className={`nav-link text-lg ${activeSection === "about" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>About</a>
+        <a href="#skills" className={`nav-link text-lg ${activeSection === "skills" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Skills</a>
+        <a href="#projects" className={`nav-link text-lg ${activeSection === "projects" ? "active" : ""}`} onClick={() => setIsMenuOpen(false)}>Projects</a>
         <a href={blog} target="_blank" className="nav-link text-lg flex items-center gap-2">
           <NotebookPen className="w-5 h-5" />
           <span>Blog</span>
