@@ -17,6 +17,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 // --- Configuration & Types ---
 const BD_HOLIDAYS = [
@@ -403,328 +405,333 @@ export default function PrayerDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-emerald-500/30 pb-20">
-      {/* --- TOP BAR: Global Status --- */}
-      <div className="bg-zinc-900/50 border-b border-white/5 sticky top-0 z-20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
-          {/* Date Display */}
-          <div className="flex flex-col text-xs md:text-sm">
-            <span className="text-emerald-400 font-bold">
-              {currentTime ? getBanglaDate(currentTime) : "Loading..."}
-            </span>
-            <span className="text-white/60 font-mono flex gap-2">
-              <span>
-                {hijri
-                  ? `${hijri.day} ${hijri.month.en}, ${hijri.year} AH`
-                  : "..."}
+    <div>
+      <Header></Header>
+      <div className="min-h-screen  text-white font-sans selection:bg-emerald-500/30 pb-20">
+        {/* --- TOP BAR: Global Status --- */}
+        <div className=" border-b border-white/5 sticky top-0 z-20 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            {/* Date Display */}
+            <div className="flex flex-col text-xs md:text-sm">
+              <span className="text-emerald-400 font-bold">
+                {currentTime ? getBanglaDate(currentTime) : "Loading..."}
               </span>
-              <span className="text-white/20">|</span>
-              <span>
-                {currentTime
-                  ? currentTime.toLocaleDateString("en-GB", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })
-                  : "..."}
-              </span>
-            </span>
-          </div>
-
-          {/* Weather Widget */}
-          {weather && (
-            <div className="flex items-center gap-4 bg-black/20 px-4 py-2 rounded-full border border-white/5">
-              <WeatherIcon code={weather.code} />
-              <div className="flex flex-col leading-none">
-                <span className="text-xl font-bold">{weather.temp}°C</span>
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider flex gap-2">
-                  <span className="flex items-center gap-1">
-                    <Wind className="w-3 h-3" /> {weather.wind}km/h
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Droplets className="w-3 h-3" /> {weather.humidity}%
-                  </span>
+              <span className="text-white/60 font-mono flex gap-2">
+                <span>
+                  {hijri
+                    ? `${hijri.day} ${hijri.month.en}, ${hijri.year} AH`
+                    : "..."}
                 </span>
+                <span className="text-white/20">|</span>
+                <span>
+                  {currentTime
+                    ? currentTime.toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })
+                    : "..."}
+                </span>
+              </span>
+            </div>
+
+            {/* Weather Widget */}
+            {weather && (
+              <div className="flex items-center gap-4 bg-black/20 px-4 py-2 rounded-full border border-white/5">
+                <WeatherIcon code={weather.code} />
+                <div className="flex flex-col leading-none">
+                  <span className="text-xl font-bold">{weather.temp}°C</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider flex gap-2">
+                    <span className="flex items-center gap-1">
+                      <Wind className="w-3 h-3" /> {weather.wind}km/h
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Droplets className="w-3 h-3" /> {weather.humidity}%
+                    </span>
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+          {/* --- HERO SECTION: The "Orb" & Forbidden Logic --- */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Centerpiece: Time Engine */}
+            <div className="lg:col-span-8 relative">
+              <div
+                className={`relative rounded-3xl p-8 border overflow-hidden transition-colors duration-500 min-h-[450px] flex flex-col items-center justify-center ${
+                  status.isForbidden
+                    ? "bg-red-950/20 border-red-500/30"
+                    : "bg-emerald-950/10 border-emerald-500/20"
+                }`}
+              >
+                {/* Decorative Islamic Pattern Overlay (CSS only) */}
+                <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+
+                {/* Main Circular Progress */}
+                <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
+                  {/* Background Circle */}
+                  <svg className="w-full h-full -rotate-90 drop-shadow-2xl">
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r="45%"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="text-white/5"
+                    />
+                    <circle
+                      cx="50%"
+                      cy="50%"
+                      r="40%"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="15"
+                      className="text-black/30"
+                    />
+                    {/* Active Progress */}
+                    <motion.circle
+                      cx="50%"
+                      cy="50%"
+                      r="40%"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="15"
+                      className={`${status.isForbidden ? "text-red-500" : "text-emerald-500"} drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
+                      strokeDasharray="251.2" // approx 2*pi*40
+                      strokeDashoffset={251.2 - (251.2 * status.progress) / 100}
+                      strokeLinecap="round"
+                      initial={{ strokeDashoffset: 251.2 }}
+                      animate={{
+                        strokeDashoffset:
+                          251.2 - (251.2 * status.progress) / 100,
+                      }}
+                      transition={{ duration: 1 }}
+                    />
+                  </svg>
+
+                  {/* Center Text */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
+                    {status.isForbidden && (
+                      <div className="flex items-center gap-1 text-red-400 font-bold uppercase tracking-widest text-xs mb-2 animate-pulse">
+                        <AlertTriangle className="w-4 h-4" /> Forbidden Time
+                      </div>
+                    )}
+                    <div className="text-sm text-white/50 uppercase tracking-widest mb-1">
+                      {status.isForbidden ? status.message : "Next Prayer In"}
+                    </div>
+                    <div
+                      className={`text-5xl md:text-7xl font-black font-mono tracking-tighter ${status.isForbidden ? "text-red-100" : "text-white"}`}
+                    >
+                      {status.timeLeft}
+                    </div>
+                    <div className="mt-4 text-emerald-400 font-medium text-lg flex items-center gap-2">
+                      {status.nextPrayer}{" "}
+                      <span className="text-white/30 text-xs">starts at</span>{" "}
+                      {timings
+                        ? to12h(
+                            timings[
+                              status.nextPrayer === "Sunrise"
+                                ? "Sunrise"
+                                : status.nextPrayer
+                            ],
+                          )
+                        : "--:--"}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Footer */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent flex justify-between text-xs md:text-sm font-mono text-white/60">
+                  <div>
+                    <span className="block text-white/30 uppercase text-[10px]">
+                      Elapsed
+                    </span>
+                    {status.elapsed}
+                  </div>
+                  <div className="text-center">
+                    <span className="block text-white/30 uppercase text-[10px]">
+                      Current Window
+                    </span>
+                    <span className="text-emerald-400 font-bold">
+                      {status.currentPrayer}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="block text-white/30 uppercase text-[10px]">
+                      Total Duration
+                    </span>
+                    {status.totalWindow}
+                  </div>
+                </div>
               </div>
             </div>
-          )}
-        </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-        {/* --- HERO SECTION: The "Orb" & Forbidden Logic --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Centerpiece: Time Engine */}
-          <div className="lg:col-span-8 relative">
-            <div
-              className={`relative rounded-3xl p-8 border overflow-hidden transition-colors duration-500 min-h-[450px] flex flex-col items-center justify-center ${
-                status.isForbidden
-                  ? "bg-red-950/20 border-red-500/30"
-                  : "bg-emerald-950/10 border-emerald-500/20"
-              }`}
-            >
-              {/* Decorative Islamic Pattern Overlay (CSS only) */}
-              <div className="absolute inset-0 opacity-5 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+            {/* Sidebar: Search & Holidays */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* Location Search */}
+              <div className="bg-zinc-900 border border-white/10 p-6 rounded-2xl">
+                <h3 className="text-xs font-bold uppercase text-muted-foreground mb-4 flex items-center gap-2">
+                  <MapPin className="w-4 h-4" /> Location
+                </h3>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    fetchPrayerData();
+                  }}
+                  className="flex gap-2"
+                >
+                  <input
+                    type="text"
+                    value={searchCity}
+                    onChange={(e) => setSearchCity(e.target.value)}
+                    className="flex-1 bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-emerald-500 outline-none transition-colors"
+                    placeholder="Enter city..."
+                  />
+                  <button
+                    type="submit"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white p-3 rounded-lg transition-colors"
+                  >
+                    <Search className="w-4 h-4" />
+                  </button>
+                </form>
+                <div className="mt-4 flex items-center justify-between text-sm text-white/80">
+                  <span>{city}</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">
+                    Active
+                  </span>
+                </div>
+              </div>
 
-              {/* Main Circular Progress */}
-              <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
-                {/* Background Circle */}
-                <svg className="w-full h-full -rotate-90 drop-shadow-2xl">
-                  <circle
-                    cx="50%"
-                    cy="50%"
-                    r="45%"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-white/5"
-                  />
-                  <circle
-                    cx="50%"
-                    cy="50%"
-                    r="40%"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="15"
-                    className="text-black/30"
-                  />
-                  {/* Active Progress */}
-                  <motion.circle
-                    cx="50%"
-                    cy="50%"
-                    r="40%"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="15"
-                    className={`${status.isForbidden ? "text-red-500" : "text-emerald-500"} drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]`}
-                    strokeDasharray="251.2" // approx 2*pi*40
-                    strokeDashoffset={251.2 - (251.2 * status.progress) / 100}
-                    strokeLinecap="round"
-                    initial={{ strokeDashoffset: 251.2 }}
-                    animate={{
-                      strokeDashoffset: 251.2 - (251.2 * status.progress) / 100,
-                    }}
-                    transition={{ duration: 1 }}
-                  />
-                </svg>
-
-                {/* Center Text */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
-                  {status.isForbidden && (
-                    <div className="flex items-center gap-1 text-red-400 font-bold uppercase tracking-widest text-xs mb-2 animate-pulse">
-                      <AlertTriangle className="w-4 h-4" /> Forbidden Time
+              {/* Holidays List */}
+              <div className="bg-zinc-900 border border-white/10 p-6 rounded-2xl flex-1">
+                <h3 className="text-xs font-bold uppercase text-muted-foreground mb-4 flex items-center gap-2">
+                  <Calendar className="w-4 h-4" /> Upcoming Holidays
+                </h3>
+                <div className="space-y-4">
+                  {holidays.length > 0 ? (
+                    holidays.map((h, i) => (
+                      <div key={i} className="flex gap-4 items-start group">
+                        <div className="flex-shrink-0 w-12 text-center bg-white/5 rounded-lg p-1 border border-white/5 group-hover:border-emerald-500/30 transition-colors">
+                          <span className="block text-xs text-white/40 uppercase">
+                            {new Date(h.date.iso).toLocaleString("default", {
+                              month: "short",
+                            })}
+                          </span>
+                          <span className="block text-lg font-bold text-white">
+                            {new Date(h.date.iso).getDate()}
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-white group-hover:text-emerald-400 transition-colors line-clamp-1">
+                            {h.name}
+                          </div>
+                          <div className="text-xs text-white/40">
+                            {h.type || "Islamic"} Holiday
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-white/30 text-sm italic py-4 text-center">
+                      No upcoming holidays found
                     </div>
                   )}
-                  <div className="text-sm text-white/50 uppercase tracking-widest mb-1">
-                    {status.isForbidden ? status.message : "Next Prayer In"}
-                  </div>
-                  <div
-                    className={`text-5xl md:text-7xl font-black font-mono tracking-tighter ${status.isForbidden ? "text-red-100" : "text-white"}`}
-                  >
-                    {status.timeLeft}
-                  </div>
-                  <div className="mt-4 text-emerald-400 font-medium text-lg flex items-center gap-2">
-                    {status.nextPrayer}{" "}
-                    <span className="text-white/30 text-xs">starts at</span>{" "}
-                    {timings
-                      ? to12h(
-                          timings[
-                            status.nextPrayer === "Sunrise"
-                              ? "Sunrise"
-                              : status.nextPrayer
-                          ],
-                        )
-                      : "--:--"}
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats Footer */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent flex justify-between text-xs md:text-sm font-mono text-white/60">
-                <div>
-                  <span className="block text-white/30 uppercase text-[10px]">
-                    Elapsed
-                  </span>
-                  {status.elapsed}
-                </div>
-                <div className="text-center">
-                  <span className="block text-white/30 uppercase text-[10px]">
-                    Current Window
-                  </span>
-                  <span className="text-emerald-400 font-bold">
-                    {status.currentPrayer}
-                  </span>
-                </div>
-                <div className="text-right">
-                  <span className="block text-white/30 uppercase text-[10px]">
-                    Total Duration
-                  </span>
-                  {status.totalWindow}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Sidebar: Search & Holidays */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Location Search */}
-            <div className="bg-zinc-900 border border-white/10 p-6 rounded-2xl">
-              <h3 className="text-xs font-bold uppercase text-muted-foreground mb-4 flex items-center gap-2">
-                <MapPin className="w-4 h-4" /> Location
-              </h3>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  fetchPrayerData();
-                }}
-                className="flex gap-2"
-              >
-                <input
-                  type="text"
-                  value={searchCity}
-                  onChange={(e) => setSearchCity(e.target.value)}
-                  className="flex-1 bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-sm focus:border-emerald-500 outline-none transition-colors"
-                  placeholder="Enter city..."
-                />
-                <button
-                  type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white p-3 rounded-lg transition-colors"
-                >
-                  <Search className="w-4 h-4" />
-                </button>
-              </form>
-              <div className="mt-4 flex items-center justify-between text-sm text-white/80">
-                <span>{city}</span>
-                <span className="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded">
-                  Active
-                </span>
-              </div>
-            </div>
+          {/* --- PRAYER GRID --- */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+              <Sun className="text-emerald-500 w-5 h-5" /> Prayer Schedule
+            </h2>
 
-            {/* Holidays List */}
-            <div className="bg-zinc-900 border border-white/10 p-6 rounded-2xl flex-1">
-              <h3 className="text-xs font-bold uppercase text-muted-foreground mb-4 flex items-center gap-2">
-                <Calendar className="w-4 h-4" /> Upcoming Holidays
-              </h3>
-              <div className="space-y-4">
-                {holidays.length > 0 ? (
-                  holidays.map((h, i) => (
-                    <div key={i} className="flex gap-4 items-start group">
-                      <div className="flex-shrink-0 w-12 text-center bg-white/5 rounded-lg p-1 border border-white/5 group-hover:border-emerald-500/30 transition-colors">
-                        <span className="block text-xs text-white/40 uppercase">
-                          {new Date(h.date.iso).toLocaleString("default", {
-                            month: "short",
-                          })}
-                        </span>
-                        <span className="block text-lg font-bold text-white">
-                          {new Date(h.date.iso).getDate()}
-                        </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {timings &&
+                [
+                  {
+                    name: "Tahajjud",
+                    time: "03:45",
+                    icon: MoonStar,
+                    color: "text-indigo-400",
+                  }, // Simple approximation
+                  {
+                    name: "Fajr",
+                    time: timings.Fajr,
+                    icon: Sunrise,
+                    color: "text-cyan-400",
+                  },
+                  {
+                    name: "Ishraq",
+                    time: addMinutes(timings.Sunrise, 15),
+                    icon: Sun,
+                    color: "text-yellow-400",
+                  },
+                  {
+                    name: "Dhuhr",
+                    time: timings.Dhuhr,
+                    icon: Sun,
+                    color: "text-orange-400",
+                  },
+                  {
+                    name: "Asr",
+                    time: timings.Asr,
+                    icon: Sun,
+                    color: "text-orange-500",
+                  },
+                  {
+                    name: "Maghrib",
+                    time: timings.Maghrib,
+                    icon: Sunset,
+                    color: "text-red-400",
+                  },
+                  {
+                    name: "Isha",
+                    time: timings.Isha,
+                    icon: MoonStar,
+                    color: "text-blue-400",
+                  },
+                  {
+                    name: "Midnight",
+                    time: timings.Midnight,
+                    icon: MoonStar,
+                    color: "text-slate-400",
+                  },
+                ].map((p, i) => (
+                  <div
+                    key={i}
+                    className={`p-4 rounded-xl border border-white/5 bg-zinc-900/50 flex items-center justify-between group hover:border-emerald-500/30 transition-all ${status.currentPrayer === p.name ? "ring-1 ring-emerald-500 bg-emerald-500/5" : ""}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg bg-black/40 ${p.color}`}>
+                        <p.icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-sm font-medium text-white group-hover:text-emerald-400 transition-colors line-clamp-1">
-                          {h.name}
+                        <div className="font-bold text-white group-hover:text-emerald-400 transition-colors">
+                          {p.name}
                         </div>
-                        <div className="text-xs text-white/40">
-                          {h.type || "Islamic"} Holiday
-                        </div>
+                        {status.currentPrayer === p.name && (
+                          <div className="text-[10px] text-emerald-500 uppercase font-bold tracking-wider">
+                            Active Now
+                          </div>
+                        )}
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="text-white/30 text-sm italic py-4 text-center">
-                    No upcoming holidays found
+                    <div className="text-xl font-mono font-bold text-white/80">
+                      {to12h(p.time)}
+                    </div>
                   </div>
-                )}
-              </div>
+                ))}
             </div>
-          </div>
-        </div>
-
-        {/* --- PRAYER GRID --- */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Sun className="text-emerald-500 w-5 h-5" /> Prayer Schedule
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {timings &&
-              [
-                {
-                  name: "Tahajjud",
-                  time: "03:45",
-                  icon: MoonStar,
-                  color: "text-indigo-400",
-                }, // Simple approximation
-                {
-                  name: "Fajr",
-                  time: timings.Fajr,
-                  icon: Sunrise,
-                  color: "text-cyan-400",
-                },
-                {
-                  name: "Ishraq",
-                  time: addMinutes(timings.Sunrise, 15),
-                  icon: Sun,
-                  color: "text-yellow-400",
-                },
-                {
-                  name: "Dhuhr",
-                  time: timings.Dhuhr,
-                  icon: Sun,
-                  color: "text-orange-400",
-                },
-                {
-                  name: "Asr",
-                  time: timings.Asr,
-                  icon: Sun,
-                  color: "text-orange-500",
-                },
-                {
-                  name: "Maghrib",
-                  time: timings.Maghrib,
-                  icon: Sunset,
-                  color: "text-red-400",
-                },
-                {
-                  name: "Isha",
-                  time: timings.Isha,
-                  icon: MoonStar,
-                  color: "text-blue-400",
-                },
-                {
-                  name: "Midnight",
-                  time: timings.Midnight,
-                  icon: MoonStar,
-                  color: "text-slate-400",
-                },
-              ].map((p, i) => (
-                <div
-                  key={i}
-                  className={`p-4 rounded-xl border border-white/5 bg-zinc-900/50 flex items-center justify-between group hover:border-emerald-500/30 transition-all ${status.currentPrayer === p.name ? "ring-1 ring-emerald-500 bg-emerald-500/5" : ""}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg bg-black/40 ${p.color}`}>
-                      <p.icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-white group-hover:text-emerald-400 transition-colors">
-                        {p.name}
-                      </div>
-                      {status.currentPrayer === p.name && (
-                        <div className="text-[10px] text-emerald-500 uppercase font-bold tracking-wider">
-                          Active Now
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="text-xl font-mono font-bold text-white/80">
-                    {to12h(p.time)}
-                  </div>
-                </div>
-              ))}
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }
