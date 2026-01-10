@@ -4,9 +4,9 @@ import Image from "next/image" // <--- Import Next.js Image
 
 // ... keep socialLinks array exactly as is ...
 const socialLinks = [
-  { href: "https://habibullah.dev/github/", label: "GitHub", Icon: Github },
-  { href: "https://habibullah.dev/linkedin/", label: "LinkedIn", Icon: Linkedin },
-  { href: "https://habibullah.dev/facebook/", label: "Facebook", Icon: Facebook },
+  { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },
+  { href: "https://www.linkedin.com/in/md-habibullahs", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://www.facebook.com/md8.habibullah", label: "Facebook", Icon: Facebook },
   { href: "https://habibullah.dev/whatsapp/", label: "WhatsApp", Icon: MessageCircle },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ]
@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="flex justify-center md:justify-end animate-fade-in-up cursor-target" style={{ animationDelay: "0.1s" }}>
           <div className="relative cursor-target w-56 h-56 md:w-64 md:h-64">
             <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow" />
-            
+
             {/* OPTIMIZED IMAGE COMPONENT */}
             <Image
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=400" // Increased quality slightly
@@ -48,7 +48,7 @@ export default function Hero() {
               className="text-xl sm:text-2xl font-semibold text-muted-foreground font-mono cursor-target"
             />
           </div>
-          
+
           <p className="section-subtitle text-base sm:text-lg cursor-target">
             Building scalable, secure web applications with modern technologies. Full-stack development expertise
             combined with DevOps automation and security-first mindset. Computer Science student from Northern
