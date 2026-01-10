@@ -109,3 +109,24 @@
 .animate-live {
     animation: live-blink 2s ease-in-out infinite;
 }
+
+/* ... existing styles ... */
+
+/* --- Date Picker Polish --- */
+
+/* 1. Force the Calendar Icon to be White */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Turns black icon to white */
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* 2. Tell the browser this input is in a dark context (fixes the popup calendar colors) */
+input[type="date"] {
+    color-scheme: dark;
+}
