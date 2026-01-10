@@ -12,7 +12,7 @@ import {
 } from "date-fns";
 import { Hourglass, Calendar, ArrowDown, RotateCcw } from "lucide-react";
 
-const STORAGE_KEY = "md8-age-pref"; // Key for localStorage
+const STORAGE_KEY = "habibullah-dev-age-pref"; // Key for localStorage
 
 export default function AgePage() {
   // State

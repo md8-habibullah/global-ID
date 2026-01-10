@@ -44,8 +44,8 @@ interface ScanHistoryItem {
 }
 
 // --- Storage Keys ---
-const GEN_STORAGE_KEY = "md8-qr-gen-state";
-const SCAN_HISTORY_KEY = "md8-qr-scan-history";
+const GEN_STORAGE_KEY = "habibullah-dev-qr-gen-state";
+const SCAN_HISTORY_KEY = "habibullah-dev-qr-scan-history";
 
 export default function QrPage() {
   const [activeTab, setActiveTab] = useState<"generate" | "scan">("generate");

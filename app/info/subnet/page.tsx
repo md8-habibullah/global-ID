@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Network, Globe, Shield, Activity, Binary } from "lucide-react";
 
-const STORAGE_KEY = "md8-subnet-pref"; // Key for localStorage
+const STORAGE_KEY = "habibullah-dev-subnet-pref"; // Key for localStorage
 
 export default function SubnetPage() {
   // State - Default values act as fallbacks

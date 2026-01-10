@@ -8,7 +8,7 @@ A high-performance, scalable, and secure personal portfolio website designed for
 -   **Modern Tech Stack:** Built on **Next.js 16 (App Router)** and **React 19** for optimal performance and SEO.
 -   **Advanced Styling:** Utilizes **Tailwind CSS 4** with a custom design system using OKLCH color spaces for vibrant dark/light modes.
 -   **Interactive UI:**
-    -   **Target Cursor:** A custom, performance-optimized magnetic cursor effect powered by **GSAP**, featuring lazy loading for mobile performance.
+    -   **Target -:** A custom, performance-optimized magnetic cursor effect powered by **GSAP**, featuring lazy loading for mobile performance.
     -   **Hacker Text:** A decoding text effect for headings to emphasize the security/tech theme.
     -   **Animations:** Smooth transitions and scroll effects using **Framer Motion** and `tailwindcss-animate`.
 -   **SEO Optimized:** Includes dynamic metadata, `sitemap.xml`, `robots.txt`, and JSON-LD structured data for rich search results.

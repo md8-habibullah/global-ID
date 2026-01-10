@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Dices, Coins, Hash, List, Shuffle, Trophy } from "lucide-react";
 
 // --- Storage Keys ---
-const STORAGE_KEY_NUMBER = "md8-picker-number";
-const STORAGE_KEY_LIST = "md8-picker-list";
+const STORAGE_KEY_NUMBER = "habibullah-dev-picker-number";
+const STORAGE_KEY_LIST = "habibullah-dev-picker-list";
 
 type Tab = "coin" | "number" | "list";
 

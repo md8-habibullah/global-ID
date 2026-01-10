@@ -115,7 +115,7 @@ export default function Header() {
       <nav className="hidden md:flex items-center gap-6 cursor-target">
         {/* Main Links */}
         <Link href="/#" className={getNavLinkClass("")}>
-          Home
+          &gt; Home
         </Link>
         <Link href="/#about" className={getNavLinkClass("about")}>
           About
@@ -141,13 +141,6 @@ export default function Header() {
           <Wrench className="w-4 h-4 text-primary" />
           <span>Kits</span>
         </Link>
-        <Link // [!code focus:start]
-          href="/prayer"
-          className="nav-link flex items-center gap-2 group text-sm font-medium opacity-80 hover:opacity-100"
-        >
-          <MoonStar className="w-4 h-4 text-primary" />
-          <span>Prayer</span>
-        </Link>{" "}
       </nav>
 
       {/* Right-side Icons */}
@@ -200,7 +193,7 @@ export default function Header() {
           className={`nav-link text-lg ${activeSection === "" ? "active" : ""}`}
           onClick={() => setIsMenuOpen(false)}
         >
-          Home
+          &gt; Home
         </Link>
         <Link
           href="/#about"
@@ -234,14 +227,6 @@ export default function Header() {
           <Wrench className="w-5 h-5 text-primary" />
           <span>Kits</span>
         </Link>
-        <Link // [!code focus:start]
-          href="/prayer"
-          className="nav-link text-lg flex items-center gap-2"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          <MoonStar className="w-5 h-5 text-primary" />
-          <span>Prayer</span>
-        </Link>{" "}
       </nav>
     </header>
   );

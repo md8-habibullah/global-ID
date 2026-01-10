@@ -397,19 +397,19 @@ export default function PrayerDashboard() {
 
   return (
     // MAIN CONTAINER: Fixed Height for Desktop [650px]
-    <div className="w-full h-full lg:h-[650px] flex flex-col lg:flex-row bg-background/50 rounded-3xl overflow-hidden border border-border/10 shadow-sm">
+    <div className="w-full h-full lg:h-[650px] flex flex-col lg:flex-row bg-background/50 rounded-3xl overflow-hidden border border-border/10 shadow-sm cursor-target">
       {/* === LEFT: DASHBOARD (45%) === */}
-      <div className="lg:w-[45%] relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-secondary/5 to-transparent border-b lg:border-b-0 lg:border-r border-border/10">
+      <div className="lg:w-[45%] relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-secondary/5 to-transparent border-b lg:border-b-0 lg:border-r border-border/10 cursor-target">
         {/* TOP HEADER: DATES */}
-        <div className="w-full flex justify-between items-start absolute top-4 md:top-8 px-4 md:px-8">
+        <div className="w-full flex justify-between items-start absolute top-4 md:top-8 px-4 md:px-8 cursor-target">
           <div className="flex flex-col">
-            <h2 className="text-xl md:text-4xl font-black tracking-tighter text-foreground">
+            <h2 className="text-xl md:text-4xl font-black tracking-tighter text-foreground cursor-target">
               {now.toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",
               })}
             </h2>
-            <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mt-1">
+            <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3 mt-1 cursor-target">
               <span className="text-[10px] md:text-base text-muted-foreground font-bangla font-medium">
                 {getBanglaDate(now)}
               </span>
@@ -419,7 +419,7 @@ export default function PrayerDashboard() {
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-1.5 bg-secondary/20 px-2 py-1 rounded text-[10px] md:text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          <div className="flex items-center gap-1.5 bg-secondary/20 px-2 py-1 rounded text-[10px] md:text-xs font-bold uppercase tracking-wider text-muted-foreground cursor-target">
             {isSynced ? (
               <Wifi className="w-3 h-3 md:w-4 md:h-4 text-emerald-500" />
             ) : (
@@ -430,7 +430,7 @@ export default function PrayerDashboard() {
         </div>
 
         {/* TIMER CIRCLE */}
-        <div className="relative w-56 h-56 md:w-80 md:h-80 flex items-center justify-center mt-6 md:mt-12">
+        <div className="relative w-56 h-56 md:w-80 md:h-80 flex items-center justify-center mt-6 md:mt-12 cursor-target">
           <div className="absolute inset-0 rounded-full border-[8px] md:border-[12px] border-secondary/10" />
           <div
             className="absolute inset-0 rounded-full transition-all duration-1000 ease-linear"
@@ -440,7 +440,7 @@ export default function PrayerDashboard() {
               WebkitMaskImage: "radial-gradient(transparent 68%, black 69%)",
             }}
           />
-          <div className="flex flex-col items-center z-10 text-center">
+          <div className="flex flex-col items-center z-10 text-center cursor-target">
             <span
               className={`text-[9px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-3 ${status?.isForbidden ? "text-red-500" : "text-emerald-500"}`}
             >
@@ -463,9 +463,9 @@ export default function PrayerDashboard() {
         </div>
 
         {/* BOTTOM CONTROLS (EXPANDED WEATHER) */}
-        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex flex-col items-center gap-2">
+        <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex flex-col items-center gap-2 cursor-target">
           {/* Location Selector */}
-          <div className="flex items-center gap-2 bg-secondary/10 backdrop-blur-sm px-1 py-1 rounded-full border border-border/10">
+          <div className="cursor-target flex items-center gap-2 bg-secondary/10 backdrop-blur-sm px-1 py-1 rounded-full border border-border/10">
             <select
               value={selectedCity}
               onChange={handleCityChange}
@@ -482,7 +482,7 @@ export default function PrayerDashboard() {
 
           {/* Detailed Weather Stats */}
           {weather && (
-            <div className="flex items-center gap-3 md:gap-4 text-[10px] md:text-xs font-bold text-muted-foreground bg-secondary/5 px-4 py-2 rounded-xl border border-border/5">
+            <div className="cursor-target flex items-center gap-3 md:gap-4 text-[10px] md:text-xs font-bold text-muted-foreground bg-secondary/5 px-4 py-2 rounded-xl border border-border/5">
               <div className="flex items-center gap-1.5">
                 <CloudSun className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
                 <span className="text-foreground">{weather.temp}°</span>
@@ -508,16 +508,16 @@ export default function PrayerDashboard() {
       </div>
 
       {/* === RIGHT: ROTARY SCHEDULE (55%) === */}
-      <div className="lg:w-[55%] relative flex flex-col justify-center bg-card/30">
-        <div className="w-full max-w-sm md:max-w-md mx-auto px-4 space-y-2 py-4">
+      <div className="cursor-target lg:w-[55%] relative flex flex-col justify-center bg-card/30">
+        <div className="w-full cursor-target max-w-sm md:max-w-md mx-auto px-4 space-y-2 py-4">
           {displayEvents.map((event, i) => {
             const isCenter = event.isRef;
             return (
               <div
                 key={`${event.id}-${i}`}
-                className={`flex items-center justify-between px-4 md:px-6 rounded-xl border border-transparent transition-all duration-500 ${isCenter ? "bg-emerald-500/10 border-emerald-500/20 py-3 md:py-5 scale-100 opacity-100 shadow-md" : "py-1.5 md:py-3 scale-95 opacity-50 grayscale"} ${event.type === "forbidden" && isCenter ? "bg-red-500/10 border-red-500/20" : ""}`}
+                className={`cursor-target flex items-center justify-between px-4 md:px-6 rounded-xl border border-transparent transition-all duration-500 ${isCenter ? "bg-emerald-500/10 border-emerald-500/20 py-3 md:py-5 scale-100 opacity-100 shadow-md" : "py-1.5 md:py-3 scale-95 opacity-50 grayscale"} ${event.type === "forbidden" && isCenter ? "bg-red-500/10 border-red-500/20" : ""}`}
               >
-                <div className="flex items-center gap-3 md:gap-5">
+                <div className="flex cursor-target items-center gap-3 md:gap-5">
                   <div
                     className={`p-1.5 md:p-3 rounded-lg ${isCenter ? (event.type === "forbidden" ? "bg-red-500 text-white" : "bg-emerald-500 text-white") : "bg-secondary/20"}`}
                   >

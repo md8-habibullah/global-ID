@@ -13,12 +13,18 @@ import {
   Network,
   QrCode,
   Dices,
+  MoonStar,
 } from "lucide-react";
 import "./style.css";
 
 const tools = [
   {
-    name: "System Intelligence",
+    name: "Prayer Times",
+    path: "/info/prayer",
+    icon: <MoonStar className="w-4 h-4" />,
+  },
+  {
+    name: "System Info.",
     path: "/info/system",
     icon: <Laptop className="w-4 h-4" />,
   },
@@ -28,7 +34,7 @@ const tools = [
     icon: <Network className="w-4 h-4" />,
   },
   {
-    name: "QR Command",
+    name: "QR Code",
     path: "/info/qrcode",
     icon: <QrCode className="w-4 h-4" />,
   },
@@ -43,12 +49,12 @@ const tools = [
     icon: <Dices className="w-4 h-4" />,
   },
   {
-    name: "Currency Converter",
+    name: "Currency Conv.",
     path: "/info/currency",
     icon: <Coins className="w-4 h-4" />,
   },
   {
-    name: "Age Calculator",
+    name: "Age Calc.",
     path: "/info/age",
     icon: <CalendarClock className="w-4 h-4" />,
   },

@@ -8,7 +8,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-const STORAGE_KEY = "md8-currency-pref"; // Key for localStorage
+const STORAGE_KEY = "habibullah-dev-currency-pref"; // Key for localStorage
 
 export default function CurrencyPage() {
   // Store amount as string to allow typing decimals (e.g., "10.") without it snapping back to "10"
