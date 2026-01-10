@@ -2,9 +2,17 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
-import { Sun, Moon, Menu, X, NotebookPen, Wrench } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  NotebookPen,
+  Wrench,
+  MoonStar,
+} from "lucide-react"; // [!code focus]
 import Image from "next/image";
-import Link from "next/link"; // Import Link for internal routing
+import Link from "next/link";
 import SiteFakeUptime from "./SiteFakeUptime";
 
 export default function Header() {
@@ -50,7 +58,6 @@ export default function Header() {
       const sections = ["about", "skills", "projects"];
       let current = "";
 
-      // If at the very top, set current to empty (implies Home)
       if (window.scrollY < 100) {
         setActiveSection("");
         return;
@@ -116,10 +123,8 @@ export default function Header() {
         <Link href="/#projects" className={getNavLinkClass("projects")}>
           Projects
         </Link>
-
         {/* Separator */}
         <div className="h-5 w-px bg-border/40 mx-2" />
-
         {/* Extra Tools */}
         <a
           href={blog}
@@ -136,6 +141,13 @@ export default function Header() {
           <Wrench className="w-4 h-4 text-primary" />
           <span>Kits</span>
         </Link>
+        <Link // [!code focus:start]
+          href="/prayer"
+          className="nav-link flex items-center gap-2 group text-sm font-medium opacity-80 hover:opacity-100"
+        >
+          <MoonStar className="w-4 h-4 text-primary" />
+          <span>Prayer</span>
+        </Link>{" "}
       </nav>
 
       {/* Right-side Icons */}
@@ -204,9 +216,7 @@ export default function Header() {
         >
           Projects
         </Link>
-
         <div className="w-12 h-px bg-border/20 my-2" />
-
         <a
           href={blog}
           target="_blank"
@@ -224,6 +234,14 @@ export default function Header() {
           <Wrench className="w-5 h-5 text-primary" />
           <span>Kits</span>
         </Link>
+        <Link // [!code focus:start]
+          href="/prayer"
+          className="nav-link text-lg flex items-center gap-2"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <MoonStar className="w-5 h-5 text-primary" />
+          <span>Prayer</span>
+        </Link>{" "}
       </nav>
     </header>
   );
