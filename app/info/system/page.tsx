@@ -117,17 +117,17 @@ export default function DeviceInfoPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
-        <div>
+    <div className="space-y-6 cursor-target">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 cursor-target">
+        <div className="cursor-target">
           <h2 className="text-2xl font-bold">System Intelligence</h2>
           <p className="text-muted-foreground text-sm">
             Real-time diagnostics and fingerprinting.
           </p>
         </div>
-        <div className="info-card flex items-center gap-4 py-3 px-6 cursor-target border-primary/20">
-          <Clock className="w-5 h-5 text-primary animate-pulse" />
-          <div className="text-right">
+        <div className="info-card flex items-center gap-4 py-3 px-6 cursor-target border-primary/20 cursor-target">
+          <Clock className="w-5 h-5 text-primary animate-pulse cursor-target" />
+          <div className="text-right cursor-target">
             <div className="text-xs text-muted-foreground font-mono">
               LOCAL TIME
             </div>
@@ -138,14 +138,14 @@ export default function DeviceInfoPage() {
         </div>
       </div>
 
-      <div className="info-grid">
+      <div className="info-grid cursor-target">
         {/* 1. Network Identity */}
-        <div className="info-card col-span-1 md:col-span-8">
-          <div className="flex items-center gap-3 mb-6 border-b border-border/20 pb-4">
+        <div className="info-card col-span-1 md:col-span-8 cursor-target">
+          <div className="flex items-center gap-3 mb-6 border-b border-border/20 pb-4 cursor-target">
             <Globe className="w-5 h-5 text-blue-400" />
             <h2 className="text-lg font-bold">Network & Latency</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-target">
             <InfoItem
               label="Public IP"
               value={netData?.ip}
@@ -185,7 +185,7 @@ export default function DeviceInfoPage() {
         </div>
 
         {/* 2. Security Analysis */}
-        <div className="info-card col-span-1 md:col-span-4 border-l-4 border-l-primary/50">
+        <div className="info-card col-span-1 md:col-span-4 border-l-4 border-l-primary/50 cursor-target">
           <div className="flex items-center gap-3 mb-6 border-b border-border/20 pb-4">
             <Shield className="w-5 h-5 text-red-400" />
             <h2 className="text-lg font-bold">Security Analysis</h2>
@@ -231,7 +231,7 @@ export default function DeviceInfoPage() {
         </div>
 
         {/* 3. Hardware */}
-        <div className="info-card col-span-1 md:col-span-6">
+        <div className="info-card col-span-1 md:col-span-6 cursor-target">
           <div className="flex items-center gap-3 mb-6 border-b border-border/20 pb-4">
             <Cpu className="w-5 h-5 text-primary" />
             <h2 className="text-lg font-bold">Hardware Core</h2>
@@ -262,7 +262,7 @@ export default function DeviceInfoPage() {
         </div>
 
         {/* 4. Power & Display */}
-        <div className="info-card col-span-1 md:col-span-6">
+        <div className="info-card col-span-1 md:col-span-6 cursor-target">
           <div className="flex items-center gap-3 mb-6 border-b border-border/20 pb-4">
             <Monitor className="w-5 h-5 text-purple-400" />
             <h2 className="text-lg font-bold">Display & Power</h2>
@@ -301,7 +301,7 @@ export default function DeviceInfoPage() {
 
 // Reusable Sub-components (kept same as before)
 const InfoItem = ({ label, value, loading, highlight, className }: any) => (
-  <div className="flex flex-col">
+  <div className="flex flex-col cursor-target">
     <span className="data-label">{label}</span>
     {loading ? (
       <div className="h-5 w-16 bg-white/5 rounded animate-pulse mt-1" />
@@ -316,7 +316,7 @@ const InfoItem = ({ label, value, loading, highlight, className }: any) => (
 );
 
 const SecurityRow = ({ label, isDetected, loading }: any) => (
-  <div className="flex justify-between items-center">
+  <div className="flex justify-between items-center cursor-target">
     <span className="text-sm text-muted-foreground font-medium">{label}</span>
     {loading ? (
       <span className="text-xs text-muted-foreground animate-pulse">

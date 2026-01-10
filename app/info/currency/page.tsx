@@ -98,12 +98,12 @@ export default function CurrencyPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-2xl font-bold flex items-center gap-2">
+    <div className="max-w-2xl mx-auto space-y-6 cursor-target">
+      <h2 className="text-2xl font-bold flex items-center gap-2 cursor-target">
         <TrendingUp className="text-primary" /> Currency Converter
       </h2>
 
-      <div className="info-card border-primary/20 bg-gradient-to-br from-white/5 to-transparent relative overflow-hidden">
+      <div className="info-card border-primary/20 bg-gradient-to-br from-white/5 to-transparent relative overflow-hidden cursor-target">
         {/* Error Message */}
         {error && (
           <div className="absolute top-0 left-0 w-full bg-red-500/10 text-red-400 text-xs py-1 px-4 flex items-center gap-2 border-b border-red-500/20">
@@ -112,7 +112,7 @@ export default function CurrencyPage() {
         )}
 
         {/* Input Section */}
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center mb-8 pt-4">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center mb-8 pt-4 cursor-target">
           {/* From */}
           <div className="space-y-2">
             <label className="text-xs uppercase text-muted-foreground font-bold pl-1">
@@ -171,7 +171,7 @@ export default function CurrencyPage() {
         </div>
 
         {/* Amount Input */}
-        <div className="space-y-2 mb-8 relative z-10">
+        <div className="space-y-2 mb-8 relative z-10 cursor-target">
           <label className="text-xs uppercase text-muted-foreground font-bold pl-1">
             Amount
           </label>
@@ -185,7 +185,7 @@ export default function CurrencyPage() {
         </div>
 
         {/* Result */}
-        <div className="text-center p-8 bg-primary/5 rounded-xl border border-primary/10 relative">
+        <div className="text-center p-8 bg-primary/5 rounded-xl border border-primary/10 relative cursor-target">
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[2px] z-20 rounded-xl">
               <RefreshCw className="animate-spin text-primary w-6 h-6" />

@@ -65,8 +65,8 @@ export default function AgePage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div className="max-w-2xl mx-auto space-y-8 cursor-target">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cursor-target">
         <h2 className="text-2xl font-bold flex items-center gap-2">
           <Hourglass className="text-primary" /> Age Calculator
         </h2>
@@ -77,7 +77,7 @@ export default function AgePage() {
         )}
       </div>
 
-      <div className="info-card grid md:grid-cols-2 gap-6 relative">
+      <div className="info-card grid md:grid-cols-2 gap-6 relative cursor-target">
         {/* Input 1: Birth Date */}
         <div className="space-y-2">
           <label className="text-xs uppercase text-muted-foreground font-bold flex items-center gap-2">
@@ -181,7 +181,7 @@ export default function AgePage() {
 
       {/* Empty State */}
       {!stats && (
-        <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-white/5 rounded-xl bg-white/[0.02]">
+        <div className="text-center py-12 text-muted-foreground border-2 border-dashed border-white/5 rounded-xl bg-white/[0.02] cursor-target">
           Select your birth date above to calculate precise age.
         </div>
       )}
