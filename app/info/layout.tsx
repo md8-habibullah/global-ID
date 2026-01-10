@@ -11,14 +11,36 @@ import {
   LayoutGrid,
   ShieldCheck,
   Network,
+  QrCode,
+  Dices,
 } from "lucide-react";
-import "./style.css"; // Import the shared styles here
+import "./style.css";
 
 const tools = [
   {
     name: "System Intelligence",
     path: "/info/system",
     icon: <Laptop className="w-4 h-4" />,
+  },
+  {
+    name: "IP Subnet",
+    path: "/info/subnet",
+    icon: <Network className="w-4 h-4" />,
+  },
+  {
+    name: "QR Command",
+    path: "/info/qrcode",
+    icon: <QrCode className="w-4 h-4" />,
+  },
+  {
+    name: "GenPass",
+    path: "/info/password",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    name: "Randomizer",
+    path: "/info/picker",
+    icon: <Dices className="w-4 h-4" />,
   },
   {
     name: "Currency Converter",
@@ -29,16 +51,6 @@ const tools = [
     name: "Age Calculator",
     path: "/info/age",
     icon: <CalendarClock className="w-4 h-4" />,
-  },
-  {
-    name: "GenPass", // New Tool
-    path: "/info/password",
-    icon: <ShieldCheck className="w-4 h-4" />,
-  },
-  {
-    name: "IP Subnet",
-    path: "/info/subnet",
-    icon: <Network className="w-4 h-4" />,
   },
 ];
 

@@ -12,6 +12,8 @@ import {
 } from "date-fns";
 import { Hourglass, Calendar, ArrowDown, RotateCcw } from "lucide-react";
 
+const STORAGE_KEY = "md8-age-pref"; // Key for localStorage
+
 export default function AgePage() {
   // State
   const [dob, setDob] = useState("");
@@ -20,6 +22,36 @@ export default function AgePage() {
     format(new Date(), "yyyy-MM-dd"),
   );
   const [stats, setStats] = useState<any>(null);
+  const [isLoaded, setIsLoaded] = useState(false); // Prevents hydration mismatch
+
+  // 1. Load Preferences on Mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const { dob: savedDob, targetDate: savedTarget } = JSON.parse(saved);
+        if (savedDob) setDob(savedDob);
+        // Only override target if it was explicitly saved, otherwise keep today's date
+        if (savedTarget) setTargetDate(savedTarget);
+      }
+    } catch (e) {
+      console.error("Failed to load age preferences", e);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // 2. Save Preferences on Change
+  useEffect(() => {
+    // Only save if we have finished loading to avoid overwriting with defaults
+    if (isLoaded) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ dob, targetDate }));
+      } catch (e) {
+        console.warn("LocalStorage unavailable", e);
+      }
+    }
+  }, [dob, targetDate, isLoaded]);
 
   // Calculation Effect - Runs whenever dob or targetDate changes
   useEffect(() => {

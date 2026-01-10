@@ -8,6 +8,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 
+const STORAGE_KEY = "md8-currency-pref"; // Key for localStorage
+
 export default function CurrencyPage() {
   // Store amount as string to allow typing decimals (e.g., "10.") without it snapping back to "10"
   const [amountStr, setAmountStr] = useState("1");
@@ -18,6 +20,7 @@ export default function CurrencyPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false); // Prevents hydration mismatch
 
   // Store available currency codes dynamically
   const [currencyList, setCurrencyList] = useState<string[]>([
@@ -33,7 +36,43 @@ export default function CurrencyPage() {
     "AED",
   ]);
 
-  // 1. Fetch Available Currencies on Mount
+  // 1. Load Preferences on Mount (Including Amount)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const {
+          from: savedFrom,
+          to: savedTo,
+          amount: savedAmount,
+        } = JSON.parse(saved);
+        if (savedFrom) setFrom(savedFrom);
+        if (savedTo) setTo(savedTo);
+        // Load the saved amount if it exists
+        if (savedAmount) setAmountStr(savedAmount);
+      }
+    } catch (e) {
+      console.error("Failed to load currency preferences", e);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // 2. Save Preferences on Change (Including Amount)
+  useEffect(() => {
+    if (isLoaded) {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ from, to, amount: amountStr }),
+        );
+      } catch (e) {
+        console.warn("LocalStorage unavailable", e);
+      }
+    }
+  }, [from, to, amountStr, isLoaded]);
+
+  // 3. Fetch Available Currencies on Mount
   useEffect(() => {
     const initCurrencies = async () => {
       try {
@@ -50,7 +89,7 @@ export default function CurrencyPage() {
     initCurrencies();
   }, []);
 
-  // 2. Fetch Exchange Rate
+  // 4. Fetch Exchange Rate
   useEffect(() => {
     const fetchRate = async () => {
       setLoading(true);

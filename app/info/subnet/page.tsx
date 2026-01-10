@@ -3,13 +3,44 @@
 import { useState, useEffect } from "react";
 import { Network, Globe, Shield, Activity, Binary } from "lucide-react";
 
+const STORAGE_KEY = "md8-subnet-pref"; // Key for localStorage
+
 export default function SubnetPage() {
-  // State
+  // State - Default values act as fallbacks
   const [ip, setIp] = useState("192.168.1.1");
   const [cidr, setCidr] = useState(24);
   const [results, setResults] = useState<any>(null);
+  const [isLoaded, setIsLoaded] = useState(false); // Prevents hydration mismatch
 
-  // Core Logic: Subnet Calculation
+  // 1. Load Preferences on Mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const { ip: savedIp, cidr: savedCidr } = JSON.parse(saved);
+        if (savedIp) setIp(savedIp);
+        if (typeof savedCidr === "number") setCidr(savedCidr);
+      }
+    } catch (e) {
+      console.error("Failed to load subnet preferences", e);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
+
+  // 2. Save Preferences on Change
+  useEffect(() => {
+    // Only save if we have finished loading to avoid overwriting with defaults
+    if (isLoaded) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ip, cidr }));
+      } catch (e) {
+        console.warn("LocalStorage unavailable", e);
+      }
+    }
+  }, [ip, cidr, isLoaded]);
+
+  // 3. Core Logic: Subnet Calculation
   useEffect(() => {
     // Validate IP format
     const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
@@ -19,7 +50,7 @@ export default function SubnetPage() {
     }
 
     try {
-      // 1. Convert IP to Long (Binary Integer)
+      // Convert IP to Long (Binary Integer)
       const ipParts = ip.split(".").map(Number);
       if (ipParts.some((part) => part > 255 || part < 0)) return;
 
@@ -31,21 +62,18 @@ export default function SubnetPage() {
           ipParts[3]) >>>
         0;
 
-      // 2. Generate Mask from CIDR
-      // -1 (all 1s) shifted left by (32 - cidr)
+      // Generate Mask from CIDR
       const maskLong = cidr === 0 ? 0 : (-1 << (32 - cidr)) >>> 0;
 
-      // 3. Calculate Network & Broadcast
+      // Calculate Network & Broadcast
       const networkLong = (ipLong & maskLong) >>> 0;
       const broadcastLong = (networkLong | ~maskLong) >>> 0;
 
-      // 4. Calculate Usable Range
-      // First host is Network + 1, Last host is Broadcast - 1
+      // Calculate Usable Range
       const firstHostLong = (networkLong + 1) >>> 0;
       const lastHostLong = (broadcastLong - 1) >>> 0;
 
-      // 5. Total Hosts
-      // 2^(32-CIDR) - 2 (reserved for network & broadcast)
+      // Total Hosts
       const totalHosts = Math.pow(2, 32 - cidr) - 2;
 
       // Helper to convert Long back to IP String
