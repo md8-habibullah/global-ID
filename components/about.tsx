@@ -168,7 +168,7 @@ export default function About() {
                 <div className="mt-8 pt-4 border-t border-dashed border-border/40 grid grid-cols-2 gap-4 text-[10px] font-mono text-muted-foreground/60 uppercase">
                   <div>
                     <span className="block text-primary/40">KERNEL</span>
-                    Linux 6.8.1-arch1-1
+                    Linux 7.x.5-custom-y
                   </div>
                   <div className="text-right">
                     <span className="block text-primary/40">UPTIME</span>
