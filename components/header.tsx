@@ -135,7 +135,7 @@ export default function Header() {
           <span>Blog</span>
         </a>
         <Link
-          href="/info"
+          href="/kits"
           className="nav-link flex items-center gap-2 group text-sm font-medium opacity-80 hover:opacity-100"
         >
           <Wrench className="w-4 h-4 text-primary" />
@@ -220,7 +220,7 @@ export default function Header() {
           <span>Blog</span>
         </a>
         <Link
-          href="/info"
+          href="/kits"
           className="nav-link text-lg flex items-center gap-2"
           onClick={() => setIsMenuOpen(false)}
         >

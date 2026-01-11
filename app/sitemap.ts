@@ -5,21 +5,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "",
-    "/info",
-    "/info/age",
-    "/info/currency",
-    "/info/password",
-    "/info/picker",
-    "/info/prayer",
-    "/info/qrcode",
-    "/info/subnet",
-    "/info/system",
+    "/kits",
+    "/kits/age",
+    "/kits/currency",
+    "/kits/password",
+    "/kits/picker",
+    "/kits/prayer",
+    "/kits/qrcode",
+    "/kits/subnet",
+    "/kits/system",
   ];
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
-    priority: route === "" ? 1 : 0.8,
+    priority: 1,
   }));
 }
