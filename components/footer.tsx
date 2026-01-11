@@ -154,24 +154,25 @@ export default function Footer() {
                 [ NET : CONNECT ]
               </h4>
 
-              {/* Grid Logic: Use 2 columns if > 3 items, otherwise 1 column */}
+              {/* Grid Logic: Use 2 columns if > 3 items */}
               <div
                 className={`grid gap-3 ${socialLinks.length > 3 ? "grid-cols-2" : "grid-cols-1"}`}
               >
-                {socialLinks.map(({ href, label, Icon }) => (
+                {socialLinks.map(({ href, label, Icon }, index) => (
                   <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="group flex items-center gap-3 px-3 py-2 rounded-lg border border-border/40 bg-card/50
-                             transition-all duration-300 ease-out
-                             hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+                    // ADD THIS LOGIC: If it's the last item and the total is odd, span 2 columns
+                    className={`group flex items-center gap-3 px-3 py-2 rounded-lg border border-border/40 bg-card/50
+                               transition-all duration-300 ease-out
+                               hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)]
+                               ${index === socialLinks.length - 1 && socialLinks.length % 2 !== 0 ? "col-span-2 justify-center" : ""}
+                    `}
                   >
                     <Icon className="w-4 h-4 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
-
-                    {/* Text is now ALWAYS visible (no max-w-0 or opacity-0) */}
                     <span className="text-xs font-medium text-muted-foreground transition-colors duration-300 group-hover:text-primary font-mono">
                       {label}
                     </span>
