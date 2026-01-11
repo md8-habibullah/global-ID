@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function InfoPage() {
+export default function KitsPage() {
   redirect("/kits/prayer");
 }

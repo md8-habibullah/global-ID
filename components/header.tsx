@@ -2,17 +2,10 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useTheme } from "next-themes";
-import {
-  Sun,
-  Moon,
-  Menu,
-  X,
-  NotebookPen,
-  Wrench,
-  MoonStar,
-} from "lucide-react"; // [!code focus]
+import { Sun, Moon, Menu, X, NotebookPen, Wrench } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import SiteFakeUptime from "./SiteFakeUptime";
 
 export default function Header() {
@@ -21,6 +14,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
+  const pathname = usePathname();
   const menuRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -52,12 +46,18 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  // Scroll Spy Logic
+  // Scroll Spy Logic (Only run on homepage)
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection(""); // Clear active section if not on home
+      return;
+    }
+
     const handleScrollSpy = () => {
       const sections = ["about", "skills", "projects"];
       let current = "";
 
+      // Default to "home" (empty string) if at top
       if (window.scrollY < 100) {
         setActiveSection("");
         return;
@@ -78,15 +78,19 @@ export default function Header() {
     window.addEventListener("scroll", handleScrollSpy);
     handleScrollSpy();
     return () => window.removeEventListener("scroll", handleScrollSpy);
-  }, []);
+  }, [pathname]); // <--- Add pathname dependency
 
   if (!mounted) return null;
 
   const blog = "https://blog.habibullah.dev";
   const isDark = theme === "dark";
+  const isKitsPage = pathname?.startsWith("/kits"); // Check if we are in kits
 
+  // Helper for Home/Scroll links
   const getNavLinkClass = (id: string) =>
-    `nav-link ${activeSection === id ? "active" : ""} transition-colors`;
+    `nav-link ${
+      pathname === "/" && activeSection === id ? "active" : ""
+    } transition-colors`;
 
   return (
     <header className="header-bar relative cursor-target">
@@ -115,7 +119,7 @@ export default function Header() {
       <nav className="hidden md:flex items-center gap-6 cursor-target">
         {/* Main Links */}
         <Link href="/#" className={getNavLinkClass("")}>
-          &gt; Home
+          Home
         </Link>
         <Link href="/#about" className={getNavLinkClass("about")}>
           About
@@ -136,7 +140,10 @@ export default function Header() {
         </a>
         <Link
           href="/kits"
-          className="nav-link flex items-center gap-2 group text-sm font-medium opacity-80 hover:opacity-100"
+          // Add 'active' class logic here
+          className={`nav-link flex items-center gap-2 group text-sm font-medium transition-colors ${
+            isKitsPage ? "active text-primary" : "opacity-80 hover:opacity-100"
+          }`}
         >
           <Wrench className="w-4 h-4 text-primary" />
           <span>Kits</span>
@@ -190,21 +197,21 @@ export default function Header() {
       >
         <Link
           href="/#"
-          className={`nav-link text-lg ${activeSection === "" ? "active" : ""}`}
+          className={`nav-link text-lg ${pathname === "/" && activeSection === "" ? "active" : ""}`}
           onClick={() => setIsMenuOpen(false)}
         >
-          &gt; Home
+          Home
         </Link>
         <Link
           href="/#about"
-          className={`nav-link text-lg ${activeSection === "about" ? "active" : ""}`}
+          className={`nav-link text-lg ${pathname === "/" && activeSection === "about" ? "active" : ""}`}
           onClick={() => setIsMenuOpen(false)}
         >
           About
         </Link>
         <Link
           href="/#projects"
-          className={`nav-link text-lg ${activeSection === "projects" ? "active" : ""}`}
+          className={`nav-link text-lg ${pathname === "/" && activeSection === "projects" ? "active" : ""}`}
           onClick={() => setIsMenuOpen(false)}
         >
           Projects
@@ -221,7 +228,7 @@ export default function Header() {
         </a>
         <Link
           href="/kits"
-          className="nav-link text-lg flex items-center gap-2"
+          className={`nav-link text-lg flex items-center gap-2 ${isKitsPage ? "active text-primary" : ""}`}
           onClick={() => setIsMenuOpen(false)}
         >
           <Wrench className="w-5 h-5 text-primary" />

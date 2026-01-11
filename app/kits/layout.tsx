@@ -73,7 +73,7 @@ const tools = [
   },
 ];
 
-export default function InfoLayout({
+export default function KitsLayout({
   children,
 }: {
   children: React.ReactNode;

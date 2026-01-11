@@ -5,325 +5,329 @@
 
 /* LIGHT MODE - Balanced Polished Gray (Not 100% white, easier on eyes) */
 :root {
-  /* Light mode: Balanced polished gray-white (not too bright, not too dark) */
-  --background: #f5f5f5; /* Light gray-white background */
-  --foreground: #1a1a1a; /* Dark text */
-  --card: #ffffff; /* White cards */
-  --card-foreground: #0d0d0d; /* Dark text on cards */
+    /* Light mode: Balanced polished gray-white (not too bright, not too dark) */
+    --background: #f5f5f5; /* Light gray-white background */
+    --foreground: #1a1a1a; /* Dark text */
+    --card: #ffffff; /* White cards */
+    --card-foreground: #0d0d0d; /* Dark text on cards */
 
-  /* Islamic Green Primary Color (matching Bangladesh & Islamic heritage) */
-  --primary: #10b981; /* Green button color */
-  --primary-foreground: #ffffff; /* White text on green buttons */
+    /* Islamic Green Primary Color (matching Bangladesh & Islamic heritage) */
+    --primary: #10b981; /* Green button color */
+    --primary-foreground: #ffffff; /* White text on green buttons */
 
-  --secondary: #3b82f6; /* Blue accent */
-  --secondary-foreground: #ffffff; /* White text */
+    --secondary: #3b82f6; /* Blue accent */
+    --secondary-foreground: #ffffff; /* White text */
 
-  --accent: #10b981; /* Green accent */
+    --accent: #10b981; /* Green accent */
 
-  --muted: #9ca3af; /* Medium gray for secondary text */
-  --muted-foreground: #6b7280; /* Medium-dark gray */
-  --border: #e5e7eb; /* Light gray border */
-  --input: #f3f4f6; /* Light input background */
+    --muted: #9ca3af; /* Medium gray for secondary text */
+    --muted-foreground: #6b7280; /* Medium-dark gray */
+    --border: #e5e7eb; /* Light gray border */
+    --input: #f3f4f6; /* Light input background */
 
-  --ring: #10b981; /* Focus ring - green */
+    --ring: #10b981; /* Focus ring - green */
 
-  --radius: 0.5rem;
+    --radius: 0.5rem;
 }
 
 /* DARK MODE - Softer DaisyUI-style Dark (#1d232a) */
 .dark {
-  --background: #1d232a; /* Softer dark bg (DaisyUI dark) */
-  --foreground: #e5e7eb; /* Light text */
-  --card: #2a3142; /* Slightly lighter card bg */
-  --card-foreground: #e5e7eb; /* Light text on cards */
+    --background: #1d232a; /* Softer dark bg (DaisyUI dark) */
+    --foreground: #e5e7eb; /* Light text */
+    --card: #2a3142; /* Slightly lighter card bg */
+    --card-foreground: #e5e7eb; /* Light text on cards */
 
-  --primary: #34d399; /* BRIGHT vibrant green */
-  --primary-foreground: #1d232a; /* Dark text on green buttons */
+    --primary: #34d399; /* BRIGHT vibrant green */
+    --primary-foreground: #1d232a; /* Dark text on green buttons */
 
-  --secondary: #60a5fa; /* Bright vibrant blue */
-  --secondary-foreground: #ffffff; /* White text */
+    --secondary: #60a5fa; /* Bright vibrant blue */
+    --secondary-foreground: #ffffff; /* White text */
 
-  --accent: #34d399; /* Bright green */
+    --accent: #34d399; /* Bright green */
 
-  --muted: #6b7280; /* Medium gray for secondary text */
-  --muted-foreground: #9ca3af; /* Light gray text */
-  --border: #3f4655; /* Softer borders */
-  --input: #252d38; /* Softer input background */
+    --muted: #6b7280; /* Medium gray for secondary text */
+    --muted-foreground: #9ca3af; /* Light gray text */
+    --border: #3f4655; /* Softer borders */
+    --input: #252d38; /* Softer input background */
 
-  --ring: #34d399; /* Bright green ring */
+    --ring: #34d399; /* Bright green ring */
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+    /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground transition-colors duration-300;
-  }
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground transition-colors duration-300;
+    }
 }
 
 /* Enhanced animations for professional feel */
 @keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes glow-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(var(--primary-rgb) / 0.3),
-      inset 0 0 20px rgba(var(--primary-rgb) / 0.1);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(var(--primary-rgb) / 0.5),
-      inset 0 0 30px rgba(var(--primary-rgb) / 0.15);
-  }
+    0%,
+    100% {
+        box-shadow:
+            0 0 20px rgba(var(--primary-rgb) / 0.3),
+            inset 0 0 20px rgba(var(--primary-rgb) / 0.1);
+    }
+    50% {
+        box-shadow:
+            0 0 40px rgba(var(--primary-rgb) / 0.5),
+            inset 0 0 30px rgba(var(--primary-rgb) / 0.15);
+    }
 }
 
 @keyframes float-up {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes border-glow {
-  0%,
-  100% {
-    border-color: hsl(var(--primary-hsl) / 0.3);
-  }
-  50% {
-    border-color: hsl(var(--primary-hsl) / 0.8);
-  }
+    0%,
+    100% {
+        border-color: hsl(var(--primary-hsl) / 0.3);
+    }
+    50% {
+        border-color: hsl(var(--primary-hsl) / 0.8);
+    }
 }
 
 .animate-slide-down {
-  animation: slide-down 0.5s ease-out;
+    animation: slide-down 0.5s ease-out;
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.6s ease-out;
+    animation: fade-in-up 0.6s ease-out;
 }
 
 .animate-glow-pulse {
-  animation: glow-pulse 3s ease-in-out infinite;
+    animation: glow-pulse 3s ease-in-out infinite;
 }
 
 .animate-float-up {
-  animation: float-up 3s ease-in-out infinite;
+    animation: float-up 3s ease-in-out infinite;
 }
 
 /* Enhanced button styling with glow effect */
 .fire-button {
-  @apply relative inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold transition-all duration-300 overflow-hidden;
-  @apply bg-primary text-primary-foreground hover:shadow-lg;
-  box-shadow: 0 0 20px rgba(var(--accent) / 0.3);
+    @apply relative inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold transition-all duration-300 overflow-hidden;
+    @apply bg-primary text-primary-foreground hover:shadow-lg;
+    box-shadow: 0 0 20px rgba(var(--accent) / 0.3);
 }
 
 .fire-button:hover {
-  @apply scale-105;
-  box-shadow: 0 0 30px rgba(var(--accent) / 0.6),
-    0 0 60px rgba(var(--accent) / 0.2);
+    @apply scale-105;
+    box-shadow:
+        0 0 30px rgba(var(--accent) / 0.6),
+        0 0 60px rgba(var(--accent) / 0.2);
 }
 
 .fire-button::before {
-  content: "";
-  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 70%
-  );
+    content: "";
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 70%
+    );
 }
 
 .fire-button:hover::before {
-  @apply opacity-100;
+    @apply opacity-100;
 }
 
 /* Professional header styling */
 .header-bar {
-  @apply flex items-center justify-between py-4 px-4 sm:px-8 border-b border-border/50 sticky top-0 z-50;
-  @apply bg-background/80 backdrop-blur-md;
+    @apply flex items-center justify-between py-4 px-4 sm:px-8 border-b border-border/50 sticky top-0 z-50;
+    @apply bg-background/80 backdrop-blur-md;
 }
 
 .nav-link {
-  @apply text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm uppercase tracking-wide;
-  @apply relative;
+    @apply text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm uppercase tracking-wide;
+    @apply relative;
 }
 
 .nav-link::after {
-  content: "";
-  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+    content: "";
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
 }
 
 .nav-link:hover::after {
-  @apply w-full;
+    @apply w-full;
 }
 
 /* Enhanced section styling */
 .section-spacing {
-  @apply py-20 sm:py-28 lg:py-32 px-4 sm:px-8 lg:px-12;
+    @apply py-20 sm:py-28 lg:py-32 px-4 sm:px-8 lg:px-12;
 }
 
 .section-title {
-  @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-tight;
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-tight;
 }
 
 .section-subtitle {
-  @apply text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl;
+    @apply text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl;
 }
 
 .accent-line {
-  @apply h-1 w-12 sm:w-16 bg-primary rounded-full mb-6;
+    @apply h-1 w-12 sm:w-16 bg-primary rounded-full mb-6;
 }
 
 /* Enhanced card with 3D-like hover effect */
 .minimal-card {
-  @apply rounded-xl border border-border/50 bg-card p-6 sm:p-8 transition-all duration-300;
-  @apply hover:border-primary/50 hover:shadow-lg;
+    @apply rounded-xl border border-border/50 bg-card p-6 sm:p-8 transition-all duration-300;
+    @apply hover:border-primary/50 hover:shadow-lg;
 }
 
 .minimal-card:hover {
-  box-shadow: 0 10px 40px rgba(var(--primary-rgb) / 0.15);
+    box-shadow: 0 10px 40px rgba(var(--primary-rgb) / 0.15);
 }
 
 .skill-tag {
-  @apply px-4 py-2 rounded-full border border-border/50 text-sm font-medium;
-  @apply transition-all duration-300 cursor-default;
-  @apply hover:border-primary/50 hover:bg-primary/10 hover:text-primary;
+    @apply px-4 py-2 rounded-full border border-border/50 text-sm font-medium;
+    @apply transition-all duration-300 cursor-default;
+    @apply hover:border-primary/50 hover:bg-primary/10 hover:text-primary;
 }
 
 .profile-pic {
-  @apply w-40 h-40 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl;
-  box-shadow: 0 0 40px rgba(var(--primary-rgb) / 0.25);
-  transition: all 0.3s ease;
+    @apply w-40 h-40 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl;
+    box-shadow: 0 0 40px rgba(var(--primary-rgb) / 0.25);
+    transition: all 0.3s ease;
 }
 
 .profile-pic:hover {
-  box-shadow: 0 0 60px rgba(var(--primary-rgb) / 0.45),
-    inset 0 0 30px rgba(var(--primary-rgb) / 0.1);
-  transform: scale(1.02);
+    box-shadow:
+        0 0 60px rgba(var(--primary-rgb) / 0.45),
+        inset 0 0 30px rgba(var(--primary-rgb) / 0.1);
+    transform: scale(1.02);
 }
 
 .divider {
-  @apply h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent;
+    @apply h-px w-full bg-gradient-to-r from-transparent via-border/50 to-transparent;
 }
 
 /* Theme toggle button */
 .theme-toggle-btn {
-  @apply p-2.5 rounded-lg border border-border/50 transition-all duration-300;
-  @apply hover:border-primary/50 hover:bg-primary/10;
+    @apply p-2.5 rounded-lg border border-border/50 transition-all duration-300;
+    @apply hover:border-primary/50 hover:bg-primary/10;
 }
 
 /* Performance optimizations */
 @layer utilities {
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
+    .backface-hidden {
+        backface-visibility: hidden;
+    }
 
-  .will-change-transform {
-    will-change: transform;
-  }
+    .will-change-transform {
+        will-change: transform;
+    }
 }
 
 /* for Hacker Textttttttttttttttttttttttttttttt */
 
 .accent-line {
-  width: 70px; /* Or whatever width you want */
-  height: 4px;
-  background-color: /* Your primary color, e.g., #FF0000 */ ;
+    width: 70px; /* Or whatever width you want */
+    height: 4px;
+    background-color: /* Your primary color, e.g., #FF0000 */;
 
-  /* The Animation */
-  transform-origin: left; /* Ensures it scales from the left */
-  animation: draw-line 1s ease-out forwards;
-  animation-delay: 0.3s; /* Start after the fade-in */
-  transform: scaleX(0); /* Start at 0 width */
+    /* The Animation */
+    transform-origin: left; /* Ensures it scales from the left */
+    animation: draw-line 1s ease-out forwards;
+    animation-delay: 0.3s; /* Start after the fade-in */
+    transform: scaleX(0); /* Start at 0 width */
 }
 
 @keyframes draw-line {
-  100% {
-    transform: scaleX(1); /* Animate to full width */
-  }
+    100% {
+        transform: scaleX(1); /* Animate to full width */
+    }
 }
 
 /* css for animate on hero section  */
 
 @keyframes pulse-slow {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6; /* Fade out slightly */
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6; /* Fade out slightly */
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .animate-pulse-slow {
-  animation: pulse-slow 3s infinite ease-in-out;
+    animation: pulse-slow 3s infinite ease-in-out;
 }
 
 /* hero section social button design  */
@@ -331,11 +335,11 @@
 /* Add this to your main CSS file (e.g., globals.css or index.css) */
 
 .social-link-pill {
-  @apply flex items-center p-2 rounded-full  text-muted-foreground hover:bg-primary hover:text-white transition-all duration-300 ease-in-out overflow-hidden;
+    @apply flex items-center p-2 rounded-full  text-muted-foreground hover:bg-primary hover:text-white transition-all duration-300 ease-in-out overflow-hidden;
 }
 
 .social-link-text {
-  @apply whitespace-nowrap font-semibold max-w-0 opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 transition-all duration-300 ease-in-out;
+    @apply whitespace-nowrap font-semibold max-w-0 opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 transition-all duration-300 ease-in-out;
 }
 
 /* for uptime portion  */
@@ -344,214 +348,214 @@
 
 /* This is the solid green dot in the middle */
 .broadcast-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #22c55e; /* green-500 */
-  border-radius: 50%;
-  position: relative;
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e; /* green-500 */
+    border-radius: 50%;
+    position: relative;
 }
 
 /* This is the "spreading" ripple effect */
 .broadcast-dot::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #22c55e;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #22c55e;
 
-  /* The animation: name, duration, timing, repetition */
-  animation: broadcast-ripple 1.5s ease-out infinite;
+    /* The animation: name, duration, timing, repetition */
+    animation: broadcast-ripple 1.5s ease-out infinite;
 }
 
 /* The keyframes define the animation */
 @keyframes broadcast-ripple {
-  0% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(3.5); /* Makes the circle "spread" */
-    opacity: 0; /* Makes the circle fade out */
-  }
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(3.5); /* Makes the circle "spread" */
+        opacity: 0; /* Makes the circle fade out */
+    }
 }
 
 /* add hyphen or arrow effect on nav */
 .nav-link {
-  position: relative;
-  transition: all 0.2s ease;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
 .nav-link::before {
-  content: "";
-  opacity: 0;
-  transform: translateX(-0.25rem);
-  transition: all 0.2s ease;
+    content: "";
+    opacity: 0;
+    transform: translateX(-0.25rem);
+    transition: all 0.2s ease;
 }
 
 .nav-link:hover::before {
-  content: "> ";
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    content: "> ";
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Add to app/globals.css */
 
 .nav-link.active::before {
-  content: "> ";
-  opacity: 1;
-  transform: translateX(0);
+    content: ">> ";
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Optional: Ensure the text color stays active too */
 .nav-link.active {
-  color: var(--foreground);
+    color: var(--foreground);
 }
 
 /* same hyphen or arrow for footer */
 .link-arrow {
-  position: relative;
-  transition: all 0.2s ease;
+    position: relative;
+    transition: all 0.2s ease;
 }
 
 .link-arrow::before {
-  content: "";
-  opacity: 0;
-  transform: translateX(-0.25rem);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    content: "";
+    opacity: 0;
+    transform: translateX(-0.25rem);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-arrow:hover::before {
-  content: "> ";
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    content: "> ";
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* end */
 
 /* --- Target Cursor Styles --- */
 .target-cursor-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
 }
 
 .target-cursor-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  will-change: transform;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    will-change: transform;
 }
 
 .target-cursor-corner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  border: 3px solid #fff;
-  will-change: transform;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #fff;
+    will-change: transform;
 }
 
 .corner-tl {
-  transform: translate(-150%, -150%);
-  border-right: none;
-  border-bottom: none;
+    transform: translate(-150%, -150%);
+    border-right: none;
+    border-bottom: none;
 }
 
 .corner-tr {
-  transform: translate(50%, -150%);
-  border-left: none;
-  border-bottom: none;
+    transform: translate(50%, -150%);
+    border-left: none;
+    border-bottom: none;
 }
 
 .corner-br {
-  transform: translate(50%, 50%);
-  border-left: none;
-  border-top: none;
+    transform: translate(50%, 50%);
+    border-left: none;
+    border-top: none;
 }
 
 .corner-bl {
-  transform: translate(-150%, 50%);
-  border-right: none;
-  border-top: none;
+    transform: translate(-150%, 50%);
+    border-right: none;
+    border-top: none;
 }
 
 /* ... keep all your existing styles above ... */
 
 /* --- Target Cursor Styles --- */
 .target-cursor-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference; /* Optional: Keep or remove depending on preference */
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference; /* Optional: Keep or remove depending on preference */
+    transform: translate(-50%, -50%);
 }
 
 .target-cursor-dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  /* Removed fixed width/height/bg to allow the Icon to size itself */
-  transform: translate(-50%, -50%);
-  will-change: transform;
-  /* "Small bigger" - The size is controlled by the SVG width/height in the component */
-  color: var(--primary); /* Use your theme's green color */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* Removed fixed width/height/bg to allow the Icon to size itself */
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    /* "Small bigger" - The size is controlled by the SVG width/height in the component */
+    color: var(--primary); /* Use your theme's green color */
 }
 
 .target-cursor-corner {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  border: 3px solid #ffffff; /* White corners for contrast */
-  will-change: transform;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #ffffff; /* White corners for contrast */
+    will-change: transform;
 }
 
 /* Curved Corners ("not 100% box") */
 .corner-tl {
-  transform: translate(-150%, -150%);
-  border-right: none;
-  border-bottom: none;
-  border-top-left-radius: 12px; /* Curve */
+    transform: translate(-150%, -150%);
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 12px; /* Curve */
 }
 
 .corner-tr {
-  transform: translate(50%, -150%);
-  border-left: none;
-  border-bottom: none;
-  border-top-right-radius: 12px; /* Curve */
+    transform: translate(50%, -150%);
+    border-left: none;
+    border-bottom: none;
+    border-top-right-radius: 12px; /* Curve */
 }
 
 .corner-br {
-  transform: translate(50%, 50%);
-  border-left: none;
-  border-top: none;
-  border-bottom-right-radius: 12px; /* Curve */
+    transform: translate(50%, 50%);
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 12px; /* Curve */
 }
 
 .corner-bl {
-  transform: translate(-150%, 50%);
-  border-right: none;
-  border-top: none;
-  border-bottom-left-radius: 12px; /* Curve */
+    transform: translate(-150%, 50%);
+    border-right: none;
+    border-top: none;
+    border-bottom-left-radius: 12px; /* Curve */
 }
