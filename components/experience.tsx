@@ -1,89 +1,147 @@
+"use client";
+
+import { Terminal, Briefcase, Calendar, MapPin } from "lucide-react";
+
 const experiences = [
   {
-    role: "Full Stack Development Intern",
-    company: "CodeAlpha",
-    type: "Internship",
-    period: "Nov 2025 - Jan 2026",
-    location: "Remote",
-    description:
-      "Worked on practical web projects focusing on React, Node.js, and scalable architecture. Delivered GitHub projects and technical reports.",
-    skills: ["React.js", "Node.js", "Full-Stack Development"],
-  },
-  {
-    role: "Web Developer & Security Specialist",
+    role: "Security_Specialist",
+    displayRole: "Web Developer & Security Specialist",
     company: "Neurootix",
-    type: "Part-time",
+    type: "PART_TIME",
     period: "Aug 2025 - Present",
-    location: "Dhaka, Bangladesh (Hybrid)",
+    location: "Dhaka, BD (Hybrid)",
     description:
-      "Developed security protocols and contributed as a full-stack developer on various projects, tackling cybersecurity challenges.",
-    skills: ["Security", "Full-Stack Development", "DevOps", "Research"],
+      "Developing security protocols and deploying full-stack patches. Mitigating cybersecurity vulnerabilities in production environments.",
+    skills: ["Security", "DevOps", "Research"],
   },
   {
-    role: "Assistant Robotics Secretary",
+    role: "Robotics_Secretary",
+    displayRole: "Assistant Robotics Secretary",
     company: "NUB Computer Club",
-    type: "Part-time",
+    type: "PART_TIME",
     period: "Jul 2025 - Present",
-    location: "Dhaka, Bangladesh",
+    location: "Dhaka, BD",
     description:
-      "Planned and organized robotics events, workshops, and competitions, assisting club members in technical growth.",
-    skills: ["Robotics", "Artificial Intelligence", "Leadership"],
+      "Orchestrating robotics workshops and competitive events. Assisting members in technical skill acquisition and hardware logic.",
+    skills: ["Robotics", "AI", "Leadership"],
   },
-]
+];
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-spacing bg-card/10 cursor-target">
-      <div className="max-w-5xl mx-auto space-y-12">
-        {/* Header */}
-        <div className="space-y-4 animate-fade-in-up">
-          <h2 className="section-title">Experience</h2>
-          <div className="accent-line" />
-          <p className="section-subtitle text-muted-foreground">
-            Roles and internships where I've applied and expanded my technical expertise.
-          </p>
+    <section
+      id="experience"
+      className="section-spacing relative overflow-hidden cursor-target"
+    >
+      {/* Background Elements: Subtle Grid */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      <div className="max-w-5xl mx-auto space-y-12 relative z-10">
+        {/* Terminal Header */}
+        <div className="flex items-center gap-3 animate-fade-in-up">
+          <Terminal className="w-6 h-6 text-primary animate-pulse" />
+          <h2 className="text-xl md:text-2xl font-mono font-bold tracking-tight">
+            <span className="text-primary">root@habibullah</span>
+            <span className="text-muted-foreground">:</span>
+            <span className="text-blue-500">~/experience</span>
+            <span className="text-muted-foreground">$</span>
+            <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
+              ./show_log.sh --verbose
+            </span>
+            <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
+          </h2>
         </div>
 
-        {/* Experiences List */}
-        <div className="space-y-6 animate-fade-in-up cursor-target">
+        {/* Timeline Container */}
+        <div className="relative border-l-2 border-border/40 ml-3 md:ml-6 space-y-12 py-4">
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="minimal-card p-6 border-l-4 border-l-primary/20 hover:border-l-primary hover:bg-primary/5 transition-all duration-300 relative group cursor-target"
+              className="relative pl-8 md:pl-12 group animate-fade-in-up"
+              style={{ animationDelay: `${idx * 100}ms` }}
             >
-              {/* Hacker glow effect */}
-              <span className="absolute top-0 left-0 w-1 h-full bg-primary/10 rounded-full transition-all duration-300 group-hover:bg-primary/30 animate-pulse-slow" />
-
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-foreground font-mono">{exp.role}</h3>
-                  <p className="text-primary font-semibold font-mono">{exp.company}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{exp.location}</p>
-                </div>
-                <div className="text-right">
-                  <span className="inline-block px-3 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-2 font-mono">
-                    {exp.type}
-                  </span>
-                  <p className="text-sm text-muted-foreground font-mono">{exp.period}</p>
-                </div>
+              {/* Timeline Node (The Dot) */}
+              <div className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-background border-2 border-muted-foreground group-hover:border-primary group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_0_4px_var(--background)]">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
-              <p className="text-muted-foreground text-sm mb-4 font-mono">{exp.description}</p>
+              {/* Card Content */}
+              <div className="relative bg-card/30 border border-border/40 p-6 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden">
+                {/* Tech Deco Corner */}
+                <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary" />
+                </div>
+                <div className="absolute bottom-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {exp.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="skill-tag text-xs px-2 py-1 rounded bg-card/20 border border-border/20 text-primary font-mono hover:bg-primary hover:text-white transition-all duration-300"
-                  >
-                    {skill}
+                {/* Header Row */}
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                  <div className="space-y-1">
+                    {/* REMOVED ID, kept Type */}
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/60 mb-1">
+                      <span className="text-primary tracking-wider">
+                        // {exp.type}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold font-mono text-foreground group-hover:text-primary transition-colors">
+                      {exp.displayRole}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
+                      <Briefcase className="w-3 h-3" />
+                      <span className="text-foreground/80 font-semibold">
+                        @{exp.company}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Metadata Right Side */}
+                  <div className="text-right flex flex-col items-start md:items-end gap-2 font-mono text-xs text-muted-foreground mt-2 md:mt-0">
+                    <div className="flex items-center gap-2 bg-card/50 px-2 py-1 rounded border border-border/50 group-hover:border-primary/30 transition-colors">
+                      <Calendar className="w-3 h-3 text-primary/70" />
+                      {exp.period}
+                    </div>
+                    <div className="flex items-center gap-2 px-2">
+                      <MapPin className="w-3 h-3 text-primary/70" />
+                      {exp.location}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description Log */}
+                <div className="font-mono text-sm leading-relaxed mb-6 pl-4 border-l-2 border-primary/20 text-muted-foreground group-hover:text-muted-foreground/80 transition-colors">
+                  <span className="text-primary mr-2 opacity-50 select-none">
+                    &gt;
                   </span>
-                ))}
+                  {exp.description}
+                </div>
+
+                {/* Skills/Modules */}
+                <div className="flex flex-wrap gap-2">
+                  {exp.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2 py-1 text-xs font-mono text-primary/80 bg-primary/5 border border-primary/10 rounded group-hover:border-primary/30 transition-colors select-none"
+                    >
+                      [{skill}]
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
+
+          {/* Timeline End Node */}
+          <div className="absolute -left-[5px] bottom-0 w-2 h-2 rounded-full bg-border/60" />
         </div>
       </div>
     </section>
-  )
+  );
 }

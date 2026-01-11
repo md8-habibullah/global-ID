@@ -1,67 +1,72 @@
-import ProjectCard from "./project-card"
-import HackerText from "./HackerText"
+"use client";
+
+import ProjectCard from "./project-card";
+import { Terminal } from "lucide-react";
 
 export default function Projects() {
   const projects = [
     {
-      title: "Full-Stack E-Commerce Platform",
+      title: "E-Commerce_Platform",
       description:
-        "Production-ready e-commerce application with React frontend, Node.js backend, PostgreSQL database, and Stripe integration. Features authentication, real-time inventory, and secure payment processing.",
-      tags: ["React", "Node.js", "PostgreSQL", "Stripe", "Full-Stack"],
-      github: "https://github.com/md8-habibullah",
-      featured: true,
-    },
-    // ... rest of your projects array ...
-    {
-      title: "DevOps Pipeline Automation",
-      description:
-        "Enterprise CI/CD pipeline with Docker containerization, automated testing, code quality checks, and GitHub Actions orchestration for multi-environment deployments.",
-      tags: ["Docker", "GitHub Actions", "CI/CD", "Linux", "DevOps"],
+        "Production-ready e-commerce architecture. Implements secure payment gateways (Stripe), real-time inventory locking, and order processing queues.",
+      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
       github: "https://github.com/md8-habibullah",
       featured: true,
     },
     {
-      title: "Real-Time Monitoring Dashboard",
+      title: "DevOps_Pipeline_Auto",
       description:
-        "React-based analytics dashboard with WebSocket integration for real-time data streaming, interactive charts, and comprehensive system metrics visualization.",
-      tags: ["React", "WebSocket", "Node.js", "Socket.IO", "Real-time"],
+        "Enterprise CI/CD orchestration. Docker containerization, automated regression testing, and multi-environment deployment strategies using GitHub Actions.",
+      tags: ["Docker", "GitHub_Actions", "CI/CD", "Linux"],
+      github: "https://github.com/md8-habibullah",
+      featured: true,
+    },
+    {
+      title: "Real-Time_Analytics",
+      description:
+        "High-frequency data visualization dashboard. Utilizes WebSocket protocols for sub-second latency updates and interactive chart rendering.",
+      tags: ["React", "WebSocket", "Socket.IO", "D3.js"],
       github: "https://github.com/md8-habibullah",
     },
     {
-      title: "Kubernetes Deployment Suite",
+      title: "K8s_Cluster_Ops",
       description:
-        "Enterprise-grade Kubernetes infrastructure with auto-scaling policies, health checks, resource optimization, monitoring, and security best practices implementation.",
-      tags: ["Kubernetes", "Docker", "DevOps", "Infrastructure", "Cloud"],
+        "Kubernetes infrastructure management suite. Features auto-scaling policies, pod health monitoring, and resource optimization scripts.",
+      tags: ["Kubernetes", "Docker", "Cloud", "Infra"],
       github: "https://github.com/md8-habibullah",
     },
     {
-      title: "Infrastructure as Code (Terraform)",
+      title: "IaC_Terraform_AWS",
       description:
-        "Complete AWS infrastructure automation using Terraform with version control, disaster recovery, multi-region setup, and automated provisioning scripts.",
-      tags: ["Terraform", "AWS", "IaC", "DevOps", "Infrastructure"],
+        "Infrastructure as Code automation. Multi-region AWS provisioning with drift detection, disaster recovery protocols, and secure VPC subnets.",
+      tags: ["Terraform", "AWS", "IaC", "Security"],
       github: "https://github.com/md8-habibullah",
     },
     {
-      title: "Secure Full-Stack Application",
+      title: "Secure_App_Core",
       description:
-        "Security-first web application with end-to-end encryption, JWT authentication, role-based access control, SQL injection prevention, and regular security audits.",
-      tags: ["Node.js", "React", "PostgreSQL", "Security", "Full-Stack"],
+        "Security-first application boilerplate. End-to-end encryption, JWT rotation, RBAC implementation, and SQL injection prevention layers.",
+      tags: ["Node.js", "PostgreSQL", "OWASP", "Security"],
       github: "https://github.com/md8-habibullah",
     },
-  ]
+  ];
 
   return (
-    <section id="projects" className="section-spacing bg-card/20 cursor-target">
+    <section id="projects" className="section-spacing bg-card/10 cursor-target">
       <div className="max-w-6xl mx-auto space-y-16 cursor-target">
-        <div className="space-y-4 animate-fade-in-u cursor-targetp">
-          <HackerText
-            text="Featured Projects--"
-            className="section-title font-mono text-3xl sm:text-4xl"
-          />
-          <div className="accent-line" />
-          <p className="section-subtitle text-muted-foreground">
-            A selection of projects showcasing full-stack development and DevOps expertise.
-          </p>
+        {/* Terminal Header */}
+        <div className="flex items-center gap-3 animate-fade-in-up">
+          <Terminal className="w-6 h-6 text-primary animate-pulse" />
+          <h2 className="text-xl md:text-2xl font-mono font-bold tracking-tight">
+            <span className="text-primary">root@habibullah</span>
+            <span className="text-muted-foreground">:</span>
+            <span className="text-blue-500">~/projects</span>
+            <span className="text-muted-foreground">$</span>
+            <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
+              ./deploy_showcase.sh
+            </span>
+            <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
+          </h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 cursor-target">
@@ -71,7 +76,6 @@ export default function Projects() {
               style={{ animationDelay: `${index * 0.1}s` }}
               className="animate-fade-in-up cursor-target"
             >
-              {/* ProjectCard is a Client Component, this is allowed */}
               <ProjectCard project={project} />
             </div>
           ))}
@@ -82,12 +86,14 @@ export default function Projects() {
             href="https://github.com/md8-habibullah"
             target="_blank"
             rel="noopener noreferrer"
-            className="fire-button inline-flex font-mono"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300"
           >
-            Explore More on GitHub
+            <span className="group-hover:translate-x-1 transition-transform">
+              &gt; git checkout github_profile
+            </span>
           </a>
         </div>
       </div>
     </section>
-  )
+  );
 }
