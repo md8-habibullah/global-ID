@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import MouseCursor from "@/components/mouse-cursor";
+import { Toaster } from "sonner";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -93,6 +94,13 @@ export default function RootLayout({
         >
           <MouseCursor />
           {children}
+          <Toaster 
+            position="top-center"
+            theme="dark"
+            richColors
+            closeButton
+            duration={3000}
+          />
         </ThemeProvider>
         {/* <Analytics /> */}
         <script

@@ -17,7 +17,7 @@ const STORAGE_KEY = "habibullah-dev-age-pref"; // Key for localStorage
 export default function AgePage() {
   // State
   const [dob, setDob] = useState("");
-  // Default target date to today's date formatted as YYYY-MM-DD
+  // Always default target date to today's date formatted as YYYY-MM-DD
   const [targetDate, setTargetDate] = useState(() =>
     format(new Date(), "yyyy-MM-dd"),
   );
@@ -29,10 +29,9 @@ export default function AgePage() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const { dob: savedDob, targetDate: savedTarget } = JSON.parse(saved);
+        const { dob: savedDob } = JSON.parse(saved);
         if (savedDob) setDob(savedDob);
-        // Only override target if it was explicitly saved, otherwise keep today's date
-        if (savedTarget) setTargetDate(savedTarget);
+        // Always keep target date as current date, don't load from localStorage
       }
     } catch (e) {
       console.error("Failed to load age preferences", e);
@@ -43,15 +42,15 @@ export default function AgePage() {
 
   // 2. Save Preferences on Change
   useEffect(() => {
-    // Only save if we have finished loading to avoid overwriting with defaults
+    // Only save DOB, don't save targetDate as it should always default to today
     if (isLoaded) {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ dob, targetDate }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ dob }));
       } catch (e) {
         console.warn("LocalStorage unavailable", e);
       }
     }
-  }, [dob, targetDate, isLoaded]);
+  }, [dob, isLoaded]);
 
   // Calculation Effect - Runs whenever dob or targetDate changes
   useEffect(() => {

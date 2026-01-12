@@ -10,6 +10,7 @@ import {
   Dices,
   WholeWord,
 } from "lucide-react";
+import { toast } from "sonner";
 
 export default function PasswordPage() {
   const [mode, setMode] = useState<"random" | "passphrase" | "analyze">(
@@ -238,10 +239,15 @@ export default function PasswordPage() {
     setStrength(Math.min(score, 6));
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      toast.success("Password copied to clipboard!");
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      toast.error("Failed to copy password");
+    }
   };
 
   const handleManualInput = (e: React.ChangeEvent<HTMLInputElement>) => {
