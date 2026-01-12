@@ -162,10 +162,13 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
-
 
 .animate-slide-down {
     animation: slide-down 0.5s ease-out;
@@ -664,5 +667,278 @@
 
 /* Tech Border Effect */
 .tech-border {
-  position: relative;
+    position: relative;
+}
+
+/* ... existing code ... */
+
+/* --- BLOG PROSE STYLES --- */
+/* Fixes for Dev.to HTML content rendering */
+.prose pre {
+    padding: 1rem;
+    overflow-x: auto;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+}
+
+.prose img {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.75rem;
+}
+
+.prose code {
+    color: hsl(var(--primary));
+    background-color: hsl(var(--primary) / 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+.prose code::before,
+.prose code::after {
+    content: none !important;
+}
+
+.prose a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+    border-bottom: 1px dashed hsl(var(--primary) / 0.5);
+}
+
+.prose a:hover {
+    border-bottom-style: solid;
+}
+/* ... existing code in globals.css ... */
+
+/* =========================================
+   RICH BLOG STYLING (Dev.to / Markdown)
+   ========================================= */
+
+/* Base Typography */
+.prose {
+    max-width: 100%;
+    color: hsl(var(--foreground));
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* 1. HEADINGS (Hacker Style) */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+    color: hsl(var(--foreground));
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-top: 2.5em;
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+}
+.prose h2 {
+    font-size: 1.75em;
+    border-bottom: 1px solid hsl(var(--border));
+    padding-bottom: 0.3em;
+}
+.prose h3 {
+    font-size: 1.4em;
+}
+/* Add hash prefixes for dev feel */
+.prose h2::before {
+    content: "## ";
+    color: hsl(var(--primary));
+    opacity: 0.6;
+    margin-right: 0.3rem;
+    font-family: monospace;
+}
+.prose h3::before {
+    content: "### ";
+    color: hsl(var(--primary));
+    opacity: 0.6;
+    margin-right: 0.3rem;
+    font-family: monospace;
+}
+
+/* 2. LINKS (Animated Underline) */
+.prose a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed hsl(var(--primary) / 0.4);
+    transition: all 0.2s ease;
+}
+.prose a:hover {
+    background: hsl(var(--primary) / 0.1);
+    border-bottom-style: solid;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* 3. CODE BLOCKS (Terminal Window) */
+.prose pre {
+    background: #0d1117; /* GitHub Dark Dimmed */
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    padding: 0; /* Padding handled by code inside or container */
+    overflow: hidden; /* For the header bar */
+    margin: 2rem 0;
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Fake Terminal Header */
+.prose pre::before {
+    content: "bash — 80x24"; /* Or just dots */
+    display: block;
+    background: #161b22;
+    color: #8b949e;
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #30363d;
+    text-align: right;
+}
+
+.prose pre code {
+    display: block;
+    padding: 1.5rem;
+    overflow-x: auto;
+    color: #c9d1d9;
+    font-family: "Geist Mono", monospace;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+/* Inline Code */
+.prose p code,
+.prose li code {
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-size: 0.85em;
+    font-family: "Geist Mono", monospace;
+    border: 1px solid hsl(var(--primary) / 0.15);
+}
+
+/* 4. TABLES (Data Grid) */
+.prose table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2.5rem 0;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+.prose thead {
+    background-color: hsl(var(--muted));
+}
+.prose th {
+    text-align: left;
+    padding: 1rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+.prose td {
+    padding: 1rem;
+    border-bottom: 1px solid hsl(var(--border));
+    color: hsl(var(--muted-foreground));
+}
+.prose tr:last-child td {
+    border-bottom: none;
+}
+.prose tr:nth-child(even) {
+    background-color: hsl(var(--card) / 0.5);
+}
+.prose tr:hover td {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--primary) / 0.05);
+}
+
+/* 5. BLOCKQUOTES (Callouts) */
+.prose blockquote {
+    position: relative;
+    border-left: 4px solid hsl(var(--primary));
+    background: linear-gradient(
+        to right,
+        hsl(var(--primary) / 0.05),
+        transparent
+    );
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose blockquote p:first-of-type::before {
+    content: "“";
+    font-size: 3rem;
+    position: absolute;
+    top: 0rem;
+    left: 0.5rem;
+    color: hsl(var(--primary) / 0.2);
+    font-family: serif;
+}
+
+/* 6. LISTS */
+.prose ul,
+.prose ol {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+}
+.prose li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+.prose ul {
+    list-style: none;
+}
+.prose ul li::before {
+    content: "➜";
+    color: hsl(var(--primary));
+    position: absolute;
+    margin-left: -1.5rem;
+    font-size: 0.9em;
+}
+
+/* 7. IMAGES & EMBEDS */
+.prose img {
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    margin: 2.5rem auto;
+    max-height: 600px;
+    object-fit: cover;
+}
+
+/* Responsive Iframes (YouTube/Embeds) */
+.prose iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border));
+    background: #000;
+    margin: 2rem 0;
+}
+
+/* Dev.to specific wrapper adjustments */
+.ltag__link {
+    display: block !important;
+    padding: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    background: hsl(var(--card));
+    margin: 1.5rem 0;
+    text-decoration: none !important;
+}
+.ltag__link:hover {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 10px hsl(var(--primary) / 0.1);
 }
