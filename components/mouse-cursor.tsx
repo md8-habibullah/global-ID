@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback, useMemo, useState } from 'react';
 import { gsap } from 'gsap';
-import { MousePointer2 } from 'lucide-react';
+// No icons needed - using pure CSS shapes
 
 interface TargetCursorProps {
   targetSelector?: string;
@@ -240,9 +240,46 @@ export default function MouseCursor({
   
   return (
     <div ref={cursorRef} className="target-cursor-wrapper hidden md:block">
+      {/* Modern Minimal Cursor - Option 1: Simple Circle with Ring */}
       <div ref={dotRef} className="target-cursor-dot">
-        <MousePointer2 className="w-5 h-5 text-primary fill-primary" />
+        <div className="relative">
+          {/* Outer ring */}
+          <div className="absolute inset-0 w-6 h-6 rounded-full border-2 border-primary/60 animate-pulse" />
+          {/* Inner dot */}
+          <div className="w-6 h-6 flex items-center justify-center">
+            <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(var(--primary-rgb),0.8)]" />
+          </div>
+        </div>
       </div>
+
+      {/* Alternative Modern Cursors (uncomment to use) */}
+      
+      {/* Option 2: Crosshair Plus
+      <div ref={dotRef} className="target-cursor-dot">
+        <div className="relative w-6 h-6">
+          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-primary transform -translate-y-1/2" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-primary transform -translate-x-1/2" />
+          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-primary rounded-full transform -translate-x-1/2 -translate-y-1/2" />
+        </div>
+      </div>
+      */}
+
+      {/* Option 3: Modern Diamond
+      <div ref={dotRef} className="target-cursor-dot">
+        <div className="w-3 h-3 bg-primary rotate-45 shadow-[0_0_10px_rgba(var(--primary-rgb),0.6)]" />
+      </div>
+      */}
+
+      {/* Option 4: Sleek Line Cursor
+      <div ref={dotRef} className="target-cursor-dot">
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-[2px] h-3 bg-gradient-to-b from-primary to-transparent" />
+          <div className="w-1 h-1 bg-primary rounded-full" />
+          <div className="w-[2px] h-3 bg-gradient-to-t from-primary to-transparent" />
+        </div>
+      </div>
+      */}
+
       <div className="target-cursor-corner corner-tl" />
       <div className="target-cursor-corner corner-tr" />
       <div className="target-cursor-corner corner-br" />
