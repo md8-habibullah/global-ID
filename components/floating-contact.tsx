@@ -33,8 +33,8 @@ const contactList = [
   {
     id: 2,
     label: "WhatsApp",
-    value: "+880 1521-205602",
-    copyValue: "+8801521205602",
+    value: "+880 1329-876070",
+    copyValue: "+8801329876070",
     href: "https://habibullah.dev/whatsapp/",
     icon: MessageCircle,
     color: "text-green-600",
@@ -92,7 +92,7 @@ export default function FloatingContact() {
         description: "Ready to use anywhere",
         duration: 2000,
       });
-      
+
       setTimeout(() => setCopiedId(null), 2000);
     } catch (error) {
       toast.error("Failed to copy to clipboard");
@@ -111,52 +111,118 @@ export default function FloatingContact() {
     <>
       {/* Floating Contact Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-8 right-8 z-50"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, type: "spring", stiffness: 400, damping: 25 }}
+        transition={{ delay: 1.5, type: "spring", stiffness: 300, damping: 20 }}
       >
+        {/* Glowing background ring */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            relative p-4 rounded-full border backdrop-blur-md
+            relative px-6 py-4 rounded-2xl backdrop-blur-xl
             font-sans text-sm font-semibold
-            transition-all duration-300 ease-out
-            shadow-lg hover:shadow-xl
+            transition-all duration-500 ease-out
+            shadow-2xl hover:shadow-primary/30
+            border-2 bg-gradient-to-r
             ${
               isOpen
-                ? "border-primary bg-primary text-white scale-105 shadow-primary/20"
-                : "border-border bg-background/90 text-foreground hover:bg-primary/5 hover:border-primary/30 hover:scale-105"
+                ? "border-primary from-primary to-green-400 text-white scale-110 shadow-primary/40"
+                : "border-primary/40 from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 text-primary hover:border-primary/80 hover:scale-105 hover:from-primary/5 hover:to-green-400/5"
             }
           `}
-          whileHover={{ y: -2 }}
+          whileHover={{ y: -4 }}
           whileTap={{ scale: 0.95 }}
         >
-          {/* Subtle pulse when closed */}
+          {/* Breathing pulse effect when closed */}
           {!isOpen && (
             <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20"
+              className="absolute inset-0 rounded-2xl border-2 border-primary/30"
               animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0, 0.5],
+                scale: [1, 1.05, 1],
+                opacity: [0, 0.6, 0],
               }}
               transition={{
-                duration: 3,
+                duration: 2.5,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: "easeOut",
               }}
             />
           )}
-          
-          <div className="flex items-center gap-2.5">
-            <MessageSquare className="w-5 h-5" />
-            <span className="hidden sm:inline">Get in Touch</span>
-            <span className="sm:hidden">Contact</span>
+
+          <div className="flex items-center gap-3">
+            <motion.div
+              animate={{
+                rotate: isOpen ? 0 : [0, 10, -10, 0],
+                scale: isOpen ? 1 : [1, 1.1, 1]
+              }}
+              transition={{
+                rotate: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+              }}
+            >
+              <MessageSquare className="w-5 h-5" />
+            </motion.div>
+            <div className="flex flex-col items-start leading-none">
+              <span className="text-sm font-bold">Contact</span>
+              <span className="text-xs opacity-80">Get in touch</span>
+            </div>
           </div>
 
-          {/* Online status indicator */}
-          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-background" />
+          {/* Notification badge */}
+          <motion.div
+            className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-3 border-white dark:border-gray-900 flex items-center justify-center"
+            animate={{
+              scale: [1, 1.2, 1],
+              boxShadow: [
+                "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                "0 0 0 10px rgba(34, 197, 94, 0)",
+                "0 0 0 0 rgba(34, 197, 94, 0.4)"
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+          >
+            <span className="text-white text-xs font-bold">!</span>
+          </motion.div>
         </motion.button>
+
+        {/* Floating tooltip */}
+        {!isOpen && (
+          <motion.div
+            className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              y: [10, 0, 0, 10]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 6,
+              ease: "easeInOut",
+            }}
+          >
+            Ready to collaborate
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-white" />
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Contact Popup */}
@@ -196,7 +262,7 @@ export default function FloatingContact() {
                       </p>
                     </div>
                   </div>
-                  
+
                   <motion.button
                     onClick={() => setIsOpen(false)}
                     className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
