@@ -49,7 +49,7 @@ export default async function BlogPostPage({
         className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-        cd ..
+        cd .. || Look Back
       </Link>
 
       {/* Article Header */}
