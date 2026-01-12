@@ -172,6 +172,7 @@ export default async function BlogPostPage({
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{post.comments_count}</span>
               </div>
+              <ShareButton slug={post.slug} />
             </div>
           </div>
         </div>
