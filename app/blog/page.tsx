@@ -49,7 +49,7 @@ export default async function BlogPage() {
             <Terminal className="w-6 h-6 text-primary" />
           </div>
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight font-mono">
-            ~/blog<span className="animate-pulse text-primary">_</span>
+            ~/blogs<span className="animate-pulse text-primary">_</span>
           </h1>
         </div>
         <p className="text-muted-foreground text-lg max-w-2xl">
