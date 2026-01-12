@@ -162,14 +162,27 @@ export default function Header() {
 
           <Link
             href="/kits"
-            className={`px-3 py-1.5 text-sm font-mono font-medium rounded-md transition-colors flex items-center gap-2 ${
+            className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 ${
               isKitsPage
-                ? "bg-primary/10 text-primary"
-                : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                ? "bg-gradient-to-r from-primary/20 to-green-400/20 text-primary border-primary/50 shadow-lg shadow-primary/25"
+                : "text-muted-foreground hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-green-400/10 border-transparent hover:border-primary/30 hover:shadow-md hover:shadow-primary/20"
             }`}
           >
-            <Wrench className="w-3.5 h-3.5" />
-            /kits
+            <div className="relative flex items-center">
+              {/* Pulsing background glow */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-green-400/40 rounded-full blur-md opacity-60 animate-pulse" />
+              
+              <Wrench className={`w-4 h-4 relative z-10 transition-all duration-300 ${
+                isKitsPage 
+                  ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse" 
+                  : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
+              }`} />
+            </div>
+            
+            <span className="relative z-10 font-semibold">/kits</span>
+            
+            {/* Notification dot */}
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg shadow-green-400/50" />
           </Link>
         </nav>
 
