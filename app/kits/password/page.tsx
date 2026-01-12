@@ -283,8 +283,8 @@ export default function PasswordPage() {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+    <div className="max-w-3xl mx-auto space-y-6 cursor-target">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 cursor-target">
         <h2 className="text-2xl font-bold flex items-center gap-2">
           <ShieldCheck className="text-primary" /> GenPass{" "}
           <span className="text-sm font-normal text-muted-foreground hidden sm:inline">
@@ -293,7 +293,7 @@ export default function PasswordPage() {
         </h2>
 
         {/* Mode Switcher */}
-        <div className="flex bg-black/40 p-1 rounded-lg border border-white/10 w-full lg:w-auto overflow-x-auto">
+        <div className="flex bg-black/40 p-1 rounded-lg border border-white/10 w-full lg:w-auto overflow-x-auto cursor-target">
           <Tab
             active={mode === "random"}
             onClick={() => setMode("random")}
@@ -319,9 +319,9 @@ export default function PasswordPage() {
         </div>
       </div>
 
-      <div className="info-card space-y-8 min-h-[400px]">
+      <div className="info-card space-y-8 min-h-[400px] cursor-target">
         {/* Output Display */}
-        <div className="relative group">
+        <div className="relative group cursor-target">
           {mode === "analyze" ? (
             <input
               type="text"
@@ -332,12 +332,12 @@ export default function PasswordPage() {
               autoFocus
             />
           ) : (
-            <div className="bg-black/40 border border-white/10 rounded-xl p-6 text-center break-all font-mono text-xl md:text-3xl tracking-tight text-primary shadow-inner min-h-[6rem] flex items-center justify-center">
+            <div className="bg-black/40 border border-white/10 rounded-xl p-6 text-center break-all font-mono text-xl md:text-3xl tracking-tight text-primary shadow-inner min-h-[6rem] flex items-center justify-center cursor-target">
               {output}
             </div>
           )}
 
-          <div className="absolute top-1/2 -translate-y-1/2 right-4 flex gap-2">
+          <div className="absolute top-1/2 -translate-y-1/2 right-4 flex gap-2 cursor-target">
             {mode !== "analyze" && (
               <button
                 onClick={generate}
@@ -362,8 +362,8 @@ export default function PasswordPage() {
         </div>
 
         {/* Strength Meter */}
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs uppercase font-bold text-muted-foreground">
+        <div className="space-y-2 cursor-target">
+          <div className="flex justify-between text-xs uppercase font-bold text-muted-foreground cursor-target">
             <span>Security Level</span>
             <span
               className={
@@ -377,21 +377,21 @@ export default function PasswordPage() {
               {strengthText[strength]}
             </span>
           </div>
-          <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+          <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden cursor-target">
             <div
-              className={`h-full transition-all duration-500 ease-out ${strengthColor[strength]}`}
+              className={`h-full transition-all duration-500 ease-out ${strengthColor[strength]} cursor-target`}
               style={{ width: `${(Math.max(strength, 0) / 6) * 100}%` }}
             />
           </div>
         </div>
 
         {/* CONTROLS */}
-        <div className="pt-6 border-t border-white/5 animate-in fade-in slide-in-from-bottom-2">
+        <div className="pt-6 border-t border-white/5 animate-in fade-in slide-in-from-bottom-2 cursor-target">
           {/* 1. RANDOM MODE CONTROLS */}
           {mode === "random" && (
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
+            <div className="grid md:grid-cols-2 gap-8 cursor-target">
+              <div className="space-y-4 cursor-target">
+                <div className="flex justify-between items-center cursor-target">
                   <label className="text-sm font-bold uppercase text-muted-foreground">
                     Length
                   </label>
@@ -420,7 +420,7 @@ export default function PasswordPage() {
                   className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 cursor-target">
                 <Toggle
                   label="A-Z"
                   checked={options.upper}
@@ -455,9 +455,9 @@ export default function PasswordPage() {
 
           {/* 2. PASSPHRASE MODE CONTROLS */}
           {mode === "passphrase" && (
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
+            <div className="grid md:grid-cols-2 gap-8 cursor-target">
+              <div className="space-y-4 cursor-target">
+                <div className="flex justify-between items-center cursor-target">
                   <label className="text-sm font-bold uppercase text-muted-foreground">
                     Word Count
                   </label>
@@ -474,17 +474,17 @@ export default function PasswordPage() {
                   className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 cursor-target">
                 <Toggle
                   label="Capitalize"
                   checked={capitalize}
                   onChange={() => setCapitalize(!capitalize)}
                 />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 cursor-target">
                   <label className="text-[10px] uppercase font-bold text-muted-foreground">
                     Separator
                   </label>
-                  <div className="flex bg-black/20 rounded-lg p-1 border border-white/5">
+                  <div className="flex bg-black/20 rounded-lg p-1 border border-white/5 cursor-target">
                     {["-", "_", ".", " "].map((sep) => (
                       <button
                         key={sep === " " ? "space" : sep}
@@ -502,7 +502,7 @@ export default function PasswordPage() {
 
           {/* 3. ANALYZE MODE INFO */}
           {mode === "analyze" && (
-            <div className="text-center text-muted-foreground text-sm">
+            <div className="text-center text-muted-foreground text-sm cursor-target">
               Type a password above to check its entropy. Analysis happens
               entirely in your browser.
             </div>

@@ -94,7 +94,7 @@ export default async function BlogPostPage({
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 cursor-target py-12">
       {/* Navigation Bar */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 cursor-target">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-primary transition-colors group"
@@ -102,7 +102,7 @@ export default async function BlogPostPage({
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           cd .. || go back
         </Link>
-        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground/50">
+        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground/50 cursor-target">
           <Terminal className="w-3 h-3" />
           <span>/blog/{slug.substring(0, 20)}...</span>
         </div>
@@ -110,9 +110,9 @@ export default async function BlogPostPage({
 
       <article className="animate-in fade-in slide-in-from-bottom-4 duration-700">
         {/* === HEADER STATS === */}
-        <div className="space-y-6 mb-10">
+        <div className="space-y-6 mb-10 cursor-target">
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4 cursor-target">
             {post.tags.map((tag) => (
               <span
                 key={tag}
@@ -129,10 +129,10 @@ export default async function BlogPostPage({
           </h1>
 
           {/* Author & Meta Grid */}
-          <div className="flex flex-wrap items-center gap-6 py-4 border-y border-border/40 text-sm">
+          <div className="flex flex-wrap items-center gap-6 py-4 border-y border-border/40 text-sm cursor-target">
             {/* Author */}
-            <div className="flex items-center gap-3 pr-6 sm:border-r border-border/40">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+            <div className="flex items-center gap-3 pr-6 sm:border-r border-border/40 cursor-target">
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-primary/20 cursor-target">
                 <Image
                   src={post.user.profile_image_90}
                   alt={post.user.name}
@@ -140,7 +140,7 @@ export default async function BlogPostPage({
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-col leading-none gap-1">
+              <div className="flex flex-col leading-none gap-1 cursor-target">
                 <span className="font-bold text-foreground">
                   {post.user.name}
                 </span>
@@ -151,24 +151,24 @@ export default async function BlogPostPage({
             </div>
 
             {/* Date */}
-            <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex items-center gap-2 text-muted-foreground cursor-target">
               <Calendar className="w-4 h-4" />
               <span>{format(new Date(post.published_at), "MMM d, yyyy")}</span>
             </div>
 
             {/* Read Time */}
-            <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex items-center gap-2 text-muted-foreground cursor-target">
               <Clock className="w-4 h-4" />
               <span>{post.reading_time_minutes} min read</span>
             </div>
 
             {/* Stats Badge */}
-            <div className="ml-auto flex items-center gap-4">
-              <div className="flex items-center gap-1.5 text-red-400 font-mono text-xs bg-red-500/5 px-2 py-1 rounded-full border border-red-500/10">
+            <div className="ml-auto flex items-center gap-4 cursor-target">
+              <div className="flex items-center gap-1.5 text-red-400 font-mono text-xs bg-red-500/5 px-2 py-1 rounded-full border border-red-500/10 cursor-target">
                 <Heart className="w-3.5 h-3.5" />
                 <span>{post.public_reactions_count}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-blue-400 font-mono text-xs bg-blue-500/5 px-2 py-1 rounded-full border border-blue-500/10">
+              <div className="flex items-center gap-1.5 text-blue-400 font-mono text-xs bg-blue-500/5 px-2 py-1 rounded-full border border-blue-500/10 cursor-target">
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{post.comments_count}</span>
               </div>
@@ -179,7 +179,7 @@ export default async function BlogPostPage({
 
         {/* === COVER IMAGE === */}
         {post.cover_image && (
-          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-border/40 shadow-2xl mb-12 group">
+          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-border/40 shadow-2xl mb-12 group cursor-target">
             <Image
               src={post.cover_image}
               alt={post.title}
@@ -188,7 +188,7 @@ export default async function BlogPostPage({
               className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
             {/* Scanline Effect Overlay (Optional aesthetic) */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none cursor-target" />
           </div>
         )}
 
@@ -205,15 +205,15 @@ export default async function BlogPostPage({
         />
 
         {/* === FOOTER === */}
-        <div className="mt-16 pt-8 border-t border-border/40">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-card/30 p-6 rounded-xl border border-border/50">
-            <div className="flex flex-col gap-1">
+        <div className="mt-16 pt-8 border-t border-border/40 cursor-target">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-card/30 p-6 rounded-xl border border-border/50 cursor-target">
+            <div className="flex flex-col gap-1 cursor-target">
               <h3 className="font-bold text-lg">Enjoyed this article?</h3>
               <p className="text-sm text-muted-foreground">
                 Join the discussion on Dev.to or share it with others.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 cursor-target">
               {/* Discuss Button (Keeps pointing to Dev.to) */}
               <Link
                 href={post.url}
@@ -229,7 +229,7 @@ export default async function BlogPostPage({
             </div>
           </div>
 
-          <div className="mt-8 text-center text-xs text-muted-foreground font-mono opacity-50">
+          <div className="mt-8 text-center text-xs text-muted-foreground font-mono opacity-50 cursor-target">
             // END_OF_FILE
           </div>
         </div>

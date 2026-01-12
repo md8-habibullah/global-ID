@@ -55,7 +55,7 @@ export default function Projects() {
     <section id="projects" className="section-spacing bg-card/10 cursor-target">
       <div className="max-w-6xl mx-auto space-y-16 cursor-target">
         {/* Terminal Header */}
-        <div className="flex items-center gap-3 animate-fade-in-up">
+        <div className="flex items-center gap-3 animate-fade-in-up cursor-target">
           <Terminal className="w-6 h-6 text-primary animate-pulse" />
           <h2 className="text-xl md:text-2xl font-mono font-bold tracking-tight">
             <span className="text-primary">root@habibullah</span>
@@ -81,7 +81,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="text-center pt-12">
+        <div className="text-center pt-12 cursor-target">
           <a
             href="https://github.com/md8-habibullah"
             target="_blank"

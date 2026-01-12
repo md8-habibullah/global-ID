@@ -22,13 +22,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <TargetCard className="rounded-xl bg-card border border-border/50 h-full overflow-hidden">
-        <div className="relative h-full p-6 sm:p-8 bg-card border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(0,255,200,0.2)]">
+        <div className="relative h-full p-6 sm:p-8 bg-card border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(0,255,200,0.2)] cursor-target">
           {/* Neon gradient overlays for subtle hacker glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-primary/20 via-transparent to-primary/10 opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 blur-xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none cursor-target" />
+          <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-primary/20 via-transparent to-primary/10 opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 blur-xl cursor-target" />
 
           {/* Content */}
-          <div className="relative z-10 flex flex-col h-full gap-4">
+          <div className="relative z-10 flex flex-col h-full gap-4 cursor-target">
             {/* Title */}
             <h3 className="text-lg sm:text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
               {project.title}
@@ -40,7 +40,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-2 pt-2 cursor-target">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
@@ -52,7 +52,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </div>
 
             {/* Links */}
-            <div className="flex items-center gap-4 pt-4 border-t border-border/30">
+            <div className="flex items-center gap-4 pt-4 border-t border-border/30 cursor-target">
               <a
                 href={project.github}
                 target="_blank"

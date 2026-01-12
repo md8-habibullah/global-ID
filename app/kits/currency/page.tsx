@@ -186,7 +186,7 @@ export default function CurrencyPage() {
           </button>
 
           {/* To */}
-          <div className="space-y-2">
+          <div className="space-y-2 cursor-target">
             <label className="text-xs uppercase text-muted-foreground font-bold pl-1">
               To
             </label>
@@ -202,7 +202,7 @@ export default function CurrencyPage() {
                   </option>
                 ))}
               </select>
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50 cursor-target">
                 <span className="text-[10px]">▼</span>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function CurrencyPage() {
         {/* Result */}
         <div className="text-center p-8 bg-primary/5 rounded-xl border border-primary/10 relative cursor-target">
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[2px] z-20 rounded-xl">
+            <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[2px] z-20 rounded-xl cursor-target">
               <RefreshCw className="animate-spin text-primary w-6 h-6" />
             </div>
           )}

@@ -35,7 +35,7 @@ export default function Experience() {
     >
       {/* Background Elements: Subtle Grid */}
       <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none cursor-target"
         style={{
           backgroundImage:
             "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
@@ -43,9 +43,9 @@ export default function Experience() {
         }}
       />
 
-      <div className="max-w-5xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-5xl mx-auto space-y-12 relative z-10 cursor-target">
         {/* Terminal Header */}
-        <div className="flex items-center gap-3 animate-fade-in-up">
+        <div className="flex items-center gap-3 animate-fade-in-up cursor-target">
           <Terminal className="w-6 h-6 text-primary animate-pulse" />
           <h2 className="text-xl md:text-2xl font-mono font-bold tracking-tight">
             <span className="text-primary">root@habibullah</span>
@@ -60,33 +60,33 @@ export default function Experience() {
         </div>
 
         {/* Timeline Container */}
-        <div className="relative border-l-2 border-border/40 ml-3 md:ml-6 space-y-12 py-4">
+        <div className="relative border-l-2 border-border/40 ml-3 md:ml-6 space-y-12 py-4 cursor-target">
           {experiences.map((exp, idx) => (
             <div
               key={idx}
-              className="relative pl-8 md:pl-12 group animate-fade-in-up"
+              className="relative pl-8 md:pl-12 group animate-fade-in-up cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Timeline Node (The Dot) */}
-              <div className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-background border-2 border-muted-foreground group-hover:border-primary group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_0_4px_var(--background)]">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-background border-2 border-muted-foreground group-hover:border-primary group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_0_4px_var(--background)] cursor-target">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
               </div>
 
               {/* Card Content */}
-              <div className="relative bg-card/30 border border-border/40 p-6 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden">
+              <div className="relative bg-card/30 border border-border/40 p-6 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden cursor-target">
                 {/* Tech Deco Corner */}
-                <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary" />
+                <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
+                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary cursor-target" />
                 </div>
-                <div className="absolute bottom-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
+                <div className="absolute bottom-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
+                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary cursor-target" />
                 </div>
 
                 {/* Header Row */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                  <div className="space-y-1">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 cursor-target">
+                  <div className="space-y-1 cursor-target">
                     {/* REMOVED ID, kept Type */}
-                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/60 mb-1">
+                    <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/60 mb-1 cursor-target">
                       <span className="text-primary tracking-wider">
                         // {exp.type}
                       </span>
@@ -94,7 +94,7 @@ export default function Experience() {
                     <h3 className="text-xl font-bold font-mono text-foreground group-hover:text-primary transition-colors">
                       {exp.displayRole}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono cursor-target">
                       <Briefcase className="w-3 h-3" />
                       <span className="text-foreground/80 font-semibold">
                         @{exp.company}
@@ -103,12 +103,12 @@ export default function Experience() {
                   </div>
 
                   {/* Metadata Right Side */}
-                  <div className="text-right flex flex-col items-start md:items-end gap-2 font-mono text-xs text-muted-foreground mt-2 md:mt-0">
-                    <div className="flex items-center gap-2 bg-card/50 px-2 py-1 rounded border border-border/50 group-hover:border-primary/30 transition-colors">
+                  <div className="text-right flex flex-col items-start md:items-end gap-2 font-mono text-xs text-muted-foreground mt-2 md:mt-0 cursor-target">
+                    <div className="flex items-center gap-2 bg-card/50 px-2 py-1 rounded border border-border/50 group-hover:border-primary/30 transition-colors cursor-target">
                       <Calendar className="w-3 h-3 text-primary/70" />
                       {exp.period}
                     </div>
-                    <div className="flex items-center gap-2 px-2">
+                    <div className="flex items-center gap-2 px-2 cursor-target">
                       <MapPin className="w-3 h-3 text-primary/70" />
                       {exp.location}
                     </div>
@@ -116,7 +116,7 @@ export default function Experience() {
                 </div>
 
                 {/* Description Log */}
-                <div className="font-mono text-sm leading-relaxed mb-6 pl-4 border-l-2 border-primary/20 text-muted-foreground group-hover:text-muted-foreground/80 transition-colors">
+                <div className="font-mono text-sm leading-relaxed mb-6 pl-4 border-l-2 border-primary/20 text-muted-foreground group-hover:text-muted-foreground/80 transition-colors cursor-target">
                   <span className="text-primary mr-2 opacity-50 select-none">
                     &gt;
                   </span>
@@ -124,7 +124,7 @@ export default function Experience() {
                 </div>
 
                 {/* Skills/Modules */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 cursor-target">
                   {exp.skills.map((skill) => (
                     <span
                       key={skill}

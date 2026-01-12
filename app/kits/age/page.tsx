@@ -128,8 +128,8 @@ export default function AgePage() {
         </div>
 
         {/* Input 2: Compare To Date */}
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
+        <div className="space-y-2 cursor-target">
+          <div className="flex justify-between items-center cursor-target">
             <label className="text-xs uppercase text-muted-foreground font-bold flex items-center gap-2">
               Compare To
             </label>
@@ -152,17 +152,17 @@ export default function AgePage() {
 
       {/* Results Section */}
       {stats && stats !== "error" && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 cursor-target">
           {/* Main Age Display */}
-          <div className="text-center p-8 bg-gradient-to-br from-primary/10 to-transparent rounded-xl border border-primary/20 relative overflow-hidden group hover:border-primary/40 transition-colors">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
+          <div className="text-center p-8 bg-gradient-to-br from-primary/10 to-transparent rounded-xl border border-primary/20 relative overflow-hidden group hover:border-primary/40 transition-colors cursor-target">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 cursor-target" />
 
-            <div className="text-sm text-primary font-bold uppercase tracking-widest mb-4">
+            <div className="text-sm text-primary font-bold uppercase tracking-widest mb-4 cursor-target">
               Time Elapsed
             </div>
 
-            <div className="flex flex-wrap justify-center items-baseline gap-3 md:gap-6 text-white mb-2">
-              <div className="text-center">
+            <div className="flex flex-wrap justify-center items-baseline gap-3 md:gap-6 text-white mb-2 cursor-target">
+              <div className="text-center cursor-target">
                 <span className="text-4xl md:text-6xl font-bold tracking-tighter">
                   {stats.full.years}
                 </span>
@@ -170,7 +170,7 @@ export default function AgePage() {
                   Years
                 </span>
               </div>
-              <div className="text-center">
+              <div className="text-center cursor-target">
                 <span className="text-4xl md:text-6xl font-bold tracking-tighter text-white/80">
                   {stats.full.months}
                 </span>
@@ -178,7 +178,7 @@ export default function AgePage() {
                   Months
                 </span>
               </div>
-              <div className="text-center">
+              <div className="text-center cursor-target">
                 <span className="text-4xl md:text-6xl font-bold tracking-tighter text-white/60">
                   {stats.full.days}
                 </span>
@@ -190,7 +190,7 @@ export default function AgePage() {
           </div>
 
           {/* Grid Detailed Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 cursor-target">
             <StatBox
               label="Total Months"
               value={stats.total.months.toLocaleString()}

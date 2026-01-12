@@ -61,7 +61,7 @@ export default function Skills() {
 
       <div className="max-w-6xl mx-auto relative z-10 space-y-12">
         {/* Terminal Header */}
-        <div className="flex items-center gap-3 animate-fade-in-up">
+        <div className="flex items-center gap-3 animate-fade-in-up cursor-target">
           <Terminal className="w-6 h-6 text-primary animate-pulse" />
           <h2 className="text-xl md:text-2xl font-mono font-bold tracking-tight">
             <span className="text-primary">root@habibullah</span>
@@ -76,30 +76,30 @@ export default function Skills() {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 cursor-target">
           {categories.map((category, idx) => (
             <div
               key={category.name}
-              className="animate-fade-in-up group"
+              className="animate-fade-in-up group cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300">
+              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target">
                 {/* Category Header */}
-                <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2 font-mono text-primary font-bold tracking-wide">
+                <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between cursor-target">
+                  <div className="flex items-center gap-2 font-mono text-primary font-bold tracking-wide cursor-target">
                     {category.icon}
                     {category.name}
                   </div>
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono">
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono cursor-target">
                     [ MODULE_LOADED ]
                   </div>
                 </div>
 
                 {/* Skills List */}
-                <div className="p-6 space-y-5">
+                <div className="p-6 space-y-4 cursor-target">
                   {category.skills.map((skill) => (
-                    <div key={skill.name} className="space-y-1.5">
-                      <div className="flex justify-between text-sm font-mono">
+                    <div key={skill.name} className="space-y-1.5 cursor-target">
+                      <div className="flex justify-between text-sm font-mono cursor-target">
                         <span className="text-foreground/90">{skill.name}</span>
                         {/* REPLACED VERSION WITH PERCENTAGE */}
                         <span className="text-muted-foreground text-xs font-bold opacity-70">
@@ -108,13 +108,13 @@ export default function Skills() {
                       </div>
 
                       {/* Progress Bar Container */}
-                      <div className="h-1.5 w-full bg-background/50 rounded-full overflow-hidden border border-border/20">
+                      <div className="h-1.5 w-full bg-background/50 rounded-full overflow-hidden border border-border/20 cursor-target">
                         <div
-                          className="h-full bg-primary/80 group-hover:bg-primary transition-all duration-500 relative"
+                          className="h-full bg-primary/80 group-hover:bg-primary transition-all duration-500 relative cursor-target"
                           style={{ width: `${skill.progress}%` }}
                         >
                           {/* Shimmer Effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] cursor-target" />
                         </div>
                       </div>
                     </div>

@@ -42,7 +42,7 @@ export default function Hero() {
         >
           <div className="relative cursor-target w-56 h-56 md:w-64 md:h-64 group">
             {/* Background Glow */}
-            <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500" />
+            <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
 
             <Image
               src="https://avatars.githubusercontent.com/u/149287500?v=4&s=400"
@@ -60,10 +60,10 @@ export default function Hero() {
             {/*<div className="absolute -top-4 -left-4 w-12 h-12 border-t-2 border-l-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-top-5 group-hover:-left-5" />*/}
 
             {/* Top-Right (ADDED) */}
-            <div className="absolute -top-4 -right-4 w-12 h-12 border-t-2 border-r-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-top-5 group-hover:-right-5" />
+            <div className="absolute -top-4 -right-4 w-12 h-12 border-t-2 border-r-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-top-5 group-hover:-right-5 cursor-target" />
 
             {/* Bottom-Left (ADDED) */}
-            <div className="absolute -bottom-4 -left-4 w-12 h-12 border-b-2 border-l-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-bottom-5 group-hover:-left-5" />
+            <div className="absolute -bottom-4 -left-4 w-12 h-12 border-b-2 border-l-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-bottom-5 group-hover:-left-5 cursor-target" />
 
             {/* Bottom-Right */}
             {/*<div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-2 border-r-2 border-primary/50 opacity-50 group-hover:opacity-100 transition-all duration-300 group-hover:-bottom-5 group-hover:-right-5" />*/}
@@ -75,8 +75,8 @@ export default function Hero() {
           className="space-y-8 animate-fade-in-up cursor-target"
           style={{ animationDelay: "0.2s" }}
         >
-          <div className="space-y-4">
-            <div className="accent-line" />
+          <div className="space-y-4 cursor-target">
+            <div className="accent-line cursor-target" />
             <h1 className="section-title cursor-target">
               MD. HABIBULLAH
               <br />
@@ -97,7 +97,7 @@ export default function Hero() {
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4 cursor-target">
             <a href="#projects" className="fire-button group">
               <span className="relative z-10">View My Work</span>
             </a>
@@ -112,17 +112,17 @@ export default function Hero() {
           </div>
 
           {/* === THE NEW TECH DIVIDER & SMART SOCIALS === */}
-          <div className="pt-8">
+          <div className="pt-8 cursor-target">
             {/* Tech Divider with Legend Tag */}
-            <div className="relative flex items-center justify-center py-4 opacity-80 hover:opacity-100 transition-opacity duration-300">
+            <div className="relative flex items-center justify-center py-4 opacity-80 hover:opacity-100 transition-opacity duration-300 cursor-target">
               <div
-                className="absolute inset-0 flex items-center"
+                className="absolute inset-0 flex items-center cursor-target"
                 aria-hidden="true"
               >
-                <div className="w-full border-t border-border/60"></div>
+                <div className="w-full border-t border-border/60 cursor-target"></div>
               </div>
 
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center cursor-target">
                 <span className="bg-background px-4 text-xs font-mono text-muted-foreground uppercase tracking-widest border border-border/50 rounded-full flex items-center gap-2 group hover:border-primary/50 hover:text-primary transition-all duration-300 cursor-help select-none">
                   <Terminal className="w-3 h-3 text-primary animate-pulse" />
                   <span className="hidden sm:inline">System_Link</span>
@@ -134,7 +134,7 @@ export default function Hero() {
             </div>
 
             {/* Smart "Chip" Social Buttons */}
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-wrap gap-3 mt-4 cursor-target">
               {socialLinks.map(({ href, label, Icon }) => (
                 <a
                   key={label}
@@ -147,20 +147,20 @@ export default function Hero() {
                              hover:w-auto hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_15px_rgba(16,185,129,0.2)]"
                 >
                   {/* Icon Wrapper */}
-                  <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 cursor-target">
                     <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
                   </div>
 
                   {/* Smart Reveal Text */}
-                  <div className="flex items-center max-w-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:max-w-[200px] group-hover:ml-1">
+                  <div className="flex items-center max-w-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:max-w-[200px] group-hover:ml-1 cursor-target">
                     <span className="text-sm font-medium text-foreground whitespace-nowrap opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 font-mono">
                       {label}
                     </span>
                   </div>
 
                   {/* Tech Corners (Tiny details for the 'Harder' feel) */}
-                  <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-primary/50" />
-                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-primary/50" />
+                  <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-primary/50 cursor-target" />
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-primary/50 cursor-target" />
                 </a>
               ))}
             </div>

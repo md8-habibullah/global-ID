@@ -50,8 +50,9 @@ export default function Footer() {
         }),
       );
     };
+
     updateTime();
-    const interval = setInterval(updateTime, 60000);
+    const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -69,7 +70,7 @@ export default function Footer() {
     <footer className="relative border-t border-border/50 bg-background overflow-hidden cursor-target">
       {/* Cyber Grid Background */}
       <div
-        className="absolute inset-0 z-0 opacity-[0.03]"
+        className="absolute inset-0 z-0 opacity-[0.03] cursor-target"
         style={{
           backgroundImage:
             "radial-gradient(circle at 1px 1px, var(--foreground) 1px, transparent 0)",
@@ -82,21 +83,21 @@ export default function Footer() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="relative z-10 py-16 sm:py-20 px-4 sm:px-8 lg:px-12"
+        className="relative z-10 py-16 sm:py-20 px-4 sm:px-8 lg:px-12 cursor-target"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-16">
+        <div className="max-w-6xl mx-auto cursor-target">
+          <div className="grid md:grid-cols-3 gap-12 mb-16 cursor-target">
             {/* 1. Brand / Identity */}
-            <motion.div variants={itemVariants} className="space-y-6">
-              <div className="flex items-center gap-3 group">
-                <div className="p-2 bg-primary/10 rounded-lg border border-primary/20 group-hover:bg-primary/20 transition-colors duration-300">
+            <motion.div variants={itemVariants} className="space-y-6 cursor-target">
+              <div className="flex items-center gap-3 group cursor-target">
+                <div className="p-2 bg-primary/10 rounded-lg border border-primary/20 group-hover:bg-primary/20 transition-colors duration-300 cursor-target">
                   <Terminal className="w-6 h-6 text-primary" />
                 </div>
-                <div>
+                <div className="cursor-target">
                   <h3 className="text-lg font-bold tracking-tighter font-mono">
                     MD.Habibullah
                   </h3>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono cursor-target">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span>System Online</span>
                   </div>
@@ -112,11 +113,11 @@ export default function Footer() {
             </motion.div>
 
             {/* 2. Directory Links */}
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div variants={itemVariants} className="space-y-6 cursor-target">
               <h4 className="font-mono text-xs font-bold text-primary tracking-widest uppercase">
                 [ DIR : LINKS ]
               </h4>
-              <ul className="space-y-3 font-mono text-sm">
+              <ul className="space-y-3 font-mono text-sm cursor-target">
                 {["About", "Skills", "Projects"].map((link) => (
                   <li key={link}>
                     <a
@@ -149,14 +150,14 @@ export default function Footer() {
             </motion.div>
 
             {/* 3. Connect (UPDATED: Grid Layout + Always Visible) */}
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div variants={itemVariants} className="space-y-6 cursor-target">
               <h4 className="font-mono text-xs font-bold text-primary tracking-widest uppercase">
                 [ NET : CONNECT ]
               </h4>
 
               {/* Grid Logic: Use 2 columns if > 3 items */}
               <div
-                className={`grid gap-3 ${socialLinks.length > 3 ? "grid-cols-2" : "grid-cols-1"}`}
+                className={`grid gap-3 cursor-target ${socialLinks.length > 3 ? "grid-cols-2" : "grid-cols-1"}`}
               >
                 {socialLinks.map(({ href, label, Icon }, index) => (
                   <a
@@ -183,33 +184,33 @@ export default function Footer() {
           </div>
 
           {/* Tech Divider */}
-          <div className="relative h-px w-full bg-border/40 mb-8 overflow-hidden">
-            <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-transparent via-primary/50 to-transparent animate-[shimmer_2s_infinite]" />
+          <div className="relative h-px w-full bg-border/40 mb-8 overflow-hidden cursor-target">
+            <div className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-transparent via-primary/50 to-transparent animate-[shimmer_2s_infinite] cursor-target" />
           </div>
 
           {/* Bottom Status Bar */}
           <motion.div
             variants={containerVariants}
-            className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground/60"
+            className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground/60 cursor-target"
           >
             {/* Left: Copyright */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 cursor-target">
               <p>© {new Date().getFullYear()} HABIBULLAH.DEV</p>
             </div>
 
             {/* Right: System Stats */}
-            <div className="flex items-center gap-6 border border-border/20 px-4 py-1 rounded-full bg-background/50 backdrop-blur-sm">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center gap-6 border border-border/20 px-4 py-1 rounded-full bg-background/50 backdrop-blur-sm cursor-target">
+              <div className="flex items-center gap-2 cursor-target">
                 <GitBranch className="w-3 h-3" />
                 <span>main</span>
               </div>
               <div className="w-px h-3 bg-border/40" />
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-target">
                 <Globe className="w-3 h-3" />
                 <span>Dhaka, BD</span>
               </div>
               <div className="w-px h-3 bg-border/40" />
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4 text-xs cursor-target">
                 <Clock className="w-3 h-3" />
                 <span>{time} UTC+6</span>
               </div>

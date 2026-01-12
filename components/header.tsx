@@ -111,7 +111,7 @@ export default function Header() {
         {/* === LEFT: SYSTEM IDENTITY === */}
         <Link href="/#" className="group block">
           <div className="flex items-center gap-3 cursor-target">
-            <div className="relative w-9 h-9 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors shadow-sm">
+            <div className="relative w-9 h-9 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors shadow-sm cursor-target">
               <Image
                 src="https://avatars.githubusercontent.com/u/149287500?v=4&s=100"
                 alt="MD. Habibullah Sharif"
@@ -120,14 +120,14 @@ export default function Header() {
                 sizes="40px"
               />
               {/* Scanline overlay */}
-              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col cursor-target">
               <h1 className="text-sm font-bold tracking-tight font-mono flex items-center gap-2 group-hover:text-primary transition-colors">
                 <Terminal className="w-3 h-3 text-primary" />
                 ~/MD.HABIBULLAH
               </h1>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 cursor-target">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
                   System_Ready
@@ -138,7 +138,7 @@ export default function Header() {
         </Link>
 
         {/* === CENTER: COMMAND DOCK (Desktop) === */}
-        <nav className="hidden md:flex items-center gap-1 bg-card/40 px-2 py-1.5 rounded-full border border-border/40 backdrop-blur-sm shadow-sm">
+        <nav className="hidden md:flex items-center gap-1 bg-card/40 px-2 py-1.5 rounded-full border border-border/40 backdrop-blur-sm shadow-sm cursor-target">
           <Link href="/#" className={getNavLinkClass("")}>
             _home
           </Link>
@@ -149,7 +149,7 @@ export default function Header() {
             _projects
           </Link>
 
-          <div className="w-px h-4 bg-border/50 mx-2" />
+          <div className="w-px h-4 bg-border/50 mx-2 cursor-target" />
 
           <Link
             href={blog}
@@ -173,12 +173,12 @@ export default function Header() {
         </nav>
 
         {/* === RIGHT: UTILITIES === */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          <div className="hidden md:block">
+        <div className="flex items-center gap-3 sm:gap-4 cursor-target">
+          <div className="hidden sm:block cursor-target">
             <SiteFakeUptime />
           </div>
 
-          <div className="h-6 w-px bg-border/40 hidden sm:block" />
+          <div className="h-6 w-px bg-border/40 hidden sm:block cursor-target" />
 
           {/* Theme Toggle (Switch Style) */}
           <button
