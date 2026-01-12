@@ -42,7 +42,7 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 cursor-target">
       {/* Back Button */}
       <Link
         href="/blog"
@@ -53,10 +53,10 @@ export default async function BlogPostPage({
       </Link>
 
       {/* Article Header */}
-      <article className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <div className="space-y-6 mb-10">
+      <article className="animate-in fade-in slide-in-from-bottom-4 duration-700 cursor-target">
+        <div className="space-y-6 mb-10 cursor-target">
           {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-mono">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-mono cursor-target">
             <div className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-border/50 bg-card/50">
               <Calendar className="w-3.5 h-3.5" />
               {format(new Date(post.published_at), "MMM d, yyyy")}
@@ -90,7 +90,7 @@ export default async function BlogPostPage({
 
         {/* Cover Image */}
         {post.cover_image && (
-          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 shadow-lg mb-12">
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border/40 shadow-lg mb-12 cursor-target">
             <Image
               src={post.cover_image}
               alt={post.title}
@@ -106,12 +106,12 @@ export default async function BlogPostPage({
           className="prose prose-invert prose-lg max-w-none
             prose-headings:font-bold prose-headings:tracking-tight
             prose-p:text-muted-foreground prose-p:leading-7
-            marker:text-primary"
+            marker:text-primary cursor-target"
           dangerouslySetInnerHTML={{ __html: post.body_html }}
         />
 
         {/* Footer of Article */}
-        <div className="mt-16 pt-8 border-t border-border/40 flex justify-between items-center">
+        <div className="mt-16 pt-8 border-t border-border/40 flex justify-between items-center cursor-target">
           <Link
             href={post.url}
             target="_blank"

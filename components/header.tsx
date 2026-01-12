@@ -90,7 +90,7 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const blog = "https://blog.habibullah.dev";
+  const blog = "/blog";
   const isDark = theme === "dark";
   const isKitsPage = pathname?.startsWith("/kits");
 
@@ -151,14 +151,14 @@ export default function Header() {
 
           <div className="w-px h-4 bg-border/50 mx-2" />
 
-          <a
+          <Link
             href={blog}
-            target="_blank"
             className="px-3 py-1.5 text-sm font-mono font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
           >
             <NotebookPen className="w-3.5 h-3.5" />
             blog.sh
-          </a>
+          </Link>
+
           <Link
             href="/kits"
             className={`px-3 py-1.5 text-sm font-mono font-medium rounded-md transition-colors flex items-center gap-2 ${
@@ -270,14 +270,14 @@ export default function Header() {
             ))}
 
             <div className="grid grid-cols-2 gap-2 mt-2">
-              <a
+              <Link
                 href={blog}
-                target="_blank"
+                onClick={() => setIsMenuOpen(false)} // Add this so the menu closes when clicked!
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border/40 bg-card/50 hover:border-primary/30 font-mono text-sm"
               >
                 <NotebookPen className="w-4 h-4 text-primary" />
                 blog.sh
-              </a>
+              </Link>
               <Link
                 href="/kits"
                 onClick={() => setIsMenuOpen(false)}

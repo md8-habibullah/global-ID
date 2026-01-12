@@ -8,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
     },
     sitemap: [
       "https://habibullah.dev/sitemap.xml",
-      "https://blog.habibullah.dev/sitemap.xml",
     ],
   };
 }

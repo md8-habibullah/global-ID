@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Github,
@@ -132,9 +133,8 @@ export default function Footer() {
                   </li>
                 ))}
                 <li>
-                  <a
-                    href="https://blog.habibullah.dev"
-                    target="_blank"
+                  <Link
+                    href="/blog"
                     className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                   >
                     <span className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary">
@@ -143,7 +143,7 @@ export default function Footer() {
                     <span className="group-hover:translate-x-1 transition-transform duration-300">
                       ~/ blog.sh
                     </span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </motion.div>
