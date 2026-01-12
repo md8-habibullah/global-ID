@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import type { RefObject } from "react";
 import { useTheme } from "next-themes";
 import {
   Sun,
@@ -24,7 +25,7 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("");
 
   const pathname = usePathname();
-  const menuRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
