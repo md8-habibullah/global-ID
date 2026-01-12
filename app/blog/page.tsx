@@ -1,9 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
-import { Terminal, Calendar, Clock, ArrowRight, Tag } from "lucide-react";
+import {
+  Terminal,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Heart,
+  MessageCircle,
+  Hash,
+} from "lucide-react";
+import type { Metadata } from "next";
 
-// Types for Dev.to API
+// === TYPES ===
+interface User {
+  name: string;
+  username: string;
+  profile_image_90: string;
+}
+
 interface BlogPost {
   id: number;
   title: string;
@@ -13,120 +28,214 @@ interface BlogPost {
   tag_list: string[];
   reading_time_minutes: number;
   cover_image: string | null;
-  positive_reactions_count: number;
+  public_reactions_count: number; // Added: Hearts/Likes
+  comments_count: number; // Added: Comments
+  user: User; // Added: Author Info
   url: string;
 }
 
-// Fetch posts from Dev.to
+// === API FETCH ===
 async function getBlogPosts(): Promise<BlogPost[]> {
   const res = await fetch(
     "https://dev.to/api/articles?username=md8_habibullah",
-    { next: { revalidate: 3600 } }, // Cache for 1 hour (ISR)
+    { next: { revalidate: 3600 } }, // ISR: Revalidate every hour
   );
 
   if (!res.ok) {
-    throw new Error("Failed to fetch posts");
+    // Return empty array instead of crashing if API fails,
+    // allows page to render with empty state or error message gracefully
+    console.error("Failed to fetch Dev.to posts");
+    return [];
   }
 
   return res.json();
 }
 
-export const metadata = {
-  title: "Blog | MD. Habibullah Sharif",
-  description:
-    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps.",
-};
+// === DYNAMIC METADATA ===
+export async function generateMetadata(): Promise<Metadata> {
+  const posts = await getBlogPosts();
 
+  // Default values
+  const title = "Blog | MD. Habibullah Sharif";
+  const description =
+    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps.";
+
+  // If we have posts, use the latest one to make the metadata "Fresh"
+  if (posts.length > 0) {
+    const latestPost = posts[0];
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description: `Latest Article: ${latestPost.title}`,
+        images: latestPost.cover_image ? [latestPost.cover_image] : [],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description: `Latest: ${latestPost.title}`,
+        images: latestPost.cover_image ? [latestPost.cover_image] : [],
+      },
+    };
+  }
+
+  return { title, description };
+}
+
+// === MAIN PAGE COMPONENT ===
 export default async function BlogPage() {
   const posts = await getBlogPosts();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-      {/* Header Section */}
-      <div className="mb-12 border-b border-border/40 pb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-primary/10 rounded-lg border border-primary/20">
-            <Terminal className="w-6 h-6 text-primary" />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 py-8">
+      {/* === HEADER SECTION === */}
+      <div className="mb-16 border-b border-border/40 pb-10">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono mb-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              System_Online: Fetching Articles...
+            </div>
+
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight font-mono">
+              ~/blog<span className="animate-pulse text-primary">_</span>
+            </h1>
+
+            <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+              <span className="text-primary font-mono mr-2">&gt;</span>
+              Documenting my journey through code, infrastructure, and bugs.
+              Visualize my latest discoveries in Full-Stack & DevOps.
+            </p>
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight font-mono">
-            ~/blogs<span className="animate-pulse text-primary">_</span>
-          </h1>
+
+          {/* Optional: Add a 'Total Stats' badge if you want to be extra cool */}
+          <div className="hidden md:flex flex-col items-end gap-2 text-sm font-mono text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Hash className="w-4 h-4" />
+              <span>Total Posts: {posts.length}</span>
+            </div>
+            <div className="h-px w-24 bg-border/50" />
+            <div>
+              Latest:{" "}
+              {posts[0]?.published_at
+                ? format(new Date(posts[0].published_at), "MMM d")
+                : "N/A"}
+            </div>
+          </div>
         </div>
-        <p className="text-muted-foreground text-lg max-w-2xl">
-          Documenting my journey through code, infrastructure, and bugs. Written
-          for developers, by a developer.
-        </p>
       </div>
 
-      {/* Grid of Posts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <Link
-            href={`/blog/${post.slug}`}
-            key={post.id}
-            className="group flex flex-col h-full bg-card/40 border border-border/50 rounded-xl overflow-hidden hover:border-primary/40 hover:bg-card/60 transition-all duration-300 shadow-sm hover:shadow-md"
-          >
-            {/* Image Container */}
-            <div className="aspect-video relative w-full bg-muted/20 overflow-hidden">
-              {post.cover_image ? (
-                <Image
-                  src={post.cover_image}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-primary/5 group-hover:bg-primary/10 transition-colors">
-                  <Terminal className="w-12 h-12 text-primary/20" />
+      {/* === POSTS GRID === */}
+      {posts.length === 0 ? (
+        <div className="text-center py-20 border border-dashed border-border/50 rounded-xl">
+          <Terminal className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+          <p className="text-muted-foreground font-mono">
+            No packets received. API might be down.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <Link
+              href={`/blog/${post.slug}`}
+              key={post.id}
+              className="group flex flex-col h-full bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 hover:bg-card/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+            >
+              {/* === COVER IMAGE === */}
+              <div className="aspect-video relative w-full bg-muted/20 overflow-hidden">
+                {post.cover_image ? (
+                  <Image
+                    src={post.cover_image}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={posts.indexOf(post) === 0} // Load first image fast
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-primary/5 group-hover:bg-primary/10 transition-colors">
+                    <Terminal className="w-12 h-12 text-primary/20" />
+                  </div>
+                )}
+
+                {/* Tags Overlay */}
+                <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
+                  {post.tag_list.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider bg-black/60 backdrop-blur-md border border-white/10 rounded text-white/90 shadow-sm"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
                 </div>
-              )}
+              </div>
 
-              {/* Overlay Badge */}
-              <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-                {post.tag_list.slice(0, 2).map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 text-[10px] uppercase font-bold tracking-wider bg-background/80 backdrop-blur-md border border-border/50 rounded text-foreground/80"
-                  >
-                    #{tag}
+              {/* === CARD CONTENT === */}
+              <div className="flex flex-col flex-1 p-6">
+                {/* Meta Row: Date & Time */}
+                <div className="flex items-center justify-between text-xs text-muted-foreground mb-4 font-mono">
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {format(new Date(post.published_at), "MMM d, yyyy")}
+                    </span>
+                  </div>
+                  <span className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-secondary/50 text-secondary-foreground">
+                    <Clock className="w-3 h-3" />
+                    {post.reading_time_minutes} min
                   </span>
-                ))}
+                </div>
+
+                {/* Title */}
+                <h2 className="text-xl font-bold leading-snug mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                  {post.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-sm text-muted-foreground line-clamp-3 mb-6 flex-1 leading-relaxed">
+                  {post.description}
+                </p>
+
+                {/* === FOOTER: Author & Stats === */}
+                <div className="pt-5 mt-auto border-t border-border/40 flex items-center justify-between">
+                  {/* Author Info */}
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-6 h-6 rounded-full overflow-hidden border border-border/50">
+                      <Image
+                        src={post.user.profile_image_90}
+                        alt={post.user.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <span className="text-xs font-medium text-muted-foreground/80 font-mono group-hover:text-foreground transition-colors">
+                      {post.user.name.slice(0, 25)}{" "}
+                    </span>
+                  </div>
+
+                  {/* Reactions & Comments */}
+                  <div className="flex items-center gap-4 text-xs font-mono text-muted-foreground">
+                    <div className="flex items-center gap-1.5 hover:text-red-400 transition-colors">
+                      <Heart className="w-3.5 h-3.5" />
+                      <span>{post.public_reactions_count}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 hover:text-blue-400 transition-colors">
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>{post.comments_count}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* Content Container */}
-            <div className="flex flex-col flex-1 p-5">
-              <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 font-mono">
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {format(new Date(post.published_at), "MMM d, yyyy")}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" />
-                  {post.reading_time_minutes} min read
-                </span>
-              </div>
-
-              <h2 className="text-xl font-bold leading-tight mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                {post.title}
-              </h2>
-
-              <p className="text-sm text-muted-foreground line-clamp-3 mb-6 flex-1">
-                {post.description}
-              </p>
-
-              <div className="flex items-center text-sm font-medium text-primary mt-auto">
-                <span className="relative">
-                  read_post()
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full" />
-                </span>
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
