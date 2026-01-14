@@ -1,98 +1,162 @@
-# MD. HABIBULLAH SHARIF - Portfolio
+# GLOBAL_ID // MD. HABIBULLAH SHARIF PORTFOLIO
 
-A high-performance, scalable, and secure personal portfolio website designed for a Full-Stack Developer and DevOps Engineer. Built with the latest web technologies including Next.js 16, TypeScript, and Tailwind CSS, focusing on clean architecture, interactivity, and modern design aesthetics.
+> SYSTEM STATUS: ONLINE
+> KERNEL: NEXT.JS / REACT
+> ARCHITECTURE: SCALABLE / SECURE
 
+A high-performance, cinematic personal portfolio engineered for a Full-Stack Developer and DevOps specialist. This project transcends traditional portfolio design by implementing a "System OS" interface, featuring real-time physics simulations, extensive animations, and a security-first aesthetic.
 
-## Features
+## System Overview
 
--   **Modern Tech Stack:** Built on **Next.js 16 (App Router)** and **React 19** for optimal performance and SEO.
--   **Advanced Styling:** Utilizes **Tailwind CSS 4** with a custom design system using OKLCH color spaces for vibrant dark/light modes.
--   **Interactive UI:**
-    -   **Target -:** A custom, performance-optimized magnetic cursor effect powered by **GSAP**, featuring lazy loading for mobile performance.
-    -   **Hacker Text:** A decoding text effect for headings to emphasize the security/tech theme.
-    -   **Animations:** Smooth transitions and scroll effects using **Framer Motion** and `tailwindcss-animate`.
--   **SEO Optimized:** Includes dynamic metadata, `sitemap.xml`, `robots.txt`, and JSON-LD structured data for rich search results.
--   **Performance:**
-    -   **Lazy Loading:** Heavy interactive elements (like the custom cursor) are dynamically imported to reduce the main thread payload on mobile devices.
-    -   **Image Optimization:** Next.js Image optimization for fast LCP and efficient format delivery (WebP/AVIF).
--   **Responsive Design:** Fully responsive layout compatible with all device sizes, featuring a custom mobile navigation menu.
+This application is built as a Single Page Application (SPA) experience using the Next.js App Router. It leverages the latest web capabilities including React 19 Server Components, Tailwind CSS v4 alpha/beta features, and hardware-accelerated animations via GSAP and Framer Motion.
+
+## Key Features
+
+### Core Architecture
+- **Next.js 16 & React 19:** Utilizes the latest stable release for cutting-edge performance, Server Actions, and optimal SEO.
+- **Tailwind CSS 4:** Implements the newest Tailwind engine for instant build times and CSS-variable based theming.
+- **Strict TypeScript:** 100% type safety across components and hooks.
+
+### Interactive "System" Modules
+- **Cinematic Kernel Boot:** A custom `Preloader` component simulating a DevOps system initialization with a rotating 3D reactor core and real-time log streaming.
+- **HUD Scroll System:** A physics-based `ScrollProgress` widget. Features dual-sided docking (drag-to-snap), liquid-fill visualization, and local storage persistence for user preference.
+- **Magnetic Cursor:** A GSAP-powered custom cursor with inertial lag and hover state detection.
+- **Hacker Text Decoding:** Text scrambling algorithms used for headers to reinforce the security engineering persona.
+
+### UI & UX
+- **Radix UI Primitives:** Accessible, headless UI components (Dialogs, Accordions, Tooltips) styled via Shadcn patterns.
+- **Physics Animations:** Complex layout transitions using `framer-motion` springs and layout projection.
+- **Dynamic Theming:** Seamless Dark/Light mode switching with `next-themes`.
+- **Performance:** Optimized LCP via lazy-loaded heavy interactive islands and `next/image` optimization using WebP/AVIF.
 
 ## Technology Stack
 
-### Core
--   **Framework:** Next.js 16
--   **Language:** TypeScript
--   **Styling:** Tailwind CSS 4, CSS Variables
+### Core Framework
+- **Runtime:** Node.js
+- **Framework:** Next.js 16.0.7
+- **Library:** React 19.2.0
+- **Language:** TypeScript 5
 
-### UI & Animations
--   **Libraries:** Framer Motion, GSAP
--   **Icons:** Lucide React
--   **Components:** Radix UI primitives (via Shadcn UI pattern)
+### Styling & Design System
+- **Engine:** Tailwind CSS 4.1.9
+- **Processor:** PostCSS 8.5
+- **Utilities:** `clsx`, `tailwind-merge`, `class-variance-authority` (CVA)
+- **Icons:** Lucide React
 
-### DevOps & Quality
--   **Package Manager:** pnpm
--   **Linting:** ESLint
--   **Deployment:** Vercel / Static Export compatible
+### Animation & Physics
+- **Orchestration:** Framer Motion (latest)
+- **High-Perf Animation:** GSAP 3.13.0
+- **CSS Animation:** `tailwindcss-animate`, `tw-animate-css`
 
-## Project Structure
+### Components & State
+- **Headless UI:** Radix UI (@radix-ui/react-*)
+- **Notifications:** Sonner
+- **Drawer:** Vaul
+- **Command Palette:** CMDK
 
-```bash
-├── app/                # Next.js App Router pages and layouts
-│   ├── layout.tsx      # Root layout with ThemeProvider & CursorLoader
-│   ├── page.tsx        # Main landing page composition
-│   └── globals.css     # Global styles and Tailwind directives
-├── components/         # Reusable UI components
-│   ├── ui/             # Base UI elements (buttons, cards, etc.)
-│   ├── cursor-loader.tsx # Dynamic loader for the custom cursor
-│   ├── mouse-cursor.tsx  # GSAP-powered custom cursor logic
-│   └── ...             # Sections (Hero, About, Skills, Projects)
-├── lib/                # Utility functions (e.g., cn class merger)
-└── public/             # Static assets (images, icons, robots.txt)
-````
+### Forms & Validation
+- **Form Handling:** React Hook Form
+- **Schema Validation:** Zod
 
-## Getting Started
+## Directory Structure
+
+```text
+├── app/                  # Next.js App Router & Route Groups
+│   ├── blog/             # Blog section routes
+│   ├── kits/             # UI component showcase/kits routes
+│   ├── globals.css       # Global styles (Tailwind 4 & CSS Variables)
+│   ├── layout.tsx        # Root layout (Theme, Fonts, Metadata, Toaster)
+│   ├── loading.tsx       # Cinematic "System Kernel" Preloader
+│   ├── not-found.tsx     # Custom 404 "System Error" page
+│   ├── page.tsx          # Main Portfolio Landing Page
+│   ├── robots.ts         # Dynamic SEO Robots configuration
+│   └── sitemap.ts        # Dynamic Sitemap generation
+├── components/           # Modular React Components
+│   ├── ui/               # Base primitives (Button, Dialog, Tooltip, etc.)
+│   ├── HackerText.jsx    # Decrypting text effect component
+│   ├── SiteFakeUptime.jsx # Simulated system uptime logic
+│   ├── about.tsx         # "System Logs" (Bio) section
+│   ├── experience.tsx    # "Timeline" section
+│   ├── floating-contact.tsx # Fixed contact action button
+│   ├── footer.tsx        # Global footer with real-time clock & system stats
+│   ├── header.tsx        # Top navigation bar
+│   ├── hero.tsx          # Landing section with FaceID Scanner effect
+│   ├── mouse-cursor.tsx  # GSAP-powered custom magnetic cursor
+│   ├── project-card.tsx  # Interactive project cards with hover physics
+│   ├── projects.tsx      # Projects grid section
+│   ├── roadmap.tsx       # "Evolution Path" learning visualization
+│   ├── scroll-progress.tsx # Draggable D-Shape System HUD (Liquid Fill)
+│   ├── skills.tsx        # "Modules" section with animated progress bars
+│   └── theme-provider.tsx # Next-themes context wrapper
+├── lib/                  # Utilities (Class merging, helpers)
+└── public/               # Static assets (Images, Resume PDF, Icons)
+
+```
+
+## Installation Protocols
 
 ### Prerequisites
 
-Ensure you have **Node.js** installed. This project uses `pnpm` for efficient package management.
+* Node.js (Latest LTS recommended)
+* pnpm (Package Manager)
 
-### Installation
+### Setup Sequence
 
-1.  **Clone the repository:**
+1. Clone the repository:
+```bash
+git clone https://github.com/md8-habibullah/global-id.git
+cd global-id
 
-    ```bash
-    git clone [https://github.com/md8-habibullah/global-id.git](https://github.com/md8-habibullah/global-id.git)
-    cd global-id
-    ```
+```
 
-2.  **Install dependencies:**
 
-    ```bash
-    pnpm install
-    ```
+2. Install dependencies:
+```bash
+pnpm install
 
-3.  **Run the development server:**
+```
 
-    ```bash
-    pnpm dev
-    ```
 
-4.  Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) with your browser to see the result.
+3. Initialize development environment:
+```bash
+pnpm dev
 
-## Scripts
+```
 
-  - `pnpm dev`: Starts the development server with hot reloading.
-  - `pnpm build`: Creates an optimized production build.
-  - `pnpm start`: Runs the production server.
-  - `pnpm lint`: Runs ESLint to catch code quality issues.
+
+4. Access the system:
+Open http://localhost:3000 in your browser.
+
+## Build & Deployment
+
+To generate a production-ready build artifact:
+
+```bash
+# Compile and optimize
+pnpm build
+
+# Preview the production build locally
+pnpm start
+
+```
+
+## Quality Control
+
+* **Linting:** `pnpm lint` (ESLint configuration)
+* **Type Checking:** Strict mode enabled via `tsconfig.json`
 
 ## Author
 
 **MD. HABIBULLAH SHARIF**
-*Full-Stack Developer & DevOps Engineer*
+Full-Stack Developer & DevOps Engineer
 
-  - **GitHub:** [@md8-habibullah](https://github.com/md8-habibullah)
-  - **LinkedIn:** [@md-habibullahs](https://linkedin.com/in/md-habibullahs)
-  - **Email:** hello@habibullah.dev
+* GitHub: https://github.com/md8-habibullah
+* LinkedIn: https://linkedin.com/in/md-habibullahs
+* Email: hello@habibullah.dev
 
-  ##
+---
+
+> END OF FILE
+> SYSTEM_LINK :: DISCONNECTED
+
+```
