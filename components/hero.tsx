@@ -50,12 +50,10 @@ export default function Hero() {
       <div className="grid md:grid-cols-2 gap-8 lg:gap-20 items-center max-w-6xl w-full cursor-target relative z-10 px-4 md:px-0">
 
         {/* Left: Profile Image with SCANNER Effect */}
-        {/* Mobile: Order First (Top), Centered, Smaller Size (48=192px ~50% width) */}
         <div
           className="flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last"
           style={{ animationDelay: "0.1s" }}
         >
-          {/* RESPONSIVE SIZING HERE: w-48 (mobile) -> md:w-80 (desktop) */}
           <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
 
             {/* Rotating Tech Ring */}
@@ -97,8 +95,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: Content (Left Side on Desktop) */}
-        {/* Mobile: Centered Text, Reduced Gap */}
+        {/* Right: Content */}
         <div
           className="space-y-6 md:space-y-8 animate-fade-in-up cursor-target order-last md:order-first text-center md:text-left"
           style={{ animationDelay: "0.2s" }}
@@ -106,10 +103,9 @@ export default function Hero() {
           <div className="space-y-4 cursor-target">
             <div className="flex items-center justify-center md:justify-start gap-2 text-primary/80 font-mono text-sm tracking-widest uppercase">
               <Terminal className="w-4 h-4" />
-              <span>Initialize_Portfolio.sh</span>
+              <span>Initialize_Portfolio.exe</span>
             </div>
 
-            {/* RESPONSIVE TEXT SIZE: text-3xl (mobile) -> text-6xl (desktop) */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
               MD. HABIBULLAH
               <br />
@@ -138,7 +134,6 @@ export default function Hero() {
               <span className="relative z-10">View Projects</span>
             </a>
 
-            {/* RESUME BUTTON */}
             <a
               href="/resume.pdf"
               target="_blank"
@@ -154,9 +149,9 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* === SOCIALS === */}
+          {/* === SMART SOCIALS: FULL COLOR FILL ON HOVER === */}
           <div className="pt-6 md:pt-8 cursor-target border-t border-border/30 mt-6 md:mt-8">
-            <div className="flex flex-wrap justify-center md:justify-start gap-3 cursor-target">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-4 cursor-target">
               {socialLinks.map(({ href, label, Icon }) => (
                 <a
                   key={label}
@@ -164,15 +159,25 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="group relative flex items-center justify-center w-10 h-10 rounded-lg border border-border/40 bg-card/30
-                             hover:border-primary/50 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300"
+                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-card/30
+                             overflow-hidden transition-all duration-500 ease-out
+                             hover:w-auto hover:border-primary hover:bg-primary hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
                 >
-                  <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-primary group-hover:scale-110" />
+                  {/* Icon Wrapper - Turns Black/Dark on Hover for Contrast */}
+                  <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 cursor-target">
+                    <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-black" />
+                  </div>
 
-                  {/* Tooltip */}
-                  <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-background border border-border text-[10px] font-mono text-foreground rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20">
-                    {label}
-                  </span>
+                  {/* Smart Reveal Text - Turns Black/Dark on Hover */}
+                  <div className="flex items-center max-w-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:max-w-[200px] group-hover:ml-1 cursor-target">
+                    <span className="text-sm font-medium text-foreground whitespace-nowrap opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-hover:text-black font-bold font-mono">
+                      {label}
+                    </span>
+                  </div>
+
+                  {/* Tech Corners */}
+                  <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
                 </a>
               ))}
             </div>
