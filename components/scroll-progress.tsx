@@ -6,7 +6,6 @@ import {
     useSpring,
     useScroll,
     useTransform,
-    useAnimation,
 } from "framer-motion";
 import { ChevronUp } from "lucide-react";
 
@@ -99,19 +98,22 @@ export default function ScrollProgress() {
 
                 {/* LIQUID FILL (Top -> Bottom) */}
                 <motion.div
-                    className="absolute top-0 left-0 w-full bg-primary/10 -z-10"
+                    className="absolute top-0 left-0 w-full bg-primary/20 -z-10"
                     style={{
                         height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
                     }}
                 />
 
-                {/* TEXT CONTENT */}
+                {/* TEXT CONTENT - UPDATED COLOR */}
                 <div className="flex flex-col items-center justify-center z-10 pr-1 lg:pr-2">
-                    <span className="text-[9px] lg:text-sm font-mono font-bold text-primary/80 group-hover:hidden">
+                    {/* CHANGED: text-primary/80 -> text-white 
+              ADDED: drop-shadow-md for extra contrast 
+          */}
+                    <span className="text-[9px] lg:text-sm font-mono font-bold text-white drop-shadow-md group-hover:hidden">
                         {progress}
-                        <span className="text-[8px] lg:text-[10px]">%</span>
+                        <span className="text-[8px] lg:text-[10px] text-white/70">%</span>
                     </span>
-                    <ChevronUp className="w-4 h-4 lg:w-6 lg:h-6 hidden group-hover:block animate-bounce text-primary" />
+                    <ChevronUp className="w-4 h-4 lg:w-6 lg:h-6 hidden group-hover:block animate-bounce text-white" />
                 </div>
 
                 {/* DECORATIVE HINGE */}
