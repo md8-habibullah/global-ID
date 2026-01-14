@@ -12,7 +12,7 @@ export async function hashnodeRequest(query: string, variables: any = {}) {
       query,
       variables,
     }),
-    next: { revalidate: 3600 }, // Cache for 1 hour
+    next: { revalidate: 60 }, // Cache for 1 minute
   });
 
   if (!res.ok) {

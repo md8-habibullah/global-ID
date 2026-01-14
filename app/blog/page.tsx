@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
@@ -38,7 +40,7 @@ interface BlogPost {
 async function getBlogPosts(): Promise<BlogPost[]> {
   const res = await fetch(
     "https://dev.to/api/articles?username=md8_habibullah",
-    { next: { revalidate: 3600 } }, // ISR: Revalidate every hour
+    { next: { revalidate: 60 } },
   );
 
   if (!res.ok) {
@@ -51,37 +53,59 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   return res.json();
 }
 
-// === DYNAMIC METADATA ===
 export async function generateMetadata(): Promise<Metadata> {
   const posts = await getBlogPosts();
 
-  // Default values
   const title = "Blog | MD. Habibullah Sharif";
   const description =
-    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps.";
+    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps. Explore the latest posts on coding, infrastructure, and more.";
+  const url = "https://habibullah.dev/blog";
 
-  // If we have posts, use the latest one to make the metadata "Fresh"
-  if (posts.length > 0) {
-    const latestPost = posts[0];
-    return {
+  return {
+    title,
+    description,
+    keywords: [
+      "blog",
+      "full-stack development",
+      "devops",
+      "infrastructure",
+      "Bangladeshi developer",
+      "tutorials",
+      "coding",
+      "Ethical hacking",
+      "Bangla Article",
+      "Bangladeshi Dev"
+    ],
+    authors: [{ name: "MD. Habibullah Sharif" }],
+    alternates: { canonical: url },
+    openGraph: {
       title,
       description,
-      openGraph: {
-        title,
-        description: `Latest Article: ${latestPost.title}`,
-        images: latestPost.cover_image ? [latestPost.cover_image] : [],
-        type: "website",
+      url,
+      siteName: "Habibullah.dev",
+      images: posts[0]?.cover_image
+        ? [{ url: posts[0].cover_image, alt: posts[0].title }]
+        : [],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: posts[0]?.cover_image ? [posts[0].cover_image] : [],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description: `Latest: ${latestPost.title}`,
-        images: latestPost.cover_image ? [latestPost.cover_image] : [],
-      },
-    };
-  }
-
-  return { title, description };
+    },
+  };
 }
 
 // === MAIN PAGE COMPONENT ===

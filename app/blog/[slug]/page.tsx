@@ -58,22 +58,43 @@ export async function generateMetadata({
 
   if (!post) return { title: "Post Not Found" };
 
+  const url = `https://habibullah.dev/blog/${slug}`;
+
   return {
-    title: `${post.title} | MD. Habibullah`,
+    title: `${post.title} | MD. Habibullah Sharif`,
     description: post.description,
+    keywords: post.tags.join(", "),
+    authors: [{ name: post.user.name }],
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.description,
+      url,
+      siteName: "Habibullah.dev",
       type: "article",
       publishedTime: post.published_at,
+      modifiedTime: post.published_at, // Assuming no edits
       authors: [post.user.name],
-      images: post.cover_image ? [post.cover_image] : [],
+      images: post.cover_image
+        ? [{ url: post.cover_image, alt: post.title }]
+        : [],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
       images: post.cover_image ? [post.cover_image] : [],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -176,6 +197,40 @@ export default async function BlogPostPage({
             </div>
           </div>
         </div>
+        {/*SEO content*/}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: post.title,
+              description: post.description,
+              image: post.cover_image ? [post.cover_image] : [],
+              datePublished: post.published_at,
+              dateModified: post.published_at,
+              author: {
+                "@type": "Person",
+                name: post.user.name,
+                image: post.user.profile_image_90,
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "Habibullah.dev",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://habibullah.dev/logo.png", // Replace with your logo URL
+                },
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://habibullah.dev/blog/${post.slug}`,
+              },
+              wordCount: Math.ceil(post.reading_time_minutes * 200), // Approximate
+              keywords: post.tags.join(", "),
+            }),
+          }}
+        />
 
         {/* === COVER IMAGE === */}
         {post.cover_image && (
