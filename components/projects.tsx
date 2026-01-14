@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import ProjectCard from "./project-card";
 import { Terminal } from "lucide-react";
 
@@ -55,8 +56,28 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="section-spacing bg-card/10 cursor-target">
-      <div className="max-w-6xl mx-auto space-y-16 cursor-target">
+    <section id="projects" className="section-spacing relative overflow-hidden cursor-target">
+
+      {/* BACKGROUND EFFECTS */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      {/* Left Animated Line */}
+      <div className="absolute top-0 bottom-0 left-4 md:left-10 w-[1px] bg-primary/10 hidden md:block">
+        <motion.div
+          animate={{ top: ["0%", "100%"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute top-0 left-0 w-[2px] h-32 bg-gradient-to-b from-transparent via-primary/50 to-transparent shadow-[0_0_15px_#00ffc8]"
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto space-y-16 cursor-target relative z-10">
+
         {/* Terminal Header */}
         <div className="flex items-center gap-3 animate-fade-in-up cursor-target">
           <Terminal className="w-6 h-6 text-primary animate-pulse" />
@@ -89,9 +110,12 @@ export default function Projects() {
             href="https://github.com/md8-habibullah"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300"
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300 relative overflow-hidden"
           >
-            <span className="group-hover:translate-x-1 transition-transform">
+            {/* Button Hover Glow */}
+            <div className="absolute inset-0 bg-primary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+
+            <span className="group-hover:translate-x-1 transition-transform relative z-10">
               &gt; git checkout all_repositories
             </span>
           </a>

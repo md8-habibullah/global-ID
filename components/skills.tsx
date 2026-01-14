@@ -1,6 +1,7 @@
 "use client";
 
-import { Terminal, Cpu, Database, Layout, Server, Shield } from "lucide-react";
+import { motion } from "framer-motion";
+import { Terminal, Cpu, Database, Layout, Server } from "lucide-react";
 
 export default function Skills() {
   const categories = [
@@ -83,25 +84,30 @@ export default function Skills() {
               className="animate-fade-in-up group cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target">
+              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target backdrop-blur-sm">
+
                 {/* Category Header */}
                 <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between cursor-target">
                   <div className="flex items-center gap-2 font-mono text-primary font-bold tracking-wide cursor-target">
                     {category.icon}
                     {category.name}
                   </div>
-                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono cursor-target">
+                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono cursor-target">
+                    {/* Blinking Status Light */}
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
                     [ MODULE_LOADED ]
                   </div>
                 </div>
 
                 {/* Skills List */}
-                <div className="p-6 space-y-4 cursor-target">
-                  {category.skills.map((skill) => (
+                <div className="p-6 space-y-5 cursor-target">
+                  {category.skills.map((skill, sIdx) => (
                     <div key={skill.name} className="space-y-1.5 cursor-target">
                       <div className="flex justify-between text-sm font-mono cursor-target">
                         <span className="text-foreground/90">{skill.name}</span>
-                        {/* REPLACED VERSION WITH PERCENTAGE */}
                         <span className="text-muted-foreground text-xs font-bold opacity-70">
                           {skill.progress}%
                         </span>
@@ -109,13 +115,20 @@ export default function Skills() {
 
                       {/* Progress Bar Container */}
                       <div className="h-1.5 w-full bg-background/50 rounded-full overflow-hidden border border-border/20 cursor-target">
-                        <div
-                          className="h-full bg-primary/80 group-hover:bg-primary transition-all duration-500 relative cursor-target"
-                          style={{ width: `${skill.progress}%` }}
+                        {/* Animated Bar */}
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.progress}%` }}
+                          transition={{
+                            duration: 1.2,
+                            ease: "easeOut",
+                            delay: idx * 0.1 + sIdx * 0.1 // Staggered loading effect
+                          }}
+                          className="h-full bg-primary/80 group-hover:bg-primary relative cursor-target"
                         >
-                          {/* Shimmer Effect */}
+                          {/* Shimmer Effect overlay */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] cursor-target" />
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
                   ))}
