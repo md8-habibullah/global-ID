@@ -7,6 +7,7 @@ import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import MouseCursor from "@/components/mouse-cursor";
 import { Toaster } from "sonner";
+import ScrollProgress from "@/components/scroll-progress";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -92,9 +93,11 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+
           <MouseCursor />
+          <ScrollProgress />
           {children}
-          <Toaster 
+          <Toaster
             position="top-center"
             theme="dark"
             richColors
