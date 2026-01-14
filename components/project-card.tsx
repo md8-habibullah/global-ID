@@ -10,6 +10,7 @@ interface ProjectCardProps {
     description: string
     tags: string[]
     github: string
+    demo?: string // Added this optional prop
     featured?: boolean
   }
 }
@@ -23,7 +24,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     >
       <TargetCard className="rounded-xl bg-card border border-border/50 h-full overflow-hidden">
         <div className="relative h-full p-6 sm:p-8 bg-card border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(0,255,200,0.2)] cursor-target">
-          {/* Neon gradient overlays for subtle hacker glow */}
+          {/* Neon gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none cursor-target" />
           <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-primary/20 via-transparent to-primary/10 opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10 blur-xl cursor-target" />
 
@@ -63,14 +64,20 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 <Github className="w-4 h-4" />
                 <span className="font-mono">Code</span>
               </a>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-medium"
-                aria-label="View live demo"
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span className="font-mono">Demo</span>
-              </a>
+
+              {/* Only show Demo button if a demo link exists */}
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300 font-medium"
+                  aria-label="View live demo"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="font-mono">Demo</span>
+                </a>
+              )}
             </div>
           </div>
         </div>

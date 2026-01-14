@@ -6,48 +6,51 @@ import { Terminal } from "lucide-react";
 export default function Projects() {
   const projects = [
     {
-      title: "E-Commerce_Platform",
+      title: "Neurootix_Rebuild",
       description:
-        "Production-ready e-commerce architecture. Implements secure payment gateways (Stripe), real-time inventory locking, and order processing queues.",
-      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      github: "https://github.com/md8-habibullah",
+        "Full-stack commercial website for an IT firm. Integrated Hashnode Headless API for blogging, advanced routing, and SEO optimization. 100% production ready.",
+      tags: ["Next.js", "GraphQL", "API", "Production"],
+      github: "https://github.com/md8-habibullah/neurootix-rebuild.git",
+      demo: "https://www.neurootix.com/",
       featured: true,
     },
     {
-      title: "DevOps_Pipeline_Auto",
+      title: "Shadow_Logger",
       description:
-        "Enterprise CI/CD orchestration. Docker containerization, automated regression testing, and multi-environment deployment strategies using GitHub Actions.",
-      tags: ["Docker", "GitHub_Actions", "CI/CD", "Linux"],
-      github: "https://github.com/md8-habibullah",
+        "Stealth key capture tool for forensic analysis. Lightweight C implementation focusing on low-level system hooks, silent operation, and input tracking.",
+      tags: ["C", "Security", "Forensics", "Low-Level"],
+      github: "https://github.com/md8-habibullah/Shadow-Logger.git",
       featured: true,
     },
     {
-      title: "Real-Time_Analytics",
+      title: "Vehicle_Rental_API",
       description:
-        "High-frequency data visualization dashboard. Utilizes WebSocket protocols for sub-second latency updates and interactive chart rendering.",
-      tags: ["React", "WebSocket", "Socket.IO", "D3.js"],
-      github: "https://github.com/md8-habibullah",
+        "Robust backend API with complex business logic. Features RBAC (Admin/Customer), automated pricing algorithms, and PostgreSQL inventory management.",
+      tags: ["Node.js", "PostgreSQL", "Express", "Backend"],
+      github: "https://github.com/md8-habibullah/vehicle_rental.git",
+      demo: "https://vehicle-rental-ebon.vercel.app/",
     },
     {
-      title: "K8s_Cluster_Ops",
+      title: "Ledger_Tracker_Local",
       description:
-        "Kubernetes infrastructure management suite. Features auto-scaling policies, pod health monitoring, and resource optimization scripts.",
-      tags: ["Kubernetes", "Docker", "Cloud", "Infra"],
-      github: "https://github.com/md8-habibullah",
+        "Privacy-focused financial management system. Offline-first architecture using IndexedDB for secure, local-only data storage without server dependencies.",
+      tags: ["React", "IndexedDB", "Privacy", "OpenSource"],
+      github: "https://github.com/md8-habibullah/ledger-tracker.git",
+      demo: "https://ledger.habibullah.dev/",
     },
     {
-      title: "IaC_Terraform_AWS",
+      title: "Linux_Power_Auto",
       description:
-        "Infrastructure as Code automation. Multi-region AWS provisioning with drift detection, disaster recovery protocols, and secure VPC subnets.",
-      tags: ["Terraform", "AWS", "IaC", "Security"],
-      github: "https://github.com/md8-habibullah",
+        "DevOps automation script for GNOME. Dynamically switches power profiles based on charging state (Boot/Wake/Plug) to optimize battery vs performance.",
+      tags: ["Bash", "Linux", "Automation", "DevOps"],
+      github: "https://github.com/md8-habibullah/power-mode-switcher.git",
     },
     {
-      title: "Secure_App_Core",
+      title: "E-Commerce_CLI_C",
       description:
-        "Security-first application boilerplate. End-to-end encryption, JWT rotation, RBAC implementation, and SQL injection prevention layers.",
-      tags: ["Node.js", "PostgreSQL", "OWASP", "Security"],
-      github: "https://github.com/md8-habibullah",
+        "Terminal-based inventory management system. Built in C with SQLite3 integration. Demonstrates memory management, pointers, and command-line logic.",
+      tags: ["C", "SQLite3", "CLI", "System"],
+      github: "https://github.com/md8-habibullah/E-commerce-Book.git",
     },
   ];
 
@@ -63,7 +66,7 @@ export default function Projects() {
             <span className="text-blue-500">~/projects</span>
             <span className="text-muted-foreground">$</span>
             <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
-              ./deploy_showcase.sh
+              ls -la ./production_builds
             </span>
             <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
           </h2>
@@ -89,7 +92,7 @@ export default function Projects() {
             className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300"
           >
             <span className="group-hover:translate-x-1 transition-transform">
-              &gt; git checkout github_profile
+              &gt; git checkout all_repositories
             </span>
           </a>
         </div>
