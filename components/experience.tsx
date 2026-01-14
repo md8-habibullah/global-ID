@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Terminal, Briefcase, Calendar, MapPin } from "lucide-react";
 
 const experiences = [
@@ -60,15 +61,25 @@ export default function Experience() {
         </div>
 
         {/* Timeline Container */}
-        <div className="relative border-l-2 border-border/40 ml-3 md:ml-6 space-y-12 py-4 cursor-target">
+        <div className="relative ml-3 md:ml-6 space-y-12 py-4 cursor-target">
+
+          {/* THE ANIMATED LINE (Replaces the border-l-2) */}
+          <div className="absolute top-0 bottom-0 left-0 w-[2px] bg-border/40 overflow-hidden">
+            <motion.div
+              animate={{ top: ["0%", "100%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-transparent via-primary to-transparent shadow-[0_0_15px_rgba(0,255,200,0.6)]"
+            />
+          </div>
+
           {experiences.map((exp, idx) => (
             <div
               key={idx}
               className="relative pl-8 md:pl-12 group animate-fade-in-up cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              {/* Timeline Node (The Dot) */}
-              <div className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-background border-2 border-muted-foreground group-hover:border-primary group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_0_4px_var(--background)] cursor-target">
+              {/* Timeline Node (The Dot) - Adjusted position to sit on the new line */}
+              <div className="absolute -left-[7px] top-6 w-4 h-4 rounded-full bg-background border-2 border-muted-foreground group-hover:border-primary group-hover:bg-primary/20 transition-all duration-300 shadow-[0_0_0_4px_var(--background)] cursor-target z-10">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
               </div>
 
@@ -85,7 +96,6 @@ export default function Experience() {
                 {/* Header Row */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 cursor-target">
                   <div className="space-y-1 cursor-target">
-                    {/* REMOVED ID, kept Type */}
                     <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/60 mb-1 cursor-target">
                       <span className="text-primary tracking-wider">
                         // {exp.type}
@@ -139,7 +149,7 @@ export default function Experience() {
           ))}
 
           {/* Timeline End Node */}
-          <div className="absolute -left-[5px] bottom-0 w-2 h-2 rounded-full bg-border/60" />
+          <div className="absolute -left-[3px] bottom-0 w-2 h-2 rounded-full bg-border/60" />
         </div>
       </div>
     </section>

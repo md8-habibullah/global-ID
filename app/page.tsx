@@ -6,6 +6,7 @@ import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Footer from "@/components/footer"
 import FloatingContact from "@/components/floating-contact"
+import Roadmap from "@/components/roadmap"
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Experience />
       <Skills />
       <Projects />
+      <Roadmap />
       <Footer />
       <FloatingContact />
     </main>
