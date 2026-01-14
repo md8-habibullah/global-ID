@@ -10,11 +10,11 @@ import HackerText from '@/components/HackerText'
  * A custom, eye-catching 404 page styled as a "hacker terminal"
  * to match the portfolio's default dark theme.
  *
- * Includes a 7-second countdown and automatic redirect to the homepage.
+ * Includes a 9-second countdown and automatic redirect to the homepage.
  */
 export default function NotFound() {
   const router = useRouter()
-  const [countdown, setCountdown] = useState(7) // 7-second countdown
+  const [countdown, setCountdown] = useState(9) // 9-second countdown
 
   useEffect(() => {
     // Set up the interval
