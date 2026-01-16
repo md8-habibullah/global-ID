@@ -65,7 +65,7 @@ export default function Roadmap() {
                         <motion.div
                             animate={{ top: ["0%", "100%"] }}
                             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                            className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-24 bg-gradient-to-b from-transparent via-primary to-transparent shadow-[0_0_15px_#00ffc8]"
+                            className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-24 bg-gradient-to-b from-transparent via-primary to-transparent shadow-[0_0_15px_#00ffc8]"
                         />
                     </div>
 

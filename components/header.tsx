@@ -64,6 +64,7 @@ export default function Header() {
     }
 
     const handleScrollSpy = () => {
+      if (window.innerWidth < 768) return;
       const sections = ["about", "skills", "projects"];
       let current = "";
 
@@ -103,8 +104,7 @@ export default function Header() {
     }`;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      {/* Top Gradient Line */}
+    <header className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background/95 md:bg-background/80 md:backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between cursor-target">
@@ -162,8 +162,8 @@ export default function Header() {
           <Link
             href="/kits"
             className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 ${isKitsPage
-                ? "bg-gradient-to-r from-primary/20 to-green-400/20 text-primary border-primary/50 shadow-lg shadow-primary/25"
-                : "text-muted-foreground hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-green-400/10 border-transparent hover:border-primary/30 hover:shadow-md hover:shadow-primary/20"
+              ? "bg-gradient-to-r from-primary/20 to-green-400/20 text-primary border-primary/50 shadow-lg shadow-primary/25"
+              : "text-muted-foreground hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-green-400/10 border-transparent hover:border-primary/30 hover:shadow-md hover:shadow-primary/20"
               }`}
           >
             <div className="relative flex items-center">
@@ -171,8 +171,8 @@ export default function Header() {
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-green-400/40 rounded-full blur-md opacity-60 animate-pulse" />
 
               <Wrench className={`w-4 h-4 relative z-10 transition-all duration-300 ${isKitsPage
-                  ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse"
-                  : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
+                ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse"
+                : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
                 }`} />
             </div>
 
@@ -292,8 +292,8 @@ export default function Header() {
                 href="/kits"
                 onClick={() => setIsMenuOpen(false)}
                 className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border font-mono text-sm transition-all ${isKitsPage
-                    ? "border-primary/30 bg-primary/5 text-primary"
-                    : "border-border/40 bg-card/50 hover:border-primary/30"
+                  ? "border-primary/30 bg-primary/5 text-primary"
+                  : "border-border/40 bg-card/50 hover:border-primary/30"
                   }`}
               >
                 <Wrench className="w-4 h-4 text-primary" />

@@ -150,7 +150,7 @@ export default function About() {
                 <motion.div
                   animate={{ top: ["-10%", "110%"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_20px_rgba(0,255,200,0.5)] z-0 pointer-events-none"
+                  className="hidden md:block absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_20px_rgba(0,255,200,0.5)] z-0 pointer-events-none"
                 />
 
                 <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center gap-2 relative z-10">

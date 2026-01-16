@@ -118,7 +118,7 @@ export default function FloatingContact() {
       >
         {/* Glowing background ring */}
         <motion.div
-          className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
+          className="hidden md:block absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.5, 0.8, 0.5],
@@ -133,7 +133,7 @@ export default function FloatingContact() {
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            relative px-6 py-4 rounded-2xl backdrop-blur-xl
+            relative px-6 py-4 rounded-2xl md:backdrop-blur-xl bg-card/90 md:bg-transparent
             font-sans text-sm font-semibold
             transition-all duration-500 ease-out
             shadow-2xl hover:shadow-primary/30
