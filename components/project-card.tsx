@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <TargetCard className="rounded-xl bg-card border border-border/50 h-full overflow-hidden relative">
-        <div className="relative h-full p-6 sm:p-8 bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(0,255,200,0.15)] cursor-target">
+        <div className="relative h-full p-6 sm:p-8 bg-card md:bg-card/80 md:backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(0,255,200,0.15)] cursor-target">
 
           {/* SCANNER EFFECT ON HOVER */}
           <div className="absolute top-0 left-0 w-full h-1 bg-primary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_15px_rgba(0,255,200,0.8)] z-20 group-hover:animate-[scan_2s_linear_infinite]" />

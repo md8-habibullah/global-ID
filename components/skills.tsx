@@ -84,7 +84,7 @@ export default function Skills() {
               className="animate-fade-in-up group cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target backdrop-blur-sm">
+              <div className="bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target md:backdrop-blur-sm">
 
                 {/* Category Header */}
                 <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between cursor-target">

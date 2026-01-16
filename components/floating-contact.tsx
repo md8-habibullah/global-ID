@@ -138,10 +138,9 @@ export default function FloatingContact() {
             transition-all duration-500 ease-out
             shadow-2xl hover:shadow-primary/30
             border-2 bg-gradient-to-r
-            ${
-              isOpen
-                ? "border-primary from-primary to-green-400 text-white scale-110 shadow-primary/40"
-                : "border-primary/40 from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 text-primary hover:border-primary/80 hover:scale-105 hover:from-primary/5 hover:to-green-400/5"
+            ${isOpen
+              ? "border-primary from-primary to-green-400 text-white scale-110 shadow-primary/40"
+              : "border-primary/40 from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 text-primary hover:border-primary/80 hover:scale-105 hover:from-primary/5 hover:to-green-400/5"
             }
           `}
           whileHover={{ y: -4 }}
@@ -231,7 +230,7 @@ export default function FloatingContact() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/20 md:backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

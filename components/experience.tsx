@@ -84,7 +84,7 @@ export default function Experience() {
               </div>
 
               {/* Card Content */}
-              <div className="relative bg-card/30 border border-border/40 p-6 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden cursor-target">
+              <div className="relative bg-card md:bg-card/30 border border-border/40 p-6 rounded-lg md:backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden cursor-target">
                 {/* Tech Deco Corner */}
                 <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
                   <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary cursor-target" />

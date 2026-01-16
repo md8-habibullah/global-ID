@@ -97,10 +97,9 @@ export default function Header() {
 
   // Helper for Link Classes
   const getNavLinkClass = (id: string) =>
-    `nav-link relative px-3 py-1.5 text-sm font-mono font-medium transition-colors rounded-md hover:bg-primary/10 hover:text-primary ${
-      pathname === "/" && activeSection === id
-        ? "active text-primary bg-primary/5"
-        : "text-muted-foreground"
+    `nav-link relative px-3 py-1.5 text-sm font-mono font-medium transition-colors rounded-md hover:bg-primary/10 hover:text-primary ${pathname === "/" && activeSection === id
+      ? "active text-primary bg-primary/5"
+      : "text-muted-foreground"
     }`;
 
   return (
@@ -139,7 +138,7 @@ export default function Header() {
         </Link>
 
         {/* === CENTER: COMMAND DOCK (Desktop) === */}
-        <nav className="hidden md:flex items-center gap-1 bg-card/40 px-2 py-1.5 rounded-full border border-border/40 backdrop-blur-sm shadow-sm cursor-target">
+        <nav className="hidden md:flex items-center gap-1 bg-card/40 px-2 py-1.5 rounded-full border border-border/40 md:backdrop-blur-sm shadow-sm cursor-target">
           <Link href="/#" className={getNavLinkClass("")}>
             _home
           </Link>
@@ -162,25 +161,23 @@ export default function Header() {
 
           <Link
             href="/kits"
-            className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 ${
-              isKitsPage
+            className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 ${isKitsPage
                 ? "bg-gradient-to-r from-primary/20 to-green-400/20 text-primary border-primary/50 shadow-lg shadow-primary/25"
                 : "text-muted-foreground hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-green-400/10 border-transparent hover:border-primary/30 hover:shadow-md hover:shadow-primary/20"
-            }`}
+              }`}
           >
             <div className="relative flex items-center">
               {/* Pulsing background glow */}
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-green-400/40 rounded-full blur-md opacity-60 animate-pulse" />
-              
-              <Wrench className={`w-4 h-4 relative z-10 transition-all duration-300 ${
-                isKitsPage 
-                  ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse" 
+
+              <Wrench className={`w-4 h-4 relative z-10 transition-all duration-300 ${isKitsPage
+                  ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse"
                   : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
-              }`} />
+                }`} />
             </div>
-            
+
             <span className="relative z-10 font-semibold">/kits</span>
-            
+
             {/* Notification dot */}
             <div className="absolute -top-1 -right-1 w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse shadow-lg shadow-green-400/50" />
           </Link>
@@ -264,11 +261,10 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className={`
                     group flex items-center gap-3 px-4 py-3 rounded-lg border font-mono transition-all
-                    ${
-                      link.active
-                        ? "bg-primary/10 border-primary/30 text-primary"
-                        : "bg-card/50 border-transparent hover:border-primary/30 hover:bg-primary/5"
-                    }
+                    ${link.active
+                    ? "bg-primary/10 border-primary/30 text-primary"
+                    : "bg-card/50 border-transparent hover:border-primary/30 hover:bg-primary/5"
+                  }
                   `}
               >
                 <span
@@ -295,11 +291,10 @@ export default function Header() {
               <Link
                 href="/kits"
                 onClick={() => setIsMenuOpen(false)}
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border font-mono text-sm transition-all ${
-                  isKitsPage
+                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border font-mono text-sm transition-all ${isKitsPage
                     ? "border-primary/30 bg-primary/5 text-primary"
                     : "border-border/40 bg-card/50 hover:border-primary/30"
-                }`}
+                  }`}
               >
                 <Wrench className="w-4 h-4 text-primary" />
                 /kits

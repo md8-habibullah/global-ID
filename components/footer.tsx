@@ -199,7 +199,7 @@ export default function Footer() {
             </div>
 
             {/* Right: System Stats */}
-            <div className="flex items-center gap-6 border border-border/20 px-4 py-1 rounded-full bg-background/50 backdrop-blur-sm cursor-target">
+            <div className="flex items-center gap-6 border border-border/20 px-4 py-1 rounded-full bg-background/50 md:backdrop-blur-sm cursor-target">
               <div className="flex items-center gap-2 cursor-target">
                 <GitBranch className="w-3 h-3" />
                 <span>main</span>

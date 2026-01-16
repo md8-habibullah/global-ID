@@ -35,11 +35,11 @@ export default function MouseCursor({
   useEffect(() => {
     const checkMobile = () => {
       // Check for touch capability or small screen
-      const mobile = window.matchMedia("(max-width: 768px)").matches || 
-                     'ontouchstart' in window;
+      const mobile = window.matchMedia("(max-width: 768px)").matches ||
+        'ontouchstart' in window;
       setIsMobile(mobile);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -66,7 +66,7 @@ export default function MouseCursor({
 
     const cursor = cursorRef.current;
     cornersRef.current = cursor.querySelectorAll('.target-cursor-corner');
-    
+
     let activeTarget: Element | null = null;
     let currentLeaveHandler: (() => void) | null = null;
     let resumeTimeout: NodeJS.Timeout | null = null;
@@ -90,7 +90,7 @@ export default function MouseCursor({
 
       const cursorX = gsap.getProperty(cursorRef.current, 'x') as number;
       const cursorY = gsap.getProperty(cursorRef.current, 'y') as number;
-      
+
       const corners = Array.from(cornersRef.current);
       corners.forEach((corner, i) => {
         if (!targetCornerPositionsRef.current || !targetCornerPositionsRef.current[i]) return;
@@ -101,7 +101,7 @@ export default function MouseCursor({
         const finalX = currentX + (targetX - currentX) * strength;
         const finalY = currentY + (targetY - currentY) * strength;
         const duration = strength >= 0.99 ? (parallaxOn ? 0.2 : 0) : 0.05;
-        
+
         gsap.to(corner, {
           x: finalX, y: finalY, duration,
           ease: duration === 0 ? 'none' : 'power1.out', overwrite: 'auto'
@@ -207,13 +207,13 @@ export default function MouseCursor({
     };
 
     const globalOutHandler = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        if (activeTarget && (target === activeTarget || activeTarget.contains(target))) {
-             if (!e.relatedTarget || !(activeTarget.contains(e.relatedTarget as Node))) {
-                 leaveHandler();
-                 if (activeTarget) cleanupTarget(activeTarget);
-             }
+      const target = e.target as HTMLElement;
+      if (activeTarget && (target === activeTarget || activeTarget.contains(target))) {
+        if (!e.relatedTarget || !(activeTarget.contains(e.relatedTarget as Node))) {
+          leaveHandler();
+          if (activeTarget) cleanupTarget(activeTarget);
         }
+      }
     }
 
     window.addEventListener('mouseover', enterHandler, { passive: true });
@@ -228,7 +228,7 @@ export default function MouseCursor({
       window.removeEventListener('mouseover', enterHandler);
       window.removeEventListener('mouseout', globalOutHandler);
       const hider = document.getElementById('cursor-hider');
-      if(hider) hider.remove();
+      if (hider) hider.remove();
       spinTl.current?.kill();
       document.body.style.cursor = '';
     };
@@ -237,7 +237,9 @@ export default function MouseCursor({
   // Robust Mobile check: Render nothing if mobile (saves DOM nodes)
   // But during SSR/first render, default is "true" to avoid hydration mismatch, then effects flip it.
   // Actually, safe way: Default hidden via CSS, only mount GSAP if !mobile.
-  
+  // Render null on mobile to avoid unnecessary DOM nodes
+  if (isMobile) return null;
+
   return (
     <div ref={cursorRef} className="target-cursor-wrapper hidden md:block">
       {/* Modern Minimal Cursor - Option 1: Simple Circle with Ring */}
@@ -253,7 +255,7 @@ export default function MouseCursor({
       </div>
 
       {/* Alternative Modern Cursors (uncomment to use) */}
-      
+
       {/* Option 2: Crosshair Plus
       <div ref={dotRef} className="target-cursor-dot">
         <div className="relative w-6 h-6">

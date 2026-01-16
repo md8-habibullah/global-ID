@@ -57,7 +57,7 @@ export default function Hero() {
           <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
 
             {/* Rotating Tech Ring */}
-            <div className="absolute inset-[-15px] md:inset-[-20px] rounded-full border border-primary/20 border-dashed animate-[spin_10s_linear_infinite] pointer-events-none" />
+            <div className="absolute inset-[-15px] md:inset-[-20px] rounded-full border border-primary/20 border-dashed md:animate-[spin_10s_linear_infinite] pointer-events-none" />
             <div className="absolute inset-[-8px] md:inset-[-10px] rounded-full border border-primary/10 animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
 
             {/* Background Glow */}

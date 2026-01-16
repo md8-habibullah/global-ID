@@ -98,7 +98,7 @@ export default function Roadmap() {
 
                                     {/* CONTENT CARD */}
                                     <div className="w-full md:w-[45%] pl-20 md:pl-0">
-                                        <div className="group relative bg-card/40 backdrop-blur-sm border border-border/50 hover:border-primary/40 p-5 rounded-xl transition-all duration-300 cursor-target">
+                                        <div className="group relative bg-card/40 md:backdrop-blur-sm border border-border/50 hover:border-primary/40 p-5 rounded-xl transition-all duration-300 cursor-target">
 
                                             {/* Hover Gradient Effect */}
                                             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />

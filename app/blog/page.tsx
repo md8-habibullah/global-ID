@@ -168,7 +168,7 @@ export default async function BlogPage() {
             <Link
               href={`/blog/${post.slug}`}
               key={post.id}
-              className="group flex flex-col h-full bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 hover:bg-card/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+              className="group flex flex-col h-full bg-card md:bg-card/30 md:backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 hover:bg-card/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
             >
               {/* === COVER IMAGE === */}
               <div className="aspect-video relative w-full bg-muted/20 overflow-hidden cursor-target">

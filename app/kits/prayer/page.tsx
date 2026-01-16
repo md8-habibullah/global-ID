@@ -465,7 +465,7 @@ export default function PrayerDashboard() {
         {/* BOTTOM CONTROLS (EXPANDED WEATHER) */}
         <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex flex-col items-center gap-2 cursor-target">
           {/* Location Selector */}
-          <div className="cursor-target flex items-center gap-2 bg-secondary/10 backdrop-blur-sm px-1 py-1 rounded-full border border-border/10">
+          <div className="cursor-target flex items-center gap-2 bg-secondary/10 md:backdrop-blur-sm px-1 py-1 rounded-full border border-border/10">
             <select
               value={selectedCity}
               onChange={handleCityChange}

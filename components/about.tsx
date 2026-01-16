@@ -144,7 +144,7 @@ export default function About() {
               style={{ animationDelay: "0.2s" }}
             >
               {/* Stats Panel with SCANNER Effect */}
-              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 relative overflow-hidden group cursor-target">
+              <div className="bg-card md:bg-card/50 md:backdrop-blur-sm border border-border/50 rounded-xl p-6 relative overflow-hidden group cursor-target">
 
                 {/* SCANNER ANIMATION */}
                 <motion.div
