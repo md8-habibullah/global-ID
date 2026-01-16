@@ -61,6 +61,11 @@ export async function generateMetadata(): Promise<Metadata> {
     "Technical articles, tutorials, and insights on Full-Stack Development & DevOps. Explore the latest posts on coding, infrastructure, and more.";
   const url = "https://habibullah.dev/blog";
 
+  // Your local URL for site structure
+  const localUrl = "https://habibullah.dev/blog";
+  // Your Dev.to Profile URL
+  const devToProfile = "https://dev.to/md8_habibullah";
+
   return {
     title,
     description,
@@ -77,11 +82,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "Bangladeshi Dev"
     ],
     authors: [{ name: "MD. Habibullah Sharif" }],
-    alternates: { canonical: url },
+    alternates: { canonical: devToProfile },
     openGraph: {
       title,
       description,
-      url,
+      url: localUrl,
       siteName: "Habibullah.dev",
       images: posts[0]?.cover_image
         ? [{ url: posts[0].cover_image, alt: posts[0].title }]

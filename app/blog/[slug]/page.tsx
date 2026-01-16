@@ -58,18 +58,19 @@ export async function generateMetadata({
 
   if (!post) return { title: "Post Not Found" };
 
-  const url = `https://habibullah.dev/blog/${slug}`;
+  // const url = `https://habibullah.dev/blog/${slug}`;
+  const localUrl = `https://habibullah.dev/blog/${slug}`;
 
   return {
     title: `${post.title} | MD. Habibullah Sharif`,
     description: post.description,
     keywords: post.tags.join(", "),
     authors: [{ name: post.user.name }],
-    alternates: { canonical: url },
+    alternates: { canonical: post.url },
     openGraph: {
       title: post.title,
       description: post.description,
-      url,
+      url: localUrl,
       siteName: "Habibullah.dev",
       type: "article",
       publishedTime: post.published_at,
