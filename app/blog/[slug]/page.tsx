@@ -225,7 +225,8 @@ export default async function BlogPostPage({
               },
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": `https://habibullah.dev/blog/${post.slug}`,
+                // "@id": `https://habibullah.dev/blog/${post.slug}`, 
+                "@id": post.url
               },
               wordCount: Math.ceil(post.reading_time_minutes * 200), // Approximate
               keywords: post.tags.join(", "),
