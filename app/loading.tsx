@@ -55,7 +55,7 @@ export default function Preloader() {
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="relative w-32 h-32 bg-primary/5 rounded-full backdrop-blur-md border border-primary/40 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,200,0.2)]"
+          className="relative w-32 h-32 bg-primary/5 rounded-full md:backdrop-blur-md border border-primary/40 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,200,0.2)]"
         >
           <Cpu className="w-12 h-12 text-primary animate-pulse" />
         </motion.div>

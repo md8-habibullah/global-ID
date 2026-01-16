@@ -58,7 +58,7 @@ export default function Hero() {
 
             {/* Rotating Tech Ring */}
             <div className="absolute inset-[-15px] md:inset-[-20px] rounded-full border border-primary/20 border-dashed md:animate-[spin_10s_linear_infinite] pointer-events-none" />
-            <div className="absolute inset-[-8px] md:inset-[-10px] rounded-full border border-primary/10 animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
+            <div className="absolute inset-[-8px] md:inset-[-10px] rounded-full border border-primary/10 md:animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
 
             {/* Background Glow */}
             <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
