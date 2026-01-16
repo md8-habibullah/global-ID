@@ -111,12 +111,15 @@ export default function FloatingContact() {
     <>
       {/* Floating Contact Button */}
       <motion.div
-        className="fixed bottom-8 right-8 z-50"
+        // POSITIONING UPDATE:
+        // Mobile: bottom-14 (Higher) right-8 (More Left)
+        // Desktop: bottom-12 (1.5x Higher) right-10 (Balanced)
+        className="fixed bottom-14 right-8 md:bottom-12 md:right-10 z-50"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 300, damping: 20 }}
       >
-        {/* Glowing background ring */}
+        {/* Glowing background ring - HIDDEN on mobile for performance */}
         <motion.div
           className="hidden md:block absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
           animate={{
@@ -133,7 +136,13 @@ export default function FloatingContact() {
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className={`
-            relative px-6 py-4 rounded-2xl md:backdrop-blur-xl bg-card/90 md:bg-transparent
+            relative 
+            /* MOBILE: Circle Shape (56px) */
+            h-14 w-14 flex items-center justify-center rounded-full
+            /* DESKTOP: Pill Shape (Auto width) */
+            md:h-auto md:w-auto md:px-6 md:py-4 md:rounded-2xl
+            
+            md:backdrop-blur-xl bg-card/90 md:bg-transparent
             font-sans text-sm font-semibold
             transition-all duration-500 ease-out
             shadow-2xl hover:shadow-primary/30
@@ -146,10 +155,10 @@ export default function FloatingContact() {
           whileHover={{ y: -4 }}
           whileTap={{ scale: 0.95 }}
         >
-          {/* Breathing pulse effect when closed */}
+          {/* Breathing pulse effect when closed - HIDDEN on mobile */}
           {!isOpen && (
             <motion.div
-              className="absolute inset-0 rounded-2xl border-2 border-primary/30"
+              className="hidden md:block absolute inset-0 rounded-2xl border-2 border-primary/30"
               animate={{
                 scale: [1, 1.05, 1],
                 opacity: [0, 0.6, 0],
@@ -173,9 +182,11 @@ export default function FloatingContact() {
                 scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
               }}
             >
-              <MessageSquare className="w-5 h-5" />
+              <MessageSquare className="w-6 h-6 md:w-5 md:h-5" />
             </motion.div>
-            <div className="flex flex-col items-start leading-none">
+
+            {/* Text hidden on mobile, visible on desktop */}
+            <div className="hidden md:flex flex-col items-start leading-none">
               <span className="text-sm font-bold">Contact</span>
               <span className="text-xs opacity-80">Get in touch</span>
             </div>
@@ -183,7 +194,7 @@ export default function FloatingContact() {
 
           {/* Notification badge */}
           <motion.div
-            className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-3 border-white dark:border-gray-900 flex items-center justify-center"
+            className="absolute top-0 right-0 md:-top-2 md:-right-2 w-4 h-4 md:w-6 md:h-6 bg-green-500 rounded-full border-2 md:border-3 border-white dark:border-gray-900 flex items-center justify-center"
             animate={{
               scale: [1, 1.2, 1],
               boxShadow: [
@@ -198,14 +209,14 @@ export default function FloatingContact() {
               ease: "easeOut",
             }}
           >
-            <span className="text-white text-xs font-bold">!</span>
+            <span className="text-white text-[10px] md:text-xs font-bold">!</span>
           </motion.div>
         </motion.button>
 
-        {/* Floating tooltip */}
+        {/* Floating tooltip - Desktop Only */}
         {!isOpen && (
           <motion.div
-            className="absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap"
+            className="hidden md:block absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap"
             initial={{ opacity: 0, y: 10 }}
             animate={{
               opacity: [0, 1, 1, 0],
@@ -230,7 +241,7 @@ export default function FloatingContact() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/20 md:backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/40 md:bg-black/20 md:backdrop-blur-sm z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -239,13 +250,17 @@ export default function FloatingContact() {
 
             {/* Contact Panel */}
             <motion.div
-              className="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] z-50"
+              // PANEL POSITIONING UPDATE:
+              // Mobile: bottom-32 (Higher to clear button)
+              // Desktop: bottom-32 right-10 (Aligned with button)
+              className="fixed bottom-32 left-4 right-4 md:left-auto md:right-10 md:w-96 z-50"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl overflow-hidden">
+              {/* Added bg-card for mobile solid background */}
+              <div className="bg-card md:bg-white/95 dark:md:bg-gray-900/95 md:backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center gap-4">
@@ -273,7 +288,7 @@ export default function FloatingContact() {
                 </div>
 
                 {/* Contact List */}
-                <div className="p-4 space-y-3 max-h-96 overflow-y-auto">
+                <div className="p-4 space-y-3 max-h-[60vh] md:max-h-96 overflow-y-auto">
                   {contactList.map((contact, index) => (
                     <motion.div
                       key={contact.id}
@@ -309,7 +324,7 @@ export default function FloatingContact() {
                           </div>
                         </div>
 
-                        {/* Copy Button - Always visible */}
+                        {/* Copy Button */}
                         <motion.button
                           onClick={(e) => {
                             e.stopPropagation();
