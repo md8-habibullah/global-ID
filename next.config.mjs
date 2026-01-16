@@ -28,9 +28,9 @@ const nextConfig = {
   },
 
   // --- ESLint/TypeScript settings ---
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
   typescript: {
     ignoreBuildErrors: true,
   },
