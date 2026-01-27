@@ -1,3 +1,5 @@
+// /app/blog/page.tsx
+
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
@@ -7,12 +9,12 @@ import {
   Terminal,
   Calendar,
   Clock,
-  ArrowRight,
   Heart,
   MessageCircle,
   Hash,
 } from "lucide-react";
 import type { Metadata } from "next";
+import FeaturedCarousel from "@/components/blog/featured-carousel"; // <--- IMPORT THIS
 
 // === TYPES ===
 interface User {
@@ -30,9 +32,9 @@ interface BlogPost {
   tag_list: string[];
   reading_time_minutes: number;
   cover_image: string | null;
-  public_reactions_count: number; // Added: Hearts/Likes
-  comments_count: number; // Added: Comments
-  user: User; // Added: Author Info
+  public_reactions_count: number;
+  comments_count: number;
+  user: User;
   url: string;
 }
 
@@ -44,8 +46,6 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   );
 
   if (!res.ok) {
-    // Return empty array instead of crashing if API fails,
-    // allows page to render with empty state or error message gracefully
     console.error("Failed to fetch Dev.to posts");
     return [];
   }
@@ -58,12 +58,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = "Blog | MD. Habibullah Sharif";
   const description =
-    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps. Explore the latest posts on coding, infrastructure, and more.";
-  const url = "https://habibullah.dev/blog";
-
-  // Your local URL for site structure
+    "Technical articles, tutorials, and insights on Full-Stack Development & DevOps.";
   const localUrl = "https://habibullah.dev/blog";
-  // Your Dev.to Profile URL
   const devToProfile = "https://dev.to/md8_habibullah";
 
   return {
@@ -73,13 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "blog",
       "full-stack development",
       "devops",
-      "infrastructure",
-      "Bangladeshi developer",
-      "tutorials",
       "coding",
-      "Ethical hacking",
-      "Bangla Article",
-      "Bangladeshi Dev"
     ],
     authors: [{ name: "MD. Habibullah Sharif" }],
     alternates: { canonical: devToProfile },
@@ -87,28 +77,15 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: localUrl,
-      siteName: "Habibullah.dev",
       images: posts[0]?.cover_image
         ? [{ url: posts[0].cover_image, alt: posts[0].title }]
         : [],
-      type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
       images: posts[0]?.cover_image ? [posts[0].cover_image] : [],
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
     },
   };
 }
@@ -117,10 +94,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogPage() {
   const posts = await getBlogPosts();
 
+  // Get top 5 posts for the slider
+  const featuredPosts = posts.slice(0, 5);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 py-8 cursor-target">
       {/* === HEADER SECTION === */}
-      <div className="mb-16 border-b border-border/40 pb-10 cursor-target">
+      <div className="mb-12 cursor-target">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 cursor-target">
           <div className="space-y-4 cursor-target">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono mb-2 cursor-target">
@@ -138,11 +118,9 @@ export default async function BlogPage() {
             <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
               <span className="text-primary font-mono mr-2">&gt;</span>
               Documenting my journey through code, infrastructure, and bugs.
-              Visualize my latest discoveries in Full-Stack & DevOps.
             </p>
           </div>
 
-          {/* Optional: Add a 'Total Stats' badge if you want to be extra cool */}
           <div className="hidden md:flex flex-col items-end gap-2 text-sm font-mono text-muted-foreground cursor-target">
             <div className="flex items-center gap-2 cursor-target">
               <Hash className="w-4 h-4" />
@@ -158,6 +136,19 @@ export default async function BlogPage() {
           </div>
         </div>
       </div>
+
+      {/* === FEATURED SLIDER === */}
+      {/* Pass the top 5 posts to the slider */}
+      {featuredPosts.length > 0 && (
+        <FeaturedCarousel posts={featuredPosts} />
+      )}
+
+      {/* Separator */}
+      <div className="flex items-center gap-4 mb-8">
+        <h3 className="text-2xl font-bold font-mono">Recent Uploads</h3>
+        <div className="h-px bg-border/40 flex-1"></div>
+      </div>
+
 
       {/* === POSTS GRID === */}
       {posts.length === 0 ? (
@@ -184,7 +175,8 @@ export default async function BlogPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={posts.indexOf(post) === 0} // Load first image fast
+                    // Priority only for the very first item if needed, but slider handles LCP now
+                    priority={false}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-primary/5 group-hover:bg-primary/10 transition-colors cursor-target">
