@@ -81,7 +81,8 @@ export default function KitsLayout({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col relative font-sans cursor-target">
+    // bg-background commented out to remove solid background color
+    <div className="min-h-screen text-foreground flex flex-col relative font-sans cursor-target">
       <div className="scan-overlay cursor-target" />
       <Header />
 
@@ -104,11 +105,10 @@ export default function KitsLayout({
               <Link
                 key={tool.path}
                 href={tool.path}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
-                  isActive
-                    ? "bg-primary/10 text-primary border-primary/20"
-                    : "hover:bg-white/5 border-transparent hover:border-white/10 text-muted-foreground"
-                }`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${isActive
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "hover:bg-white/5 border-transparent hover:border-white/10 text-muted-foreground"
+                  }`}
               >
                 {tool.icon}
                 {tool.name}
@@ -136,19 +136,17 @@ export default function KitsLayout({
                 <Link
                   key={tool.path}
                   href={tool.path}
-                  className={`group relative p-4 rounded-xl border transition-all duration-300 overflow-hidden ${
-                    isActive
-                      ? "bg-primary/5 border-primary/20"
-                      : "bg-card/30 border-border/40 hover:bg-card/80 hover:border-primary/40"
-                  }`}
+                  className={`group relative p-4 rounded-xl border transition-all duration-300 overflow-hidden ${isActive
+                    ? "bg-primary/5 border-primary/20"
+                    : "bg-card/30 border-border/40 hover:bg-card/80 hover:border-primary/40"
+                    }`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div
-                      className={`p-2 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-primary/20 text-primary"
-                          : "bg-primary/10 text-muted-foreground group-hover:text-primary group-hover:bg-primary/20"
-                      }`}
+                      className={`p-2 rounded-lg transition-colors ${isActive
+                        ? "bg-primary/20 text-primary"
+                        : "bg-primary/10 text-muted-foreground group-hover:text-primary group-hover:bg-primary/20"
+                        }`}
                     >
                       {tool.icon}
                     </div>
@@ -158,11 +156,10 @@ export default function KitsLayout({
                   </div>
 
                   <h3
-                    className={`font-medium mb-1 transition-colors ${
-                      isActive
-                        ? "text-primary"
-                        : "text-foreground group-hover:text-primary"
-                    }`}
+                    className={`font-medium mb-1 transition-colors ${isActive
+                      ? "text-primary"
+                      : "text-foreground group-hover:text-primary"
+                      }`}
                   >
                     {tool.name}
                   </h3>

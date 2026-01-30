@@ -8,6 +8,7 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import MouseCursor from "@/components/mouse-cursor";
 import { Toaster } from "sonner";
 import ScrollProgress from "@/components/scroll-progress";
+import GlobalSpider from "@/components/global-spider";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -55,6 +56,7 @@ export const metadata: Metadata = {
   },
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,29 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#0a0a0a" />
-
-        {/* Google Tag Manager */}
-        {/* <GoogleTagManager gtmId="GTM-KC8SQW4R" /> */}
-
-        {/* Force dark theme on page load - runs before React hydration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                // Remove any saved theme from localStorage
-                localStorage.removeItem('nonexistent_key');
-                // Force dark theme on html element
-                document.documentElement.classList.add('dark');
-                document.documentElement.classList.remove('light');
-              })();
-            `,
-          }}
-        />
-      </head>
+      {/* ... Head section ... */}
 
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning={true}>
         <ThemeProvider
@@ -93,10 +73,19 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          {/* === 1. GLOBAL SPIDER (z-index: 0) === */}
+          {/* Sits on top of the background color, but below the text */}
+          <GlobalSpider color="0, 255, 200" />
 
           <MouseCursor />
           <ScrollProgress />
-          {children}
+
+          {/* === 2. CONTENT WRAPPER (z-index: 10) === */}
+          {/* This ensures your buttons/text are clickable and above the spider lines */}
+          <div className="relative z-10">
+            {children}
+          </div>
+
           <Toaster
             position="top-center"
             theme="dark"
@@ -105,25 +94,6 @@ export default function RootLayout({
             duration={3000}
           />
         </ThemeProvider>
-        {/* <Analytics /> */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org/",
-              "@type": "Person",
-              name: "MD. HABIBULLAH SHARIF",
-              url: "https://md8-habibullah.com",
-              image:
-                "https://avatars.githubusercontent.com/u/149287500?v=4&s=300",
-              jobTitle: "Full-Stack Developer & DevOps Engineer",
-              sameAs: [
-                "https://github.com/md8-habibullah",
-                "https://linkedin.com/in/md-habibullahs",
-              ],
-            }),
-          }}
-        />
       </body>
     </html>
   );

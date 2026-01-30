@@ -7,7 +7,8 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background flex flex-col font-sans selection:bg-primary/20">
+    // bg-background commented out to remove solid background color
+    <div className="min-h-screen  flex flex-col font-sans selection:bg-primary/20">
       <Header />
       <main className="flex-1 pt-20 pb-16 relative cursor-target">
         {/* Cyber Grid Background for the Blog Section */}

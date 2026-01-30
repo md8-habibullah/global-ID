@@ -10,7 +10,8 @@ import Roadmap from "@/components/roadmap"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background cursor-target">
+    // bg-background commented out to remove solid background color
+    <main className="min-h-screen  cursor-target">
       <Header />
       <Hero />
       <About />

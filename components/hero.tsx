@@ -1,7 +1,7 @@
 "use client";
 
 import HackerText from "./HackerText";
-import SpiderCanvas from "./spider-canvas"; // Import the new component
+// import SpiderCanvas from "./spider-canvas";
 import {
   Github,
   Linkedin,
@@ -57,9 +57,9 @@ export default function Hero() {
         >
           {/* === SPIDER CANVAS LAYER === */}
           {/* This places the spider effect ONLY around the profile picture area */}
-          <div className="absolute inset-0 -z-10 opacity-60">
+          {/* <div className="absolute inset-0 -z-10 opacity-60">
             <SpiderCanvas color="0, 255, 200" particleCount={50} limit={100} />
-          </div>
+          </div> */}
 
           <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
 
@@ -156,7 +156,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="pt-6 md:pt-8 cursor-target border-t border-border/30 mt-6 md:mt-8">
+          <div className="pt-6 md:pt-8 socialLinks bg-background cursor-target border-t border-border/30 mt-6 md:mt-8">
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-4 cursor-target">
               {socialLinks.map(({ href, label, Icon }) => (
                 <a
