@@ -1,6 +1,7 @@
 "use client";
 
 import HackerText from "./HackerText";
+import SpiderCanvas from "./spider-canvas"; // Import the new component
 import {
   Github,
   Linkedin,
@@ -49,11 +50,17 @@ export default function Hero() {
 
       <div className="grid md:grid-cols-2 gap-8 lg:gap-20 items-center max-w-6xl w-full cursor-target relative z-10 px-4 md:px-0">
 
-        {/* Left: Profile Image with SCANNER Effect */}
+        {/* Left: Profile Image with SPIDER Effect */}
         <div
-          className="flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last"
+          className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10" // Added padding to give the spider space
           style={{ animationDelay: "0.1s" }}
         >
+          {/* === SPIDER CANVAS LAYER === */}
+          {/* This places the spider effect ONLY around the profile picture area */}
+          <div className="absolute inset-0 -z-10 opacity-60">
+            <SpiderCanvas color="0, 255, 200" particleCount={50} limit={100} />
+          </div>
+
           <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
 
             {/* Rotating Tech Ring */}
@@ -100,6 +107,7 @@ export default function Hero() {
           className="space-y-6 md:space-y-8 animate-fade-in-up cursor-target order-last md:order-first text-center md:text-left"
           style={{ animationDelay: "0.2s" }}
         >
+          {/* ... (Rest of your existing right-side content remains unchanged) ... */}
           <div className="space-y-4 cursor-target">
             <div className="flex items-center justify-center md:justify-start gap-2 text-primary/80 font-mono text-sm tracking-widest uppercase">
               <Terminal className="w-4 h-4" />
@@ -128,7 +136,6 @@ export default function Hero() {
             security-first mindset.
           </p>
 
-          {/* Action Buttons */}
           <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2 md:pt-4 cursor-target">
             <a href="#projects" className="fire-button group">
               <span className="relative z-10">View Projects</span>
@@ -149,7 +156,6 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* === SMART SOCIALS: FULL COLOR FILL ON HOVER === */}
           <div className="pt-6 md:pt-8 cursor-target border-t border-border/30 mt-6 md:mt-8">
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-4 cursor-target">
               {socialLinks.map(({ href, label, Icon }) => (
@@ -163,19 +169,16 @@ export default function Hero() {
                              overflow-hidden transition-all duration-500 ease-out
                              hover:w-auto hover:border-primary hover:bg-primary hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
                 >
-                  {/* Icon Wrapper - Turns Black/Dark on Hover for Contrast */}
                   <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 cursor-target">
                     <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-black" />
                   </div>
 
-                  {/* Smart Reveal Text - Turns Black/Dark on Hover */}
                   <div className="flex items-center max-w-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:max-w-[200px] group-hover:ml-1 cursor-target">
                     <span className="text-sm font-medium text-foreground whitespace-nowrap opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-hover:text-black font-bold font-mono">
                       {label}
                     </span>
                   </div>
 
-                  {/* Tech Corners */}
                   <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
                   <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
                 </a>
