@@ -40,13 +40,13 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
         handleResize();
 
-        // === CONFIGURATION: "More Wire" Mode ===
-        // 1. Density: Lower number = MORE particles = MORE potential wires
-        const density = isMobile ? 18000 : 12000;
+        // === CONFIGURATION: "Small & Lighter" Mode ===
+        // Density: Medium-High (enough for many wires, but not crowded)
+        const density = isMobile ? 18000 : 13000;
         const particleCount = Math.floor((width * height) / density);
 
-        // 2. Connection: Increased distance (160) = Wires stretch further = MORE connections
-        const connectionDist = isMobile ? 120 : 160;
+        // Connections: Kept wide to maintain "More Wires" look
+        const connectionDist = isMobile ? 110 : 150;
         const mouseDist = isMobile ? 140 : 200;
 
         // === ATTRACTOR POSITION ===
@@ -67,10 +67,11 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                // Speed: Balanced (0.7) - Alive but smooth
-                this.vx = (Math.random() - 0.5) * 0.7;
-                this.vy = (Math.random() - 0.5) * 0.7;
-                this.size = Math.random() * 1.5 + 1; // 1px to 2.5px
+                // SPEED: "Low" (Slower, calmer movement)
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                // SIZE: "Small" (Tiny, elegant dots)
+                this.size = Math.random() * 1.5 + 0.5;
             }
 
             update() {
@@ -101,8 +102,7 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                     const forceDirectionX = dx / distance;
                     const forceDirectionY = dy / distance;
                     const force = (distLimit - distance) / distLimit;
-                    // Attraction Strength
-                    const strength = mouse.isActive ? 0.05 : 0.015;
+                    const strength = mouse.isActive ? 0.04 : 0.01;
 
                     this.vx += forceDirectionX * force * strength;
                     this.vy += forceDirectionY * force * strength;
@@ -113,8 +113,8 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                // BALANCED VISIBILITY: 0.6 Opacity (Visible but not harsh)
-                ctx.fillStyle = `rgba(${color}, 0.6)`;
+                // LIGHTER: 0.5 Opacity (Visible but not heavy)
+                ctx.fillStyle = `rgba(${color}, 0.5)`;
                 ctx.fill();
             }
         }
@@ -136,7 +136,7 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 p.update();
                 p.draw();
 
-                // 1. Connect Particle-to-Particle (The Wires)
+                // 1. Connect Particle-to-Particle
                 for (let j = i + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dx = p.x - p2.x;
@@ -146,11 +146,11 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                     if (dist < connectionDist) {
                         ctx.beginPath();
                         const opacity = 1 - (dist / connectionDist);
-                        // "MORE WIRE" TWEAK:
-                        // Opacity 0.2: Visible enough to see the web structure clearly
-                        // Width 0.6: Thin enough to be elegant, thick enough to be seen
+                        // LIGHTER WIRES:
+                        // Width: 0.5 (Very thin silk)
+                        // Opacity: 0.2 max (Subtle web)
                         ctx.strokeStyle = `rgba(${color}, ${opacity * 0.2})`;
-                        ctx.lineWidth = 0.6;
+                        ctx.lineWidth = 0.5;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
@@ -176,9 +176,9 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (dist < limit) {
                     ctx.beginPath();
                     const opacity = 1 - (dist / limit);
-                    // Interaction lines: 0.5 Opacity (Stronger than background web)
-                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.5})`;
-                    ctx.lineWidth = 1;
+                    // Interaction lines: Slightly stronger (0.4) but still light
+                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.4})`;
+                    ctx.lineWidth = 0.8;
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(targetX, targetY);
                     ctx.stroke();
