@@ -1,8 +1,7 @@
-"use client"
+"use client";
 
 import { useEffect, useRef, useCallback, useMemo, useState } from 'react';
 import { gsap } from 'gsap';
-// No icons needed - using pure CSS shapes
 
 interface TargetCursorProps {
   targetSelector?: string;
@@ -28,36 +27,47 @@ export default function MouseCursor({
   const tickerFnRef = useRef<((time: number, deltaTime: number, frame: number) => void) | null>(null);
   const activeStrengthRef = useRef({ current: 0 });
 
-  // Use state to handle hydration safely
+  // 1. SAFE HYDRATION STATE
+  // Start with true (Mobile) to ensure we render NOTHING during SSR/Hydration.
+  // We only enable it after we confirm on the client that it's a desktop.
   const [isMobile, setIsMobile] = useState(true);
 
-  // Check mobile status only on client mount
   useEffect(() => {
     const checkMobile = () => {
-      // Check for touch capability or small screen
-      const mobile = window.matchMedia("(max-width: 768px)").matches ||
-        'ontouchstart' in window;
+      // Robust check: Touch capability OR small screen
+      const mobile = window.matchMedia("(max-width: 768px)").matches || 'ontouchstart' in window;
       setIsMobile(mobile);
     };
 
+    // Run check immediately on mount
     checkMobile();
+
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const constants = useMemo(() => ({ borderWidth: 3, cornerSize: 12 }), []);
 
-  // ... (Movement logic remains the same) ...
   const moveCursor = useCallback((x: number, y: number) => {
     if (!cursorRef.current) return;
     gsap.to(cursorRef.current, { x, y, duration: 0.1, ease: 'power3.out' });
   }, []);
 
   useEffect(() => {
-    // CRITICAL OPTIMIZATION: Do not run ANY of this heavy logic on mobile
-    if (isMobile || !cursorRef.current) return;
+    // CRITICAL: Stop here if mobile. No listeners, no GSAP.
+    if (isMobile) {
+      // Cleanup if switching from desktop to mobile
+      document.body.style.cursor = '';
+      return;
+    }
+
+    if (!cursorRef.current) return;
 
     if (hideDefaultCursor) {
+      // Using body style is cleaner than appending a style tag for SPA navigation
+      document.body.style.cursor = 'none';
+
+      // Also inject style for specific elements that might override body
       const style = document.createElement('style');
       style.id = 'cursor-hider';
       style.innerHTML = `* { cursor: none !important; }`;
@@ -71,7 +81,7 @@ export default function MouseCursor({
     let currentLeaveHandler: (() => void) | null = null;
     let resumeTimeout: NodeJS.Timeout | null = null;
 
-    // Center initially
+    // Center initially (off-screen or center, center is safer to prevent jump)
     gsap.set(cursor, { xPercent: -50, yPercent: -50, x: window.innerWidth / 2, y: window.innerHeight / 2 });
 
     const createSpinTimeline = () => {
@@ -82,7 +92,7 @@ export default function MouseCursor({
     };
     createSpinTimeline();
 
-    // The heavy lifter: the ticker
+    // The Ticker (Heavy logic)
     const tickerFn = () => {
       if (!targetCornerPositionsRef.current || !cursorRef.current || !cornersRef.current) return;
       const strength = activeStrengthRef.current.current;
@@ -100,6 +110,8 @@ export default function MouseCursor({
         const targetY = targetCornerPositionsRef.current[i].y - cursorY;
         const finalX = currentX + (targetX - currentX) * strength;
         const finalY = currentY + (targetY - currentY) * strength;
+
+        // Dynamic duration based on closeness to target
         const duration = strength >= 0.99 ? (parallaxOn ? 0.2 : 0) : 0.05;
 
         gsap.to(corner, {
@@ -113,14 +125,19 @@ export default function MouseCursor({
     const moveHandler = (e: MouseEvent) => moveCursor(e.clientX, e.clientY);
     window.addEventListener('mousemove', moveHandler);
 
-    // ... (Scroll, Mouse Down/Up handlers same as before) ...
     const scrollHandler = () => {
       if (!activeTarget || !cursorRef.current) return;
       const mouseX = gsap.getProperty(cursorRef.current, 'x') as number;
       const mouseY = gsap.getProperty(cursorRef.current, 'y') as number;
       const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+      // Check if we are still hovering over the active target (or its children)
       const isStillOverTarget = elementUnderMouse && (elementUnderMouse === activeTarget || elementUnderMouse.closest(targetSelector) === activeTarget);
-      if (!isStillOverTarget && currentLeaveHandler) currentLeaveHandler();
+
+      if (!isStillOverTarget && currentLeaveHandler) {
+        // Manually trigger leave if scrolled away
+        leaveHandler();
+        // Note: leaveHandler will clear currentLeaveHandler, but we call it safely
+      }
     };
     window.addEventListener('scroll', scrollHandler, { passive: true });
 
@@ -129,18 +146,18 @@ export default function MouseCursor({
     window.addEventListener('mousedown', mouseDownHandler);
     window.addEventListener('mouseup', mouseUpHandler);
 
-    // ... (Enter/Leave handlers same as before) ...
-    const cleanupTarget = (target: Element) => {
-      if (currentLeaveHandler) target.removeEventListener('mouseleave', currentLeaveHandler);
-      currentLeaveHandler = null;
-    };
-
     const enterHandler = (e: MouseEvent) => {
       const directTarget = e.target as HTMLElement;
       const target = directTarget.closest(targetSelector);
       if (!target || !cursorRef.current || !cornersRef.current) return;
       if (activeTarget === target) return;
-      if (activeTarget) cleanupTarget(activeTarget);
+      if (activeTarget) {
+        // If switching targets quickly, clean up old one first
+        if (currentLeaveHandler) {
+          target.removeEventListener('mouseleave', currentLeaveHandler);
+          currentLeaveHandler = null;
+        }
+      }
       if (resumeTimeout) { clearTimeout(resumeTimeout); resumeTimeout = null; }
 
       activeTarget = target;
@@ -152,9 +169,8 @@ export default function MouseCursor({
 
       const rect = target.getBoundingClientRect();
       const { borderWidth, cornerSize } = constants;
-      const cursorX = gsap.getProperty(cursorRef.current, 'x') as number;
-      const cursorY = gsap.getProperty(cursorRef.current, 'y') as number;
 
+      // Calculate target positions for corners
       targetCornerPositionsRef.current = [
         { x: rect.left - borderWidth, y: rect.top - borderWidth },
         { x: rect.right + borderWidth - cornerSize, y: rect.top - borderWidth },
@@ -165,6 +181,14 @@ export default function MouseCursor({
       isActiveRef.current = true;
       if (tickerFnRef.current) gsap.ticker.add(tickerFnRef.current);
       gsap.to(activeStrengthRef.current, { current: 1, duration: hoverDuration, ease: 'power2.out' });
+
+      // Define leave handler specific to this target
+      currentLeaveHandler = () => {
+        leaveHandler();
+        target.removeEventListener('mouseleave', currentLeaveHandler!); // Use ! as we know it exists here
+        currentLeaveHandler = null;
+      };
+      target.addEventListener('mouseleave', currentLeaveHandler);
     };
 
     const leaveHandler = () => {
@@ -206,18 +230,8 @@ export default function MouseCursor({
       }, 50);
     };
 
-    const globalOutHandler = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (activeTarget && (target === activeTarget || activeTarget.contains(target))) {
-        if (!e.relatedTarget || !(activeTarget.contains(e.relatedTarget as Node))) {
-          leaveHandler();
-          if (activeTarget) cleanupTarget(activeTarget);
-        }
-      }
-    }
-
+    // Use a single delegated listener for mouseover
     window.addEventListener('mouseover', enterHandler, { passive: true });
-    window.addEventListener('mouseout', globalOutHandler, { passive: true });
 
     return () => {
       if (tickerFnRef.current) gsap.ticker.remove(tickerFnRef.current);
@@ -226,7 +240,7 @@ export default function MouseCursor({
       window.removeEventListener('mousedown', mouseDownHandler);
       window.removeEventListener('mouseup', mouseUpHandler);
       window.removeEventListener('mouseover', enterHandler);
-      window.removeEventListener('mouseout', globalOutHandler);
+
       const hider = document.getElementById('cursor-hider');
       if (hider) hider.remove();
       spinTl.current?.kill();
@@ -234,53 +248,24 @@ export default function MouseCursor({
     };
   }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, isMobile, hoverDuration, parallaxOn]);
 
-  // Robust Mobile check: Render nothing if mobile (saves DOM nodes)
-  // But during SSR/first render, default is "true" to avoid hydration mismatch, then effects flip it.
-  // Actually, safe way: Default hidden via CSS, only mount GSAP if !mobile.
-  // Render null on mobile to avoid unnecessary DOM nodes
+  // RENDER:
+  // If mobile, return NULL immediately. 
+  // This removes all divs from the DOM on mobile phones.
   if (isMobile) return null;
 
   return (
-    <div ref={cursorRef} className="target-cursor-wrapper hidden md:block">
-      {/* Modern Minimal Cursor - Option 1: Simple Circle with Ring */}
+    <div ref={cursorRef} className="target-cursor-wrapper fixed pointer-events-none z-[9999] top-0 left-0 hidden md:block">
+      {/* Circle with Ring Style */}
       <div ref={dotRef} className="target-cursor-dot">
         <div className="relative">
-          {/* Outer ring */}
+          {/* Outer Ring */}
           <div className="absolute inset-0 w-6 h-6 rounded-full border-2 border-primary/60 animate-pulse" />
-          {/* Inner dot */}
+          {/* Center Dot */}
           <div className="w-6 h-6 flex items-center justify-center">
             <div className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(var(--primary-rgb),0.8)]" />
           </div>
         </div>
       </div>
-
-      {/* Alternative Modern Cursors (uncomment to use) */}
-
-      {/* Option 2: Crosshair Plus
-      <div ref={dotRef} className="target-cursor-dot">
-        <div className="relative w-6 h-6">
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-primary transform -translate-y-1/2" />
-          <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-primary transform -translate-x-1/2" />
-          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-primary rounded-full transform -translate-x-1/2 -translate-y-1/2" />
-        </div>
-      </div>
-      */}
-
-      {/* Option 3: Modern Diamond
-      <div ref={dotRef} className="target-cursor-dot">
-        <div className="w-3 h-3 bg-primary rotate-45 shadow-[0_0_10px_rgba(var(--primary-rgb),0.6)]" />
-      </div>
-      */}
-
-      {/* Option 4: Sleek Line Cursor
-      <div ref={dotRef} className="target-cursor-dot">
-        <div className="flex flex-col items-center gap-1">
-          <div className="w-[2px] h-3 bg-gradient-to-b from-primary to-transparent" />
-          <div className="w-1 h-1 bg-primary rounded-full" />
-          <div className="w-[2px] h-3 bg-gradient-to-t from-primary to-transparent" />
-        </div>
-      </div>
-      */}
 
       <div className="target-cursor-corner corner-tl" />
       <div className="target-cursor-corner corner-tr" />
