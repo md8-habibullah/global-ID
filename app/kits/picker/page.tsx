@@ -29,11 +29,10 @@ export default function PickerPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as Tab)}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md text-xs md:text-sm font-medium transition-all ${
-                activeTab === tab.id
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "text-muted-foreground hover:text-white hover:bg-white/5"
-              }`}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-xs md:text-sm font-medium transition-all ${activeTab === tab.id
+                ? "bg-primary text-primary-foreground shadow-lg"
+                : "text-muted-foreground hover:text-white hover:bg-white/5"
+                }`}
             >
               <tab.icon className="w-3 h-3 md:w-4 md:h-4" />
               {tab.label}
@@ -138,9 +137,8 @@ function CoinView() {
 
         {/* Dynamic Shadow */}
         <div
-          className={`absolute -bottom-24 left-1/2 -translate-x-1/2 bg-black/60 blur-2xl rounded-[100%] transition-all duration-[2000ms] ease-in-out-sine ${
-            isFlipping ? "w-24 h-4 opacity-30 delay-200" : "w-48 h-8 opacity-80"
-          }`}
+          className={`absolute -bottom-24 left-1/2 -translate-x-1/2 bg-black/60 blur-2xl rounded-[100%] transition-all duration-[2000ms] ease-in-out-sine ${isFlipping ? "w-24 h-4 opacity-30 delay-200" : "w-48 h-8 opacity-80"
+            }`}
         />
       </div>
 
@@ -351,7 +349,7 @@ function ListView() {
         <textarea
           value={items}
           onChange={(e) => setItems(e.target.value)}
-          placeholder={"Alice\nBob\nCharlie\nDave"}
+          placeholder={"Imran\nHassan\nFaisal\nNoman\nSaad"}
           className="flex-1 min-h-[250px] w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none font-mono resize-none leading-relaxed whitespace-pre-wrap"
         />
         <button

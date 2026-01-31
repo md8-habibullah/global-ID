@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import type { RefObject } from "react";
 import { useTheme } from "next-themes";
 import {
   Sun,
@@ -11,7 +10,7 @@ import {
   NotebookPen,
   Wrench,
   Terminal,
-  Cpu,
+  Calendar, // Imported Calendar Icon
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -95,6 +94,7 @@ export default function Header() {
   const blog = "/blog";
   const isDark = theme === "dark";
   const isKitsPage = pathname?.startsWith("/kits");
+  const isCalendarPage = pathname === "/calendar";
 
   // Helper for Link Classes
   const getNavLinkClass = (id: string) =>
@@ -170,10 +170,12 @@ export default function Header() {
               {/* Pulsing background glow */}
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 to-green-400/40 rounded-full blur-md opacity-60 animate-pulse" />
 
-              <Wrench className={`w-4 h-4 relative z-10 transition-all duration-300 ${isKitsPage
-                ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse"
-                : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
-                }`} />
+              <Wrench
+                className={`w-4 h-4 relative z-10 transition-all duration-300 ${isKitsPage
+                  ? "text-primary drop-shadow-[0_0_8px_rgba(16,185,129,1)] animate-pulse"
+                  : "group-hover:text-primary group-hover:drop-shadow-[0_0_6px_rgba(16,185,129,0.8)] group-hover:scale-110"
+                  }`}
+              />
             </div>
 
             <span className="relative z-10 font-semibold">/kits</span>
@@ -191,7 +193,19 @@ export default function Header() {
 
           <div className="h-6 w-px bg-border/40 hidden sm:block cursor-target" />
 
-          {/* Theme Toggle (Switch Style) */}
+          {/* === 1. CALENDAR BUTTON (Next to Theme Switcher) === */}
+          <Link
+            href="/calendar"
+            title="Global Schedule"
+            className={`relative p-2 rounded-lg border transition-all group ${isCalendarPage
+              ? "border-primary/50 bg-primary/10 text-primary"
+              : "border-border/40 hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-primary"
+              }`}
+          >
+            <Calendar className="w-5 h-5 transition-transform group-hover:scale-110" />
+          </Link>
+
+          {/* === 2. THEME TOGGLE === */}
           <button
             className="relative p-2 rounded-lg border border-border/40 hover:border-primary/50 hover:bg-primary/5 transition-all group"
             onClick={() => setTheme(isDark ? "light" : "dark")}
@@ -227,7 +241,10 @@ export default function Header() {
           absolute top-[65px] right-0 left-0 bg-background/95 backdrop-blur-xl border-b border-border/40 shadow-2xl
           transition-all duration-300 ease-in-out origin-top
           md:hidden
-          ${isMenuOpen ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-0 -translate-y-4 pointer-events-none"}
+          ${isMenuOpen
+            ? "opacity-100 scale-y-100 translate-y-0"
+            : "opacity-0 scale-y-0 -translate-y-4 pointer-events-none"
+          }
         `}
       >
         <div className="p-4 space-y-4">
@@ -268,7 +285,10 @@ export default function Header() {
                   `}
               >
                 <span
-                  className={`w-1.5 h-1.5 rounded-full ${link.active ? "bg-primary" : "bg-muted-foreground/30 group-hover:bg-primary/50"}`}
+                  className={`w-1.5 h-1.5 rounded-full ${link.active
+                    ? "bg-primary"
+                    : "bg-muted-foreground/30 group-hover:bg-primary/50"
+                    }`}
                 />
                 {link.name}
                 {link.active && (
@@ -279,25 +299,37 @@ export default function Header() {
               </Link>
             ))}
 
-            <div className="grid grid-cols-2 gap-2 mt-2">
+            {/* Mobile Utils Grid - Updated to include Calendar */}
+            <div className="grid grid-cols-3 gap-2 mt-2">
+              <Link
+                href="/calendar"
+                onClick={() => setIsMenuOpen(false)}
+                className={`flex flex-col items-center justify-center gap-1 p-3 rounded-lg border font-mono text-xs transition-all ${isCalendarPage
+                  ? "border-primary/30 bg-primary/5 text-primary"
+                  : "border-border/40 bg-card/50 hover:border-primary/30 hover:text-primary"
+                  }`}
+              >
+                <Calendar className="w-4 h-4" />
+                <span>/cal</span>
+              </Link>
               <Link
                 href={blog}
-                onClick={() => setIsMenuOpen(false)} // Add this so the menu closes when clicked!
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border/40 bg-card/50 hover:border-primary/30 font-mono text-sm"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex flex-col items-center justify-center gap-1 p-3 rounded-lg border border-border/40 bg-card/50 hover:border-primary/30 hover:text-primary font-mono text-xs"
               >
-                <NotebookPen className="w-4 h-4 text-primary" />
-                blog.sh
+                <NotebookPen className="w-4 h-4" />
+                <span>blog.sh</span>
               </Link>
               <Link
                 href="/kits"
                 onClick={() => setIsMenuOpen(false)}
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border font-mono text-sm transition-all ${isKitsPage
+                className={`flex flex-col items-center justify-center gap-1 p-3 rounded-lg border font-mono text-xs transition-all ${isKitsPage
                   ? "border-primary/30 bg-primary/5 text-primary"
-                  : "border-border/40 bg-card/50 hover:border-primary/30"
+                  : "border-border/40 bg-card/50 hover:border-primary/30 hover:text-primary"
                   }`}
               >
-                <Wrench className="w-4 h-4 text-primary" />
-                /kits
+                <Wrench className="w-4 h-4" />
+                <span>/kits</span>
               </Link>
             </div>
           </nav>
