@@ -7,13 +7,14 @@ import {
   Linkedin,
   Mail,
   Terminal,
-  Facebook,
+  // Facebook, // Removed
   MessageCircle,
   GitBranch,
   Globe,
   Clock,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { DevToIcon } from "@/components/icon/dev.to"; // Import custom icon
 
 const socialLinks = [
   {
@@ -22,10 +23,11 @@ const socialLinks = [
     Icon: Linkedin,
   },
   { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },
+  // === Swapped Facebook for Dev.to ===
   {
-    href: "https://www.facebook.com/md8.habibullah",
-    label: "Facebook",
-    Icon: Facebook,
+    href: "https://dev.to/md8_habibullah",
+    label: "Dev.to",
+    Icon: DevToIcon,
   },
   {
     href: "https://habibullah.dev/whatsapp/",
@@ -166,7 +168,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    // ADD THIS LOGIC: If it's the last item and the total is odd, span 2 columns
+                    // Logic: If it's the last item and the total is odd, span 2 columns
                     className={`group flex items-center gap-3 px-3 py-2 rounded-lg border border-border/40 bg-card/50
                                transition-all duration-300 ease-out
                                hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)]

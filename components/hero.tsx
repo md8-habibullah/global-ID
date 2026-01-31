@@ -6,13 +6,14 @@ import {
   Github,
   Linkedin,
   Mail,
-  Facebook,
+  // Facebook, // Removed Facebook
   MessageCircle,
   Terminal,
   Download
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { DevToIcon } from "@/components/icon/dev.to"; // Make sure file above is created
 
 const socialLinks = [
   { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },
@@ -21,10 +22,11 @@ const socialLinks = [
     label: "LinkedIn",
     Icon: Linkedin,
   },
+  // === Swapped Facebook for Dev.to ===
   {
-    href: "https://www.facebook.com/md8.habibullah",
-    label: "Facebook",
-    Icon: Facebook,
+    href: "https://dev.to/md8_habibullah",
+    label: "Dev.to",
+    Icon: DevToIcon,
   },
   {
     href: "https://habibullah.dev/whatsapp/",
@@ -52,15 +54,9 @@ export default function Hero() {
 
         {/* Left: Profile Image with SPIDER Effect */}
         <div
-          className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10" // Added padding to give the spider space
+          className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10"
           style={{ animationDelay: "0.1s" }}
         >
-          {/* === SPIDER CANVAS LAYER === */}
-          {/* This places the spider effect ONLY around the profile picture area */}
-          {/* <div className="absolute inset-0 -z-10 opacity-60">
-            <SpiderCanvas color="0, 255, 200" particleCount={50} limit={100} />
-          </div> */}
-
           <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
 
             {/* Rotating Tech Ring */}
@@ -107,7 +103,6 @@ export default function Hero() {
           className="space-y-6 md:space-y-8 animate-fade-in-up cursor-target order-last md:order-first text-center md:text-left"
           style={{ animationDelay: "0.2s" }}
         >
-          {/* ... (Rest of your existing right-side content remains unchanged) ... */}
           <div className="space-y-4 cursor-target">
             <div className="flex items-center justify-center md:justify-start gap-2 text-primary/80 font-mono text-sm tracking-widest uppercase">
               <Terminal className="w-4 h-4" />

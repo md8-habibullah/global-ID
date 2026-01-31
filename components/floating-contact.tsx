@@ -7,17 +7,18 @@ import {
   Linkedin,
   Mail,
   MessageCircle,
-  Facebook,
   X,
   Copy,
   ExternalLink,
   Check,
+  Sparkles, // Polished "Connect" icon
   MessageSquare,
-  User,
 } from "lucide-react";
 import { toast } from "sonner";
+import { DevToIcon } from "@/components/icon/dev.to"; // Using the custom icon we created
 
-const contactList = [
+// Renamed to 'connectList' for better semantics
+const connectList = [
   {
     id: 1,
     label: "Email",
@@ -28,7 +29,7 @@ const contactList = [
     color: "text-blue-600",
     bgColor: "bg-blue-50",
     darkBg: "dark:bg-blue-950/30",
-    description: "Send me an email",
+    description: "Drop me a line", // Polished text
   },
   {
     id: 2,
@@ -40,7 +41,7 @@ const contactList = [
     color: "text-green-600",
     bgColor: "bg-green-50",
     darkBg: "dark:bg-green-950/30",
-    description: "Chat on WhatsApp",
+    description: "Direct message", // Polished text
   },
   {
     id: 3,
@@ -52,7 +53,7 @@ const contactList = [
     color: "text-blue-700",
     bgColor: "bg-blue-50",
     darkBg: "dark:bg-blue-950/30",
-    description: "Connect on LinkedIn",
+    description: "Professional network", // Polished text
   },
   {
     id: 4,
@@ -64,19 +65,20 @@ const contactList = [
     color: "text-gray-700",
     bgColor: "bg-gray-50",
     darkBg: "dark:bg-gray-950/30",
-    description: "View my repositories",
+    description: "Check my code", // Polished text
   },
+  // Swapped Facebook for Dev.to
   {
     id: 5,
-    label: "Facebook",
-    value: "facebook.com/md8.habibullah",
-    copyValue: "https://www.facebook.com/md8.habibullah",
-    href: "https://www.facebook.com/md8.habibullah",
-    icon: Facebook,
-    color: "text-blue-600",
-    bgColor: "bg-blue-50",
-    darkBg: "dark:bg-blue-950/30",
-    description: "Follow on Facebook",
+    label: "Dev.to",
+    value: "dev.to/md8_habibullah",
+    copyValue: "https://dev.to/md8_habibullah",
+    href: "https://dev.to/md8_habibullah",
+    icon: DevToIcon,
+    color: "text-gray-800 dark:text-white", // Brand correct colors
+    bgColor: "bg-gray-100",
+    darkBg: "dark:bg-white/10",
+    description: "Read my articles",
   },
 ];
 
@@ -89,13 +91,13 @@ export default function FloatingContact() {
       await navigator.clipboard.writeText(text);
       setCopiedId(id);
       toast.success(`${label} copied!`, {
-        description: "Ready to use anywhere",
+        description: "Ready to share",
         duration: 2000,
       });
 
       setTimeout(() => setCopiedId(null), 2000);
     } catch (error) {
-      toast.error("Failed to copy to clipboard");
+      toast.error("Failed to copy");
     }
   };
 
@@ -109,17 +111,14 @@ export default function FloatingContact() {
 
   return (
     <>
-      {/* Floating Contact Button */}
+      {/* Floating Connect Button */}
       <motion.div
-        // POSITIONING UPDATE:
-        // Mobile: bottom-14 (Higher) right-8 (More Left)
-        // Desktop: bottom-12 (1.5x Higher) right-10 (Balanced)
         className="fixed bottom-14 right-8 md:bottom-12 md:right-10 z-50"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 300, damping: 20 }}
       >
-        {/* Glowing background ring - HIDDEN on mobile for performance */}
+        {/* Glowing background ring */}
         <motion.div
           className="hidden md:block absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
           animate={{
@@ -137,9 +136,7 @@ export default function FloatingContact() {
           onClick={() => setIsOpen(!isOpen)}
           className={`
             relative 
-            /* MOBILE: Circle Shape (56px) */
             h-14 w-14 flex items-center justify-center rounded-full
-            /* DESKTOP: Pill Shape (Auto width) */
             md:h-auto md:w-auto md:px-6 md:py-4 md:rounded-2xl
             
             md:backdrop-blur-xl bg-card/90 md:bg-transparent
@@ -155,7 +152,7 @@ export default function FloatingContact() {
           whileHover={{ y: -4 }}
           whileTap={{ scale: 0.95 }}
         >
-          {/* Breathing pulse effect when closed - HIDDEN on mobile */}
+          {/* Breathing pulse effect */}
           {!isOpen && (
             <motion.div
               className="hidden md:block absolute inset-0 rounded-2xl border-2 border-primary/30"
@@ -185,10 +182,10 @@ export default function FloatingContact() {
               <MessageSquare className="w-6 h-6 md:w-5 md:h-5" />
             </motion.div>
 
-            {/* Text hidden on mobile, visible on desktop */}
+            {/* UPDATED TEXT: Connect Logic */}
             <div className="hidden md:flex flex-col items-start leading-none">
-              <span className="text-sm font-bold">Contact</span>
-              <span className="text-xs opacity-80">Get in touch</span>
+              <span className="text-sm font-bold">Connect</span>
+              <span className="text-xs opacity-80">Let's talk</span>
             </div>
           </div>
 
@@ -209,11 +206,11 @@ export default function FloatingContact() {
               ease: "easeOut",
             }}
           >
-            <span className="text-white text-[10px] md:text-xs font-bold">!</span>
+            <span className="text-white text-[10px] md:text-xs font-bold">1</span>
           </motion.div>
         </motion.button>
 
-        {/* Floating tooltip - Desktop Only */}
+        {/* Floating tooltip - Updated Text */}
         {!isOpen && (
           <motion.div
             className="hidden md:block absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap"
@@ -229,13 +226,13 @@ export default function FloatingContact() {
               ease: "easeInOut",
             }}
           >
-            Ready to collaborate
+            Let's build something
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-white" />
           </motion.div>
         )}
       </motion.div>
 
-      {/* Contact Popup */}
+      {/* Connect Popup */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -248,31 +245,27 @@ export default function FloatingContact() {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Contact Panel */}
+            {/* Connect Panel */}
             <motion.div
-              // PANEL POSITIONING UPDATE:
-              // Mobile: bottom-32 (Higher to clear button)
-              // Desktop: bottom-32 right-10 (Aligned with button)
               className="fixed bottom-32 left-4 right-4 md:left-auto md:right-10 md:w-96 z-50"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              {/* Added bg-card for mobile solid background */}
               <div className="bg-card md:bg-white/95 dark:md:bg-gray-900/95 md:backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl overflow-hidden">
-                {/* Header */}
+                {/* Header - Updated */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center gap-4">
                     <div className="p-2.5 bg-primary/10 rounded-2xl">
-                      <User className="w-5 h-5 text-primary" />
+                      <Sparkles className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Contact Me
+                        Let's Connect
                       </h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Let's connect and collaborate
+                        Reach out on your favorite platform
                       </p>
                     </div>
                   </div>
@@ -287,9 +280,9 @@ export default function FloatingContact() {
                   </motion.button>
                 </div>
 
-                {/* Contact List */}
+                {/* Connect List */}
                 <div className="p-4 space-y-3 max-h-[60vh] md:max-h-96 overflow-y-auto">
-                  {contactList.map((contact, index) => (
+                  {connectList.map((contact, index) => (
                     <motion.div
                       key={contact.id}
                       initial={{ opacity: 0, y: 10 }}
@@ -350,10 +343,13 @@ export default function FloatingContact() {
                   ))}
                 </div>
 
-                {/* Footer */}
+                {/* Footer with Polished Pulse */}
                 <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50">
                   <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <div className="w-2 h-2 rounded-full bg-green-500" />
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                    </span>
                     <span>Available for new opportunities</span>
                   </div>
                 </div>
