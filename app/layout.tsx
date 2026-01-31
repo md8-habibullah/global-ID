@@ -16,8 +16,11 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 // === SEO & SOCIAL CONFIGURATION ===
 export const metadata: Metadata = {
   metadataBase: new URL("https://habibullah.dev"),
-  title:
-    "MD. HABIBULLAH SHARIF - Full-Stack Developer & DevOps Engineer | Portfolio",
+  applicationName: "HABIBULLAH's Portfolio",
+  title: {
+    default: "MD. HABIBULLAH SHARIF - Full-Stack Developer & DevOps Engineer",
+    template: "%s | HABIBULLAH's Portfolio"
+  },
   description:
     "Full-Stack Developer & DevOps Engineer specializing in scalable applications, infrastructure automation, and Linux systems. Building secure, performant solutions with React, Node.js, Docker, and Kubernetes.",
   alternates: {
@@ -25,9 +28,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    // icon: "/icon.svg", // SVG is better for modern browsers
-    // shortcut: "/favicon.ico", // Fallback for older browsers
-    // apple: "/logo.png", // Using your logo for Apple touch icon
   },
   keywords: [
     "Full-Stack Developer",
@@ -54,12 +54,12 @@ export const metadata: Metadata = {
     description:
       "Crafting scalable applications and robust infrastructure with modern technologies.",
     url: "https://habibullah.dev",
-    siteName: "MD. HABIBULLAH SHARIF Portfolio",
+    siteName: "HABIBULLAH's Portfolio", // This matches your desired Site Name
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "/PICTURE of the Year - 2025.png", // Your actual profile picture
+        url: "/PICTURE of the Year - 2025.png",
         width: 1200,
         height: 630,
         alt: "MD. HABIBULLAH SHARIF",
@@ -78,31 +78,43 @@ export const metadata: Metadata = {
 };
 
 // === STRUCTURED DATA (JSON-LD) ===
-// This connects your website to your social profiles for Google
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "MD. HABIBULLAH SHARIF",
-  "url": "https://habibullah.dev",
-  "image": "https://habibullah.dev/PICTURE%20of%20the%20Year%20-%202025.png",
-  "jobTitle": "Full-Stack Developer & DevOps Engineer",
-  "sameAs": [
-    "https://github.com/md8-habibullah",
-    "https://www.linkedin.com/in/md-habibullahs",
-    "https://dev.to/md8_habibullah",
-    "https://medium.com/@md8.habibullah",
-    "https://x.com/md8_habibullah",
-    "https://www.facebook.com/md8.habibullah",
-    "https://www.instagram.com/md8.habibullah/",
-    "https://habibullah.dev/blog",
-    "https://habibullah.dev",
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Dhaka",
-    "addressCountry": "Bangladesh"
+// We use an array to define multiple schemas:
+// 1. WebSite: Tells Google the specific NAME of your site (Fixes the favicon label issue)
+// 2. Person: Connects the site to your personal identity (Knowledge Graph)
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HABIBULLAH's Portfolio", // <--- THIS is what shows next to the favicon
+    "alternateName": ["MD. HABIBULLAH SHARIF", "Habibullah Dev"],
+    "url": "https://habibullah.dev"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "MD. HABIBULLAH SHARIF",
+    "url": "https://habibullah.dev",
+    "image": "https://habibullah.dev/PICTURE%20of%20the%20Year%20-%202025.png",
+    "jobTitle": "Full-Stack Developer & DevOps Engineer",
+    "sameAs": [
+      "https://github.com/md8-habibullah",
+      "https://www.linkedin.com/in/md-habibullahs",
+      "https://dev.to/md8_habibullah",
+      "https://medium.com/@md8.habibullah",
+      "https://x.com/md8_habibullah",
+      "https://www.facebook.com/md8.habibullah",
+      "https://www.instagram.com/md8.habibullah/",
+      "https://habibullah.dev/blog",
+      "https://habibullah.dev",
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Dhaka",
+      "addressCountry": "Bangladesh"
+    }
   }
-};
+];
 
 export default function RootLayout({
   children,

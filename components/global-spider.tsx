@@ -6,6 +6,77 @@ interface GlobalSpiderProps {
     color?: string; // e.g., "0, 255, 200"
 }
 
+// === HELPER: Secure Random Generator ===
+// Defined outside to be accessible by the class
+const getSecureRandom = () => {
+    if (typeof window === "undefined") return 0.5; // Safety for SSR
+    const values = new Uint32Array(1);
+    window.crypto.getRandomValues(values);
+    return values[0] / 4294967296; // Divide by 2^32 to get 0..1
+};
+
+// === CLASS DEFINITION: Moved Outside Component ===
+// This removes the "Stateless functional components should not use 'this'" error
+class Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+
+    constructor(width: number, height: number) {
+        this.x = getSecureRandom() * width;
+        this.y = getSecureRandom() * height;
+        // SPEED: "Low" (Slower, calmer movement)
+        this.vx = (getSecureRandom() - 0.5) * 0.5;
+        this.vy = (getSecureRandom() - 0.5) * 0.5;
+        // SIZE: "Small" (Tiny, elegant dots)
+        this.size = getSecureRandom() * 1.5 + 0.5;
+    }
+
+    update(width: number, height: number, mouse: any, attractor: any, mouseDist: number) {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // === TARGETING LOGIC ===
+        let targetX = -1000, targetY = -1000, distLimit = 0;
+
+        if (mouse.isActive) {
+            targetX = mouse.x;
+            targetY = mouse.y;
+            distLimit = mouseDist;
+        } else if (typeof window !== "undefined" && window.scrollY < height * 0.8) {
+            targetX = attractor.x;
+            targetY = attractor.y;
+            distLimit = mouseDist + 80;
+        }
+
+        const dx = targetX - this.x;
+        const dy = targetY - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < distLimit) {
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (distLimit - distance) / distLimit;
+            const strength = mouse.isActive ? 0.04 : 0.01;
+
+            this.vx += forceDirectionX * force * strength;
+            this.vy += forceDirectionY * force * strength;
+        }
+    }
+
+    draw(ctx: CanvasRenderingContext2D, color: string) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, 0.5)`;
+        ctx.fill();
+    }
+}
+
 export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isMobile, setIsMobile] = useState(false);
@@ -40,18 +111,9 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
         handleResize();
 
-        // === SONARQUBE FIX: Secure Random Generator ===
-        // Replaces Math.random() with window.crypto
-        const getSecureRandom = () => {
-            const values = new Uint32Array(1);
-            window.crypto.getRandomValues(values);
-            return values[0] / 4294967296; // Divide by 2^32 to get 0..1
-        };
-
-        // === CONFIGURATION: "Small & Lighter" Mode ===
+        // === CONFIGURATION ===
         const density = isMobile ? 18000 : 13000;
         const particleCount = Math.floor((width * height) / density);
-
         const connectionDist = isMobile ? 110 : 150;
         const mouseDist = isMobile ? 140 : 200;
 
@@ -62,76 +124,14 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
 
         const mouse = { x: -1000, y: -1000, isActive: false };
 
-        class Particle {
-            x: number;
-            y: number;
-            vx: number;
-            vy: number;
-            size: number;
-
-            constructor() {
-                // FIXED: Using secure random generator
-                this.x = getSecureRandom() * width;
-                this.y = getSecureRandom() * height;
-
-                // SPEED: "Low" (Slower, calmer movement)
-                this.vx = (getSecureRandom() - 0.5) * 0.5;
-                this.vy = (getSecureRandom() - 0.5) * 0.5;
-
-                // SIZE: "Small" (Tiny, elegant dots)
-                this.size = getSecureRandom() * 1.5 + 0.5;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-
-                // === TARGETING LOGIC ===
-                let targetX = -1000, targetY = -1000, distLimit = 0;
-
-                if (mouse.isActive) {
-                    targetX = mouse.x;
-                    targetY = mouse.y;
-                    distLimit = mouseDist;
-                } else if (window.scrollY < height * 0.8) {
-                    targetX = attractor.x;
-                    targetY = attractor.y;
-                    distLimit = mouseDist + 80;
-                }
-
-                const dx = targetX - this.x;
-                const dy = targetY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < distLimit) {
-                    const forceDirectionX = dx / distance;
-                    const forceDirectionY = dy / distance;
-                    const force = (distLimit - distance) / distLimit;
-                    const strength = mouse.isActive ? 0.04 : 0.01;
-
-                    this.vx += forceDirectionX * force * strength;
-                    this.vy += forceDirectionY * force * strength;
-                }
-            }
-
-            draw() {
-                if (!ctx) return;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${color}, 0.5)`;
-                ctx.fill();
-            }
-        }
-
+        // Initialize Particles
         const particles: Particle[] = [];
         for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
+            particles.push(new Particle(width, height));
         }
 
         let animationId: number;
+
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
 
@@ -140,8 +140,10 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
 
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
-                p.update();
-                p.draw();
+
+                // Update and Draw using methods
+                p.update(width, height, mouse, attractor, mouseDist);
+                p.draw(ctx, color);
 
                 // 1. Connect Particle-to-Particle
                 for (let j = i + 1; j < particles.length; j++) {
@@ -167,7 +169,7 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (mouse.isActive) {
                     targetX = mouse.x;
                     targetY = mouse.y;
-                } else if (window.scrollY < height * 0.8) {
+                } else if (typeof window !== "undefined" && window.scrollY < height * 0.8) {
                     targetX = attractor.x;
                     targetY = attractor.y;
                 }
