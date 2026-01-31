@@ -351,8 +351,8 @@ function ListView() {
         <textarea
           value={items}
           onChange={(e) => setItems(e.target.value)}
-          placeholder="Alice&#10;Bob&#10;Charlie&#10;Dave"
-          className="flex-1 min-h-[250px] w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none font-mono resize-none leading-relaxed"
+          placeholder={"Alice\nBob\nCharlie\nDave"}
+          className="flex-1 min-h-[250px] w-full bg-black/40 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none font-mono resize-none leading-relaxed whitespace-pre-wrap"
         />
         <button
           onClick={pickWinner}
