@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/private/"],
+        // disallow: ["/admin/", "/private/"],
       },
     ],
     sitemap: "https://habibullah.dev/sitemap.xml",
