@@ -40,16 +40,21 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
         handleResize();
 
+        // === SONARQUBE FIX: Secure Random Generator ===
+        // Replaces Math.random() with window.crypto
+        const getSecureRandom = () => {
+            const values = new Uint32Array(1);
+            window.crypto.getRandomValues(values);
+            return values[0] / 4294967296; // Divide by 2^32 to get 0..1
+        };
+
         // === CONFIGURATION: "Small & Lighter" Mode ===
-        // Density: Medium-High (enough for many wires, but not crowded)
         const density = isMobile ? 18000 : 13000;
         const particleCount = Math.floor((width * height) / density);
 
-        // Connections: Kept wide to maintain "More Wires" look
         const connectionDist = isMobile ? 110 : 150;
         const mouseDist = isMobile ? 140 : 200;
 
-        // === ATTRACTOR POSITION ===
         const attractor = {
             x: isMobile ? width * 0.5 : width * 0.75,
             y: isMobile ? height * 0.3 : height * 0.35
@@ -65,13 +70,16 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
             size: number;
 
             constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
+                // FIXED: Using secure random generator
+                this.x = getSecureRandom() * width;
+                this.y = getSecureRandom() * height;
+
                 // SPEED: "Low" (Slower, calmer movement)
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
+                this.vx = (getSecureRandom() - 0.5) * 0.5;
+                this.vy = (getSecureRandom() - 0.5) * 0.5;
+
                 // SIZE: "Small" (Tiny, elegant dots)
-                this.size = Math.random() * 1.5 + 0.5;
+                this.size = getSecureRandom() * 1.5 + 0.5;
             }
 
             update() {
@@ -113,7 +121,6 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (!ctx) return;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                // LIGHTER: 0.5 Opacity (Visible but not heavy)
                 ctx.fillStyle = `rgba(${color}, 0.5)`;
                 ctx.fill();
             }
@@ -146,9 +153,6 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                     if (dist < connectionDist) {
                         ctx.beginPath();
                         const opacity = 1 - (dist / connectionDist);
-                        // LIGHTER WIRES:
-                        // Width: 0.5 (Very thin silk)
-                        // Opacity: 0.2 max (Subtle web)
                         ctx.strokeStyle = `rgba(${color}, ${opacity * 0.2})`;
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(p.x, p.y);
@@ -176,7 +180,6 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (dist < limit) {
                     ctx.beginPath();
                     const opacity = 1 - (dist / limit);
-                    // Interaction lines: Slightly stronger (0.4) but still light
                     ctx.strokeStyle = `rgba(${color}, ${opacity * 0.4})`;
                     ctx.lineWidth = 0.8;
                     ctx.moveTo(p.x, p.y);

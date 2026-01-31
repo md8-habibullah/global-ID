@@ -69,7 +69,7 @@ export default function Hero() {
             {/* Image Container with Mask */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background">
               <Image
-                src="https://avatars.githubusercontent.com/u/149287500?v=4&s=400"
+                src="/logo.png"
                 alt="MD. HABIBULLAH SHARIF"
                 className="object-cover"
                 fill

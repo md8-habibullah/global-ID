@@ -113,7 +113,7 @@ export default function Header() {
           <div className="flex items-center gap-3 cursor-target">
             <div className="relative w-9 h-9 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors shadow-sm cursor-target">
               <Image
-                src="https://avatars.githubusercontent.com/u/149287500?v=4&s=100"
+                src="/logo.png"
                 alt="MD. Habibullah Sharif"
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
                 fill
