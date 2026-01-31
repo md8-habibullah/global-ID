@@ -249,8 +249,14 @@ export default function CurrencyPage() {
             <span className="text-muted-foreground/70">
               Last Update:{" "}
               {lastUpdate
-                ? new Date(lastUpdate).toLocaleTimeString()
-                : "Syncing..."}
+                  ? new Intl.DateTimeFormat("en-GB", {
+                      timeZone: "UTC",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      hour12: false,
+                    }).format(new Date(lastUpdate)) + " UTC"
+                  : "Syncing..."}
             </span>
           </div>
         </div>
