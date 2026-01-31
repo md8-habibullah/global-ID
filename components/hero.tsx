@@ -64,7 +64,7 @@ export default function Hero() {
             <div className="absolute inset-[-8px] md:inset-[-10px] rounded-full border border-primary/10 md:animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
 
             {/* Background Glow */}
-            <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl md:blur-3xl md:animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
 
             {/* Image Container with Mask */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background">

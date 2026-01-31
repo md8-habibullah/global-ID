@@ -14,7 +14,7 @@ const getSecureRandom = () => {
     return values[0] / 4294967296;
 };
 
-// === PARTICLE CLASS (Defined Outside Component) ===
+// === PARTICLE CLASS (Moved Outside) ===
 class Particle {
     x: number;
     y: number;
@@ -37,7 +37,6 @@ class Particle {
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // Skip complex targeting logic if mouse/attractor is far (Optimization)
         let targetX = -1000, targetY = -1000, distLimit = 0;
 
         if (mouse.isActive) {
@@ -75,12 +74,11 @@ class Particle {
 
 export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isMobile, setIsMobile] = useState(true); // Default to true for safety
+    const [isMobile, setIsMobile] = useState(true); // Default true for safety
 
-    // 1. Mobile Detection Strategy
+    // 1. Mobile Check
     useEffect(() => {
         const checkMobile = () => {
-            // Check both screen width AND touch capability
             const mobile = window.innerWidth < 768;
             setIsMobile(mobile);
         };
@@ -96,17 +94,14 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         return () => window.removeEventListener("resize", debouncedCheck);
     }, []);
 
-    // 2. Animation Logic
+    // 2. Animation Loop
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        // === MOBILE OPTIMIZATION: STOP EARLY ===
-        // If mobile, clear canvas and do nothing.
-        // This completely saves the CPU.
+        // === PERFORMANCE FIX: STOP ON MOBILE ===
         if (isMobile) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             return;
@@ -123,21 +118,14 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
         handleResize();
 
-        // === DESKTOP CONFIGURATION ===
-        // Density logic is simpler now since we only run on desktop
+        // Desktop Configuration
         const density = 13000;
         const particleCount = Math.floor((width * height) / density);
         const connectionDist = 150;
         const mouseDist = 200;
-
-        const attractor = {
-            x: width * 0.75,
-            y: height * 0.35
-        };
-
+        const attractor = { x: width * 0.75, y: height * 0.35 };
         const mouse = { x: -1000, y: -1000, isActive: false };
 
-        // Initialize Particles
         const particles: Particle[] = [];
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle(width, height));
@@ -148,7 +136,6 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
 
-            // Attractor Position logic
             attractor.x = width * 0.75;
             attractor.y = height * 0.35;
 
@@ -157,14 +144,10 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 p.update(width, height, mouse, attractor, mouseDist);
                 p.draw(ctx, color);
 
-                // 1. Connect Particle-to-Particle
-                // Optimization: Start j from i+1 to avoid double checking
                 for (let j = i + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dx = p.x - p2.x;
                     const dy = p.y - p2.y;
-
-                    // Optimization: Check squared distance first to avoid Math.sqrt
                     const distSq = dx * dx + dy * dy;
                     const connDistSq = connectionDist * connectionDist;
 
@@ -180,9 +163,8 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                     }
                 }
 
-                // 2. Connect to Target (Mouse or Attractor)
+                // Connect to Target
                 let targetX = -1000, targetY = -1000;
-
                 if (mouse.isActive) {
                     targetX = mouse.x;
                     targetY = mouse.y;
@@ -211,15 +193,8 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
 
         animate();
 
-        const handleMouseMove = (e: MouseEvent) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            mouse.isActive = true;
-        };
-
-        const handleMouseLeave = () => {
-            mouse.isActive = false;
-        };
+        const handleMouseMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.isActive = true; };
+        const handleMouseLeave = () => { mouse.isActive = false; };
 
         window.addEventListener("resize", handleResize);
         window.addEventListener("mousemove", handleMouseMove);
@@ -233,11 +208,5 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
     }, [isMobile, color]);
 
-    return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 z-0 pointer-events-none block"
-            style={{ opacity: 1 }}
-        />
-    );
+    return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none block" style={{ opacity: 1 }} />;
 }
