@@ -34,7 +34,7 @@ const connectList = [
   {
     id: 2,
     label: "WhatsApp",
-    value: "+880 1329-876070",
+    value: "habibullah.dev/whatsapp",
     copyValue: "+8801329876070",
     href: "https://habibullah.dev/whatsapp/",
     icon: MessageCircle,
