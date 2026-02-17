@@ -1,9 +1,3 @@
-# GLOBAL_ID // MD. HABIBULLAH SHARIF PORTFOLIO
-
-> SYSTEM STATUS: ONLINE
-> KERNEL: NEXT.JS / REACT
-> ARCHITECTURE: SCALABLE / SECURE
-
 A high-performance, cinematic personal portfolio engineered for a Full-Stack Developer and DevOps specialist. This project transcends traditional portfolio design by implementing a "System OS" interface, featuring real-time physics simulations, extensive animations, and a security-first aesthetic.
 
 ## System Overview
