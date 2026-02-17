@@ -1,7 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Terminal, Cpu, Database, Layout, Server } from "lucide-react";
+import {
+  Terminal,
+  Cpu,
+  Database,
+  Layout,
+  Server,
+  Globe,
+  Users,
+  ShieldCheck
+} from "lucide-react";
 
 export default function Skills() {
   const categories = [
@@ -9,39 +18,60 @@ export default function Skills() {
       name: "Frontend_Stack",
       icon: <Layout className="w-4 h-4" />,
       skills: [
-        { name: "React.js", progress: 95 },
-        { name: "Next.js", progress: 90 },
-        { name: "TypeScript", progress: 85 },
-        { name: "Tailwind", progress: 95 },
+        { name: "React.js / Next.js", progress: 98 },
+        { name: "TypeScript", progress: 90 },
+        { name: "Tailwind CSS", progress: 95 },
+        { name: "Framer Motion", progress: 85 },
       ],
     },
     {
       name: "Backend_Core",
       icon: <Server className="w-4 h-4" />,
       skills: [
-        { name: "Node.js", progress: 90 },
-        { name: "Express", progress: 85 },
-        { name: "Python", progress: 80 },
-        { name: "REST APIs", progress: 95 },
+        { name: "Node.js & Express", progress: 98 },
+        { name: "Python", progress: 90 },
+        { name: "Redis (Caching)", progress: 92 },
+        { name: "REST & GraphQL", progress: 95 },
       ],
     },
     {
       name: "Database_&_ORM",
       icon: <Database className="w-4 h-4" />,
       skills: [
-        { name: "PostgreSQL", progress: 85 },
-        { name: "Prisma", progress: 90 },
-        { name: "MongoDB", progress: 80 },
+        { name: "PostgreSQL", progress: 98 },
+        { name: "MongoDB", progress: 96 },
+        { name: "Prisma ORM", progress: 97 },
+        { name: "Supabase / Firebase", progress: 88 },
       ],
     },
     {
       name: "DevOps_&_Cloud",
       icon: <Cpu className="w-4 h-4" />,
       skills: [
-        { name: "Docker", progress: 85 },
-        { name: "Linux", progress: 80 },
-        { name: "AWS (EC2)", progress: 75 },
-        { name: "CI/CD", progress: 85 },
+        { name: "Docker & Compose", progress: 95 },
+        { name: "Cloud (AWS/Azure/Linode)", progress: 90 },
+        { name: "CI/CD Pipelines", progress: 92 },
+        { name: "Linux (Manjaro/Server)", progress: 99 },
+      ],
+    },
+    {
+      name: "Infrastructure_&_Net",
+      icon: <Globe className="w-4 h-4" />,
+      skills: [
+        { name: "Coolify (Self-Host)", progress: 95 },
+        { name: "Nginx / Caddy", progress: 94 },
+        { name: "System Hardening", progress: 90 },
+        { name: "Reverse Proxies", progress: 96 },
+      ],
+    },
+    {
+      name: "R&D_&_Workflow",
+      icon: <Users className="w-4 h-4" />,
+      skills: [
+        { name: "Open Source Scouting (300+)", progress: 100 },
+        { name: "Mentorship & Team Lead", progress: 95 },
+        { name: "Rapid Prototyping", progress: 92 },
+        { name: "Tech Exploration", progress: 100 },
       ],
     },
   ];
@@ -70,27 +100,27 @@ export default function Skills() {
             <span className="text-blue-500">~/skills</span>
             <span className="text-muted-foreground">$</span>
             <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
-              ./list_packages.sh --all
+              ./list_packages.sh --count=300+
             </span>
             <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
           </h2>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 cursor-target">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 cursor-target">
           {categories.map((category, idx) => (
             <div
               key={category.name}
               className="animate-fade-in-up group cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className="bg-card md:bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target md:backdrop-blur-sm">
+              <div className="bg-card md:bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target md:backdrop-blur-sm h-full">
 
                 {/* Category Header */}
                 <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between cursor-target">
                   <div className="flex items-center gap-2 font-mono text-primary font-bold tracking-wide cursor-target">
                     {category.icon}
-                    {category.name}
+                    {category.name.replace(/_/g, " ")}
                   </div>
                   <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono cursor-target">
                     {/* Blinking Status Light */}
@@ -98,7 +128,7 @@ export default function Skills() {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                     </span>
-                    [ MODULE_LOADED ]
+                    <span className="hidden sm:inline">ACTIVE</span>
                   </div>
                 </div>
 
@@ -123,7 +153,7 @@ export default function Skills() {
                           transition={{
                             duration: 1.2,
                             ease: "easeOut",
-                            delay: idx * 0.1 + sIdx * 0.1 // Staggered loading effect
+                            delay: idx * 0.1 + sIdx * 0.1
                           }}
                           className="h-full bg-primary/80 group-hover:bg-primary relative cursor-target"
                         >
