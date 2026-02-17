@@ -9,6 +9,7 @@ import MouseCursor from "@/components/mouse-cursor";
 import { Toaster } from "sonner";
 import ScrollProgress from "@/components/scroll-progress";
 import GlobalSpider from "@/components/global-spider";
+import Script from 'next/script'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -146,6 +147,11 @@ export default function RootLayout({
           {/* === 2. CONTENT WRAPPER (z-index: 10) === */}
           <div className="relative z-10">
             {children}
+
+            <Script
+              src="https://cdn.jsdelivr.net/gh/md8-habibullah/webapp-launcher@main/launcher.js"
+              strategy="lazyOnload"
+            />
           </div>
 
           <Toaster
