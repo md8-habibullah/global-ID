@@ -181,8 +181,10 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 if (dist < limit) {
                     ctx.beginPath();
                     const opacity = 1 - (dist / limit);
-                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.4})`;
-                    ctx.lineWidth = 0.8;
+
+                    // INCREASED OPACITY (0.4 -> 0.6) for a stronger magnet glow
+                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.6})`;
+                    ctx.lineWidth = 1.0;
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(targetX, targetY);
                     ctx.stroke();
