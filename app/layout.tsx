@@ -5,7 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 // import { GoogleTagManager } from "@next/third-parties/google"; // Uncomment if you have a GTM ID
-import MouseCursor from "@/components/mouse-cursor";
+// import MouseCursor from "@/components/mouse-cursor";
 import { Toaster } from "sonner";
 import ScrollProgress from "@/components/scroll-progress";
 import GlobalSpider from "@/components/global-spider";
@@ -141,7 +141,7 @@ export default function RootLayout({
           {/* === 1. GLOBAL SPIDER (z-index: 0) === */}
           <GlobalSpider color="0, 255, 200" />
 
-          <MouseCursor />
+          {/* <MouseCursor /> */}
           <ScrollProgress />
 
           {/* === 2. CONTENT WRAPPER (z-index: 10) === */}
