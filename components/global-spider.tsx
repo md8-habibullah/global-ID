@@ -6,7 +6,6 @@ interface GlobalSpiderProps {
     color?: string; // e.g., "0, 255, 200"
 }
 
-// === HELPER: Secure Random Generator ===
 const getSecureRandom = () => {
     if (typeof window === "undefined") return 0.5;
     const values = new Uint32Array(1);
@@ -14,7 +13,6 @@ const getSecureRandom = () => {
     return values[0] / 4294967296;
 };
 
-// === PARTICLE CLASS (Moved Outside) ===
 class Particle {
     x: number;
     y: number;
@@ -25,8 +23,9 @@ class Particle {
     constructor(width: number, height: number) {
         this.x = getSecureRandom() * width;
         this.y = getSecureRandom() * height;
-        this.vx = (getSecureRandom() - 0.5) * 0.5;
-        this.vy = (getSecureRandom() - 0.5) * 0.5;
+        // FASTER: Increased base speed from 0.5 to 0.9
+        this.vx = (getSecureRandom() - 0.5) * 0.9;
+        this.vy = (getSecureRandom() - 0.5) * 0.9;
         this.size = getSecureRandom() * 1.5 + 0.5;
     }
 
@@ -57,7 +56,8 @@ class Particle {
             const forceDirectionX = dx / distance;
             const forceDirectionY = dy / distance;
             const force = (distLimit - distance) / distLimit;
-            const strength = mouse.isActive ? 0.04 : 0.01;
+            // FASTER ATTRACTION: Increased strength values
+            const strength = mouse.isActive ? 0.08 : 0.03;
 
             this.vx += forceDirectionX * force * strength;
             this.vy += forceDirectionY * force * strength;
@@ -67,16 +67,16 @@ class Particle {
     draw(ctx: CanvasRenderingContext2D, color: string) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, 0.5)`;
+        // LESS BRIGHT: Reduced particle opacity from 0.5 to 0.3
+        ctx.fillStyle = `rgba(${color}, 0.3)`;
         ctx.fill();
     }
 }
 
 export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isMobile, setIsMobile] = useState(true); // Default true for safety
+    const [isMobile, setIsMobile] = useState(true);
 
-    // 1. Mobile Check
     useEffect(() => {
         const checkMobile = () => {
             const mobile = window.innerWidth < 768;
@@ -94,14 +94,12 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         return () => window.removeEventListener("resize", debouncedCheck);
     }, []);
 
-    // 2. Animation Loop
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        // === PERFORMANCE FIX: STOP ON MOBILE ===
         if (isMobile) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             return;
@@ -118,11 +116,10 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
         };
         handleResize();
 
-        // Desktop Configuration
-        const density = 13000;
+        const density = 9000;
         const particleCount = Math.floor((width * height) / density);
-        const connectionDist = 150;
-        const mouseDist = 200;
+        const connectionDist = 180;
+        const mouseDist = 260;
         const attractor = { x: width * 0.75, y: height * 0.35 };
         const mouse = { x: -1000, y: -1000, isActive: false };
 
@@ -143,7 +140,6 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 const p = particles[i];
                 p.update(width, height, mouse, attractor, mouseDist);
                 p.draw(ctx, color);
-
                 for (let j = i + 1; j < particles.length; j++) {
                     const p2 = particles[j];
                     const dx = p.x - p2.x;
@@ -155,15 +151,16 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                         ctx.beginPath();
                         const dist = Math.sqrt(distSq);
                         const opacity = 1 - (dist / connectionDist);
+
+                        // LESS BRIGHT: Reduced wire opacity multiplier from 0.35 to 0.2
                         ctx.strokeStyle = `rgba(${color}, ${opacity * 0.2})`;
-                        ctx.lineWidth = 0.5;
+                        ctx.lineWidth = 0.6;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
                     }
                 }
 
-                // Connect to Target
                 let targetX = -1000, targetY = -1000;
                 if (mouse.isActive) {
                     targetX = mouse.x;
@@ -177,13 +174,12 @@ export default function GlobalSpider({ color = "0, 255, 200" }: GlobalSpiderProp
                 const dy = p.y - targetY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 const limit = mouse.isActive ? mouseDist : mouseDist + 50;
-
                 if (dist < limit) {
                     ctx.beginPath();
                     const opacity = 1 - (dist / limit);
 
-                    // INCREASED OPACITY (0.4 -> 0.6) for a stronger magnet glow
-                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.6})`;
+                    // LESS BRIGHT: Reduced magnet glow multiplier from 0.6 to 0.4
+                    ctx.strokeStyle = `rgba(${color}, ${opacity * 0.4})`;
                     ctx.lineWidth = 1.0;
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(targetX, targetY);
