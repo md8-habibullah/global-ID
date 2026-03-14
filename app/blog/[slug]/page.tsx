@@ -29,7 +29,9 @@ interface BlogPost {
   cover_image: string | null;
   tags: string[]; // Note: In single post API, 'tags' is the array, 'tag_list' is a string
   url: string;
+  canonical_url: string;
   body_html: string;
+
   user: {
     name: string;
     profile_image_90: string;
@@ -40,7 +42,7 @@ interface BlogPost {
 async function getPost(slug: string): Promise<BlogPost | null> {
   const res = await fetch(
     `https://dev.to/api/articles/md8_habibullah/${slug}`,
-    { next: { revalidate: 3600 } },
+    { next: { revalidate: 60 } },
   );
 
   if (!res.ok) return null;
@@ -66,7 +68,7 @@ export async function generateMetadata({
     description: post.description,
     keywords: post.tags.join(", "),
     authors: [{ name: post.user.name }],
-    alternates: { canonical: post.url },
+    alternates: { canonical: post.canonical_url },
     openGraph: {
       title: post.title,
       description: post.description,

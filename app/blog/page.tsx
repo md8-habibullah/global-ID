@@ -1,6 +1,6 @@
 // /app/blog/page.tsx
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
