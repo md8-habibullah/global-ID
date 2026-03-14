@@ -14,7 +14,7 @@ import {
   Share2,
 } from "lucide-react";
 import type { Metadata } from "next";
-import ShareButton from "@/components/share-button";
+// import ShareButton from "@/components/share-button";
 
 // === TYPES ===
 interface BlogPost {
@@ -196,7 +196,7 @@ export default async function BlogPostPage({
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{post.comments_count}</span>
               </div>
-              <ShareButton slug={post.slug} />
+              {/* <ShareButton slug={post.slug} /> */}
             </div>
           </div>
         </div>
@@ -284,7 +284,7 @@ export default async function BlogPostPage({
               </Link>
 
               {/* NEW Share Button (Copies YOUR local blog URL) */}
-              <ShareButton slug={post.slug} />
+              {/* <ShareButton slug={post.slug} /> */}
             </div>
           </div>
 
