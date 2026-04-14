@@ -64,7 +64,7 @@ export default function Header() {
 
     const handleScrollSpy = () => {
       if (window.innerWidth < 768) return;
-      const sections = ["about", "skills", "projects"];
+      const sections = ["about", "skills", "projects", "achievements"];
       let current = "";
 
       if (window.scrollY < 100) {
@@ -147,6 +147,9 @@ export default function Header() {
           </Link>
           <Link href="/#projects" className={getNavLinkClass("projects")}>
             _projects
+          </Link>
+          <Link href="/#achievements" className={getNavLinkClass("achievements")}>
+            _gallery
           </Link>
 
           <div className="w-px h-4 bg-border/50 mx-2 cursor-target" />
@@ -270,6 +273,11 @@ export default function Header() {
                 name: "_projects",
                 href: "/#projects",
                 active: pathname === "/" && activeSection === "projects",
+              },
+              {
+                name: "_gallery",
+                href: "/#achievements",
+                active: pathname === "/" && activeSection === "achievements",
               },
             ].map((link) => (
               <Link

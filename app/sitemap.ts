@@ -14,7 +14,7 @@ async function getBlogPosts(): Promise<BlogPost[]> {
   return res.json();
 }
 
-export default async function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://habibullah.dev";
 
   // Static routes

@@ -7,6 +7,8 @@ import {
   Linkedin,
   Mail,
   MessageCircle,
+  Facebook,
+  Instagram,
   X,
   Copy,
   ExternalLink,
@@ -15,7 +17,8 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
-import { DevToIcon } from "@/components/icon/dev.to"; // Using the custom icon we created
+import { DevToIcon } from "@/components/icon/dev.to";
+import { MediumIcon } from "@/components/icon/medium";
 
 // Renamed to 'connectList' for better semantics
 const connectList = [
@@ -79,6 +82,42 @@ const connectList = [
     bgColor: "bg-gray-100",
     darkBg: "dark:bg-white/10",
     description: "Read my articles",
+  },
+  {
+    id: 6,
+    label: "Medium",
+    value: "@md8.habibullah",
+    copyValue: "https://medium.com/@md8.habibullah",
+    href: "https://medium.com/@md8.habibullah",
+    icon: MediumIcon,
+    color: "text-black dark:text-white",
+    bgColor: "bg-gray-100",
+    darkBg: "dark:bg-white/10",
+    description: "Read my insights",
+  },
+  {
+    id: 7,
+    label: "Facebook",
+    value: "md8.habibullah",
+    copyValue: "https://www.facebook.com/md8.habibullah/",
+    href: "https://www.facebook.com/md8.habibullah/",
+    icon: Facebook,
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+    darkBg: "dark:bg-blue-900/30",
+    description: "Follow my updates",
+  },
+  {
+    id: 8,
+    label: "Instagram",
+    value: "@md8.habibullah",
+    copyValue: "https://www.instagram.com/md8.habibullah",
+    href: "https://www.instagram.com/md8.habibullah",
+    icon: Instagram,
+    color: "text-pink-600",
+    bgColor: "bg-pink-50",
+    darkBg: "dark:bg-pink-900/30",
+    description: "Behind the scenes",
   },
 ];
 

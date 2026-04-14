@@ -6,14 +6,13 @@ import {
   Github,
   Linkedin,
   Mail,
-  // Facebook, // Removed Facebook
   MessageCircle,
   Terminal,
   Download
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { DevToIcon } from "@/components/icon/dev.to"; // Make sure file above is created
+import { DevToIcon } from "@/components/icon/dev.to";
 
 const socialLinks = [
   { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },

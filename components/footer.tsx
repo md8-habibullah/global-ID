@@ -7,14 +7,16 @@ import {
   Linkedin,
   Mail,
   Terminal,
-  // Facebook, // Removed
+  Facebook,
+  Instagram,
   MessageCircle,
   GitBranch,
   Globe,
   Clock,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DevToIcon } from "@/components/icon/dev.to"; // Import custom icon
+import { DevToIcon } from "@/components/icon/dev.to";
+import { MediumIcon } from "@/components/icon/medium";
 
 const socialLinks = [
   {
@@ -33,6 +35,21 @@ const socialLinks = [
     href: "https://habibullah.dev/whatsapp/",
     label: "WhatsApp",
     Icon: MessageCircle,
+  },
+  {
+    href: "https://medium.com/@md8.habibullah",
+    label: "Medium",
+    Icon: MediumIcon,
+  },
+  {
+    href: "https://www.facebook.com/md8.habibullah/",
+    label: "Facebook",
+    Icon: Facebook,
+  },
+  {
+    href: "https://www.instagram.com/md8.habibullah",
+    label: "Instagram",
+    Icon: Instagram,
   },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ];
@@ -120,7 +137,7 @@ export default function Footer() {
                 [ DIR : LINKS ]
               </h4>
               <ul className="space-y-3 font-mono text-sm cursor-target">
-                {["About", "Skills", "Projects"].map((link) => (
+                {["About", "Skills", "Projects", "Achievements"].map((link) => (
                   <li key={link}>
                     <a
                       href={`#${link.toLowerCase()}`}
