@@ -181,7 +181,10 @@ export default function PasswordPage() {
 
       let phrase = [];
       for (let i = 0; i < wordCount; i++) {
-        let word = words[Math.floor(Math.random() * words.length)];
+        const array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+        const randomFraction = array[0] / (0xffffffff + 1);
+        let word = words[Math.floor(randomFraction * words.length)];
         if (capitalize) word = word.charAt(0).toUpperCase() + word.slice(1);
         phrase.push(word);
       }
@@ -206,7 +209,10 @@ export default function PasswordPage() {
 
       let generated = "";
       for (let i = 0; i < length; i++) {
-        generated += charset.charAt(Math.floor(Math.random() * charset.length));
+        const array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+        const randomFraction = array[0] / (0xffffffff + 1);
+        generated += charset.charAt(Math.floor(randomFraction * charset.length));
       }
       setOutput(generated);
       calculateStrength(generated);
