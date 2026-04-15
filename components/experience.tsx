@@ -34,15 +34,6 @@ export default function Experience() {
       id="experience"
       className="section-spacing relative overflow-hidden cursor-target"
     >
-      {/* Background Elements: Subtle Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none cursor-target"
-        style={{
-          backgroundImage:
-            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
 
       <div className="max-w-5xl mx-auto space-y-12 relative z-10 cursor-target">
         {/* Terminal Header */}

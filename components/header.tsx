@@ -64,7 +64,7 @@ export default function Header() {
 
     const handleScrollSpy = () => {
       if (window.innerWidth < 768) return;
-      const sections = ["about", "skills", "projects", "achievements"];
+      const sections = ["about", "skills", "projects", "gallery"];
       let current = "";
 
       if (window.scrollY < 100) {
@@ -104,8 +104,8 @@ export default function Header() {
     }`;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-border/40 bg-background/95 md:bg-background/80 md:backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50" />
+    <header className="fixed top-0 left-0 w-full z-50 border-b border-primary/5 bg-background/30 backdrop-blur-md supports-[backdrop-filter]:bg-background/20">
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between cursor-target">
         {/* === LEFT: SYSTEM IDENTITY === */}
@@ -148,7 +148,7 @@ export default function Header() {
           <Link href="/#projects" className={getNavLinkClass("projects")}>
             _projects
           </Link>
-          <Link href="/#achievements" className={getNavLinkClass("achievements")}>
+          <Link href="/#gallery" className={getNavLinkClass("gallery")}>
             _gallery
           </Link>
 
@@ -276,8 +276,8 @@ export default function Header() {
               },
               {
                 name: "_gallery",
-                href: "/#achievements",
-                active: pathname === "/" && activeSection === "achievements",
+                href: "/#gallery",
+                active: pathname === "/" && activeSection === "gallery",
               },
             ].map((link) => (
               <Link

@@ -86,16 +86,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border/50 bg-background overflow-hidden cursor-target">
-      {/* Cyber Grid Background */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.03] cursor-target"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, var(--foreground) 1px, transparent 0)",
-          backgroundSize: "24px 24px",
-        }}
-      />
+    <footer className="relative border-t border-border/50 bg-transparent overflow-hidden cursor-target">
 
       <motion.div
         variants={containerVariants}
@@ -123,11 +114,13 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs font-mono">
-                &gt; Initializing full-stack protocols...
+                &gt; chmod +x habibullah.sh
                 <br />
-                &gt; Loading devops modules...
+                &gt; Running security_scan... [SECURE]
                 <br />
-                &gt; Ready to deploy.
+                &gt; Initializing scalable_architecture...
+                <br />
+                &gt; Ready to deploy...
               </p>
             </motion.div>
 
@@ -137,7 +130,7 @@ export default function Footer() {
                 [ DIR : LINKS ]
               </h4>
               <ul className="space-y-3 font-mono text-sm cursor-target">
-                {["About", "Skills", "Projects", "Achievements"].map((link) => (
+                {["About", "Skills", "Projects", "Gallery"].map((link) => (
                   <li key={link}>
                     <a
                       href={`#${link.toLowerCase()}`}

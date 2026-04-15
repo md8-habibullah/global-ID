@@ -38,15 +38,6 @@ export default function About() {
       id="about"
       className="section-spacing relative overflow-hidden cursor-target"
     >
-      {/* Background Decor: Cyber Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none cursor-target"
-        style={{
-          backgroundImage:
-            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
 
       <div className="max-w-6xl mx-auto relative z-10 cursor-target">
         {/* Terminal Header */}

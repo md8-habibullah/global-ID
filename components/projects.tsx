@@ -58,15 +58,6 @@ export default function Projects() {
   return (
     <section id="projects" className="section-spacing relative overflow-hidden cursor-target">
 
-      {/* BACKGROUND EFFECTS */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
       {/* Left Animated Line */}
       <div className="absolute top-0 bottom-0 left-4 md:left-10 w-[1px] bg-primary/10 hidden md:block">
         <motion.div

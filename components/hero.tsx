@@ -39,15 +39,6 @@ export default function Hero() {
   return (
     <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center cursor-target overflow-hidden relative py-12 md:py-0">
 
-      {/* Background Decor: Cyber Grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
-          backgroundSize: "50px 50px",
-        }}
-      />
 
       <div className="grid md:grid-cols-2 gap-8 lg:gap-20 items-center max-w-6xl w-full cursor-target relative z-10 px-4 md:px-0">
 
@@ -139,7 +130,7 @@ export default function Hero() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group w-full sm:w-auto"
+              className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-mono font-medium tracking-tighter text-white bg-primary/10 border border-primary/20 rounded-lg group w-full sm:w-auto"
             >
               <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-primary rounded-full group-hover:w-80 group-hover:h-80"></span>
               <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
@@ -150,7 +141,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="pt-6 md:pt-8 socialLinks bg-background cursor-target border-t border-border/30 mt-6 md:mt-8">
+          <div className="socialLinks bg-transparent cursor-target mt-2 md:mt-4">
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mt-4 cursor-target">
               {socialLinks.map(({ href, label, Icon }) => (
                 <a
@@ -159,9 +150,9 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border/40 bg-card/30
+                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border/20 bg-card/60
                              overflow-hidden transition-all duration-500 ease-out
-                             hover:w-auto hover:border-primary hover:bg-primary hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
+                             hover:w-auto hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
                 >
                   <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 cursor-target">
                     <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-black" />
