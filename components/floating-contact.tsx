@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Github,
@@ -13,7 +13,7 @@ import {
   Copy,
   ExternalLink,
   Check,
-  Sparkles, // Polished "Connect" icon
+  ShieldCheck, // Secure icon
   MessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -147,6 +147,23 @@ export default function FloatingContact() {
       window.location.href = href;
     }
   };
+  
+  // Handle ESC key to close
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    
+    if (isOpen) {
+      window.addEventListener("keydown", handleEsc);
+    }
+    
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -157,15 +174,15 @@ export default function FloatingContact() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 300, damping: 20 }}
       >
-        {/* Glowing background ring */}
+        {/* Glowing background ring - Heavy Reduction */}
         <motion.div
-          className="hidden md:block absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/30 to-green-400/30 blur-lg"
+          className="hidden md:block absolute inset-0 rounded-2xl bg-primary/10 blur-xl"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0.8, 0.5],
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
           }}
           transition={{
-            duration: 4,
+            duration: 6,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -178,14 +195,14 @@ export default function FloatingContact() {
             h-14 w-14 flex items-center justify-center rounded-full
             md:h-auto md:w-auto md:px-6 md:py-4 md:rounded-2xl
             
-            md:backdrop-blur-xl bg-card/90 md:bg-transparent
-            font-sans text-sm font-semibold
+            md:backdrop-blur-xl bg-background/30 md:bg-background/20
+            font-mono text-sm font-semibold
             transition-all duration-500 ease-out
-            shadow-2xl hover:shadow-primary/30
-            border-2 bg-gradient-to-r
+            shadow-xl hover:shadow-primary/10
+            border bg-transparent
             ${isOpen
-              ? "border-primary from-primary to-green-400 text-white scale-110 shadow-primary/40"
-              : "border-primary/40 from-white/95 to-gray-50/95 dark:from-gray-900/95 dark:to-gray-800/95 text-primary hover:border-primary/80 hover:scale-105 hover:from-primary/5 hover:to-green-400/5"
+              ? "border-primary bg-primary/10 text-primary scale-105 shadow-primary/20"
+              : "border-primary/20 text-primary hover:border-primary/50 hover:scale-105 hover:bg-primary/5"
             }
           `}
           whileHover={{ y: -4 }}
@@ -221,9 +238,9 @@ export default function FloatingContact() {
               <MessageSquare className="w-6 h-6 md:w-5 md:h-5" />
             </motion.div>
 
-            {/* UPDATED TEXT: Connect Logic */}
-            <div className="hidden md:flex flex-col items-start leading-none">
-              <span className="text-sm font-bold">Connect</span>
+            {/* CASUAL TEXT */}
+            <div className="hidden md:flex flex-col items-start leading-none font-sans">
+              <span className="text-sm font-bold">Let's Connect</span>
               <span className="text-xs opacity-80">Let's talk</span>
             </div>
           </div>
@@ -265,8 +282,8 @@ export default function FloatingContact() {
               ease: "easeInOut",
             }}
           >
-            Let's build something
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-white" />
+            Let's talk
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-primary/20" />
           </motion.div>
         )}
       </motion.div>
@@ -292,12 +309,12 @@ export default function FloatingContact() {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <div className="bg-card md:bg-white/95 dark:md:bg-gray-900/95 md:backdrop-blur-xl rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl overflow-hidden">
+              <div className="bg-background/80 md:backdrop-blur-2xl rounded-3xl border border-primary/20 shadow-2xl overflow-hidden">
                 {/* Header - Updated */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center gap-4">
                     <div className="p-2.5 bg-primary/10 rounded-2xl">
-                      <Sparkles className="w-5 h-5 text-primary" />
+                      <ShieldCheck className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
