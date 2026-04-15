@@ -227,21 +227,25 @@ export default function FloatingContact() {
           <div className="flex items-center gap-3">
             <motion.div
               animate={{
-                rotate: isOpen ? 0 : [0, 10, -10, 0],
-                scale: isOpen ? 1 : [1, 1.1, 1]
+                rotate: isOpen ? 180 : [0, 10, -10, 0],
+                scale: isOpen ? 1.1 : [1, 1.1, 1]
               }}
               transition={{
-                rotate: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+                rotate: { duration: isOpen ? 0.3 : 2, repeat: isOpen ? 0 : Infinity, ease: "easeInOut" },
+                scale: { duration: 1.5, repeat: isOpen ? 0 : Infinity, ease: "easeInOut" }
               }}
             >
-              <MessageSquare className="w-6 h-6 md:w-5 md:h-5" />
+              {isOpen ? (
+                <X className="w-6 h-6 md:w-5 md:h-5" />
+              ) : (
+                <MessageSquare className="w-6 h-6 md:w-5 md:h-5" />
+              )}
             </motion.div>
 
             {/* CASUAL TEXT */}
             <div className="hidden md:flex flex-col items-start leading-none font-sans">
-              <span className="text-sm font-bold">Let's Connect</span>
-              <span className="text-xs opacity-80">Let's talk</span>
+              <span className="text-sm font-bold">{isOpen ? "Close Menu" : "Let's Connect"}</span>
+              <span className="text-xs opacity-80">{isOpen ? "Hide contact" : "Let's talk"}</span>
             </div>
           </div>
 
@@ -328,11 +332,12 @@ export default function FloatingContact() {
 
                   <motion.button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
+                    className="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label="Close contact menu"
                   >
-                    <X className="w-5 h-5 text-gray-400" />
+                    <X className="w-6 h-6 text-foreground/70" />
                   </motion.button>
                 </div>
 
@@ -400,7 +405,7 @@ export default function FloatingContact() {
                 </div>
 
                 {/* Footer with Polished Pulse */}
-                <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50">
+                <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50 space-y-4">
                   <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <span className="relative flex h-2.5 w-2.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -408,6 +413,15 @@ export default function FloatingContact() {
                     </span>
                     <span>Available for new opportunities</span>
                   </div>
+
+                  {/* Mobile-only secondary close button for Android accessibility */}
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="md:hidden w-full py-4 rounded-2xl bg-primary/10 text-primary font-bold text-sm border border-primary/20 hover:bg-primary/20 transition-all flex items-center justify-center gap-2"
+                  >
+                    <X className="w-4 h-4" />
+                    Close Menu
+                  </button>
                 </div>
               </div>
             </motion.div>
