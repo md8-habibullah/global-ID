@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Dices, Coins, Hash, List, Shuffle, Trophy } from "lucide-react";
 
 // --- Storage Keys ---
+import { getSecureRandom, getSecureRandomInt, pickSecureRandom } from "@/lib/crypto-utils";
+
 const STORAGE_KEY_NUMBER = "habibullah-dev-picker-number";
 const STORAGE_KEY_LIST = "habibullah-dev-picker-list";
 
@@ -65,7 +67,7 @@ function CoinView() {
     setResult(null);
 
     // Determine outcome immediately but show it after animation
-    const outcome = Math.random() < 0.5 ? "HEADS" : "TAILS";
+    const outcome = getSecureRandom() < 0.5 ? "HEADS" : "TAILS";
 
     // Calculate new rotation:
     // We want to spin at least 5 times (1800 degrees) + landing position
@@ -210,9 +212,8 @@ function NumberView() {
   }, [min, max]);
 
   const generate = () => {
-    if (min > max) return;
     // Inclusive range
-    const val = Math.floor(Math.random() * (max - min + 1)) + min;
+    const val = getSecureRandomInt(min, max);
     setResult(val);
     setHistory((prev) => [val, ...prev].slice(0, 10)); // Keep last 10
   };
@@ -324,7 +325,7 @@ function ListView() {
     let steps = 0;
     const maxSteps = 20;
     const interval = setInterval(() => {
-      setWinner(list[Math.floor(Math.random() * list.length)]);
+      setWinner(pickSecureRandom(list));
       steps++;
       if (steps >= maxSteps) {
         clearInterval(interval);

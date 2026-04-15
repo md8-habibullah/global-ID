@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 // import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 // import { GoogleTagManager } from "@next/third-parties/google"; // Uncomment if you have a GTM ID
 // import MouseCursor from "@/components/mouse-cursor";
 import { Toaster } from "sonner";
@@ -124,14 +125,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning={true}>
+      <body className="font-sans antialiased bg-background text-foreground">
 
         {/* Inject JSON-LD for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -162,6 +162,7 @@ export default function RootLayout({
             duration={3000}
           />
         </ThemeProvider>
+        <SpeedInsights />
 
         {/* Google Analytics can go here if needed */}
         {/* <GoogleTagManager gtmId="GTM-XXXXXX" /> */}

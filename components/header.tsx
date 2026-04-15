@@ -123,10 +123,10 @@ export default function Header() {
               <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
             </div>
             <div className="flex flex-col cursor-target">
-              <h1 className="text-sm font-bold tracking-tight font-mono flex items-center gap-2 group-hover:text-primary transition-colors">
+              <span className="text-sm font-bold tracking-tight font-mono flex items-center gap-2 group-hover:text-primary transition-colors">
                 <Terminal className="w-3 h-3 text-primary" />
                 ~/MD.HABIBULLAH
-              </h1>
+              </span>
               <div className="flex items-center gap-1.5 cursor-target">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                 <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">

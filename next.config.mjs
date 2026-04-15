@@ -33,7 +33,7 @@ const nextConfig = {
   //   ignoreDuringBuilds: true,
   // },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 
   // --- Redirects ---
@@ -58,6 +58,21 @@ const nextConfig = {
         source: "/facebook",
         destination: "https://facebook.com/md8.habibullah",
         permanent: true,
+      },
+    ];
+  },
+
+  // --- Headers for Streaming ---
+  async headers() {
+    return [
+      {
+        source: "/gallery/(.*)",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value: "inline",
+          },
+        ],
       },
     ];
   },
