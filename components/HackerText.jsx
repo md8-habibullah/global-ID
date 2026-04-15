@@ -1,6 +1,7 @@
 "use client" // <--- ADD THIS LINE AT THE VERY TOP
 
 import React, { useState, useEffect } from "react";
+import { getSecureRandom } from "@/lib/crypto-utils";
 
 const HackerText = ({ text, className }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -17,7 +18,7 @@ const HackerText = ({ text, className }) => {
           .split("")
           .map((char, index) => {
             if (index < Math.floor(iteration)) return char;
-            return letters[Math.floor(Math.random() * letters.length)];
+            return letters[Math.floor(getSecureRandom() * letters.length)];
           })
           .join("")
       );

@@ -73,15 +73,6 @@
   },
   {
     "id": 9,
-    "src": "/gallery/achievements/delivering-a-formal-stage-presentation-o-1776189696.jpg",
-    "alt": "Delivering a formal stage presentation o",
-    "date": "2026-04-15",
-    "width": 1080,
-    "height": 1440,
-    "category": "blessings"
-  },
-  {
-    "id": 10,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189513.png",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-14",
@@ -90,7 +81,7 @@
     "category": "blessings"
   },
   {
-    "id": 11,
+    "id": 10,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189569.jpg",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-14",
@@ -99,7 +90,7 @@
     "category": "blessings"
   },
   {
-    "id": 12,
+    "id": 11,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189609.jpg",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-15",
@@ -108,7 +99,7 @@
     "category": "blessings"
   },
   {
-    "id": 13,
+    "id": 12,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189614.jpg",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-15",
@@ -117,7 +108,7 @@
     "category": "blessings"
   },
   {
-    "id": 14,
+    "id": 13,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189747.jpg",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-15",
@@ -126,7 +117,7 @@
     "category": "blessings"
   },
   {
-    "id": 15,
+    "id": 14,
     "src": "/gallery/achievements/holding-a-professional-certificate-or-ha-1776189749.jpg",
     "alt": "Holding a professional certificate or ha",
     "date": "2026-04-15",
@@ -135,7 +126,7 @@
     "category": "blessings"
   },
   {
-    "id": 16,
+    "id": 15,
     "src": "/gallery/achievements/receiving-a-formal-professional-award-me-1776189566.png",
     "alt": "Receiving a formal professional award me",
     "date": "2026-04-15",
@@ -144,7 +135,7 @@
     "category": "blessings"
   },
   {
-    "id": 17,
+    "id": 16,
     "src": "/gallery/achievements/rejected-1776189549079.jpg",
     "alt": "Memory Snapshot",
     "date": "2026-04-13",
@@ -153,7 +144,7 @@
     "category": "blessings"
   },
   {
-    "id": 18,
+    "id": 17,
     "src": "/gallery/achievements/rejected-1776189661917.jpg",
     "alt": "Memory Snapshot",
     "date": "2023-10-10",
@@ -162,7 +153,7 @@
     "category": "blessings"
   },
   {
-    "id": 19,
+    "id": 18,
     "src": "/gallery/achievements/rejected-1776189775715.jpg",
     "alt": "Memory Snapshot",
     "date": "2023-01-29",
@@ -171,7 +162,7 @@
     "category": "blessings"
   },
   {
-    "id": 20,
+    "id": 19,
     "src": "/gallery/memories/a-casual-relaxed-non-formal-moment-or-me-1776189528.jpg",
     "alt": "A casual relaxed non formal moment or me",
     "date": "2026-04-14",
@@ -180,7 +171,7 @@
     "category": "memories"
   },
   {
-    "id": 21,
+    "id": 20,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189511.png",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-14",
@@ -189,7 +180,7 @@
     "category": "memories"
   },
   {
-    "id": 22,
+    "id": 21,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189517.png",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-14",
@@ -198,7 +189,7 @@
     "category": "memories"
   },
   {
-    "id": 23,
+    "id": 22,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189538.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-14",
@@ -207,7 +198,7 @@
     "category": "memories"
   },
   {
-    "id": 24,
+    "id": 23,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189561.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-14",
@@ -216,7 +207,7 @@
     "category": "memories"
   },
   {
-    "id": 25,
+    "id": 24,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189641.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-15",
@@ -225,7 +216,7 @@
     "category": "memories"
   },
   {
-    "id": 26,
+    "id": 25,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189654.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-15",
@@ -234,7 +225,7 @@
     "category": "memories"
   },
   {
-    "id": 27,
+    "id": 26,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189657.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-15",
@@ -243,12 +234,21 @@
     "category": "memories"
   },
   {
-    "id": 28,
+    "id": 27,
     "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189660.jpg",
     "alt": "Delivering a formal stage presentation o",
     "date": "2026-04-15",
     "width": 1080,
     "height": 810,
+    "category": "memories"
+  },
+  {
+    "id": 28,
+    "src": "/gallery/memories/delivering-a-formal-stage-presentation-o-1776189696.jpg",
+    "alt": "Delivering a formal stage presentation o",
+    "date": "2026-04-15",
+    "width": 1080,
+    "height": 1440,
     "category": "memories"
   },
   {

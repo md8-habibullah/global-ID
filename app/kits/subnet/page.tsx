@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { Network, Globe, Shield, Activity, Binary } from "lucide-react";
 
 const STORAGE_KEY = "habibullah-dev-subnet-pref"; // Key for localStorage
+const DEFAULT_IP_ADDRESS = "192.168.1.1"; // Default example IP for the calculator
 
 export default function SubnetPage() {
   // State - Default values act as fallbacks
-  const [ip, setIp] = useState("192.168.1.1");
+  const [ip, setIp] = useState(DEFAULT_IP_ADDRESS);
   const [cidr, setCidr] = useState(24);
   const [results, setResults] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState(false); // Prevents hydration mismatch
