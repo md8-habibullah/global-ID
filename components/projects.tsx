@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import ProjectCard from "./project-card";
-import { Terminal } from "lucide-react";
+import { Terminal, Github } from "lucide-react";
 
 export default function Projects() {
   const projects = [
@@ -97,19 +97,24 @@ export default function Projects() {
         </div>
 
         <div className="text-center pt-12 cursor-target">
-          <a
-            href="https://github.com/md8-habibullah"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300 relative overflow-hidden"
-          >
-            {/* Button Hover Glow */}
-            <div className="absolute inset-0 bg-primary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+          <div className="relative group inline-block">
+            {/* Decorative Tech logic: outer brackets */}
+            <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors duration-500" />
+            <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors duration-500" />
 
-            <span className="group-hover:translate-x-1 transition-transform relative z-10">
-              &gt; git checkout all_repositories
-            </span>
-          </a>
+            <a
+              href="https://github.com/md8-habibullah"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="fire-button relative px-8 py-4 flex items-center justify-center gap-3 group !bg-transparent hover:!bg-primary/5 border border-primary/20 hover:border-primary transition-all duration-500 rounded-lg overflow-hidden"
+            >
+              <span className="text-xs font-black tracking-[0.3em] uppercase text-primary transition-colors duration-500">
+                &gt; git checkout all_repositories
+              </span>
+              <div className="w-8 h-px bg-primary/30 group-hover:w-12 transition-all duration-500" />
+              <Github className="w-5 h-5 text-primary transition-all duration-500 group-hover:scale-110" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

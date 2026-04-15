@@ -126,19 +126,29 @@ export default function Hero() {
               <span className="relative z-10">View Projects</span>
             </a>
 
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-mono font-medium tracking-tighter text-white bg-primary/10 border border-primary/20 rounded-lg group w-full sm:w-auto"
-            >
-              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-primary rounded-full group-hover:w-80 group-hover:h-80"></span>
-              <span className="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
-              <span className="relative flex items-center gap-2">
-                <Download className="w-4 h-4 group-hover:animate-bounce" />
-                Download_CV
-              </span>
-            </a>
+            <div className="relative group w-full sm:w-auto">
+              {/* Decorative Tech logic: outer brackets */}
+              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors duration-500" />
+              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors duration-500" />
+
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="liquid-button relative px-8 py-4 flex items-center justify-center gap-3 group bg-transparent border border-primary/20 hover:border-primary transition-all duration-500 rounded-lg overflow-hidden"
+              >
+                {/* Magical Liquid Waves */}
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+
+                <span className="relative z-10 text-xs font-black tracking-[0.3em] uppercase text-primary group-hover:text-primary-foreground transition-colors duration-500">
+                  Download_CV
+                </span>
+                <div className="relative z-10 w-8 h-px bg-primary/30 group-hover:bg-primary-foreground/30 group-hover:w-12 transition-all duration-500" />
+                <Download className="relative z-10 w-5 h-5 text-primary group-hover:text-primary-foreground transition-all duration-500 group-hover:animate-bounce" />
+              </a>
+            </div>
           </div>
 
           <div className="socialLinks bg-transparent cursor-target mt-2 md:mt-4">
