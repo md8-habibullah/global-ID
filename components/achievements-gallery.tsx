@@ -147,7 +147,7 @@ export default function AchievementsGallery() {
     <section
       id="gallery"
       ref={sectionRef}
-      className="py-10 md:py-16 relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
+      className="py-5 md:py-10 relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
     >
       <motion.div
         style={{ y: backgroundY }}
