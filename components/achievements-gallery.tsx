@@ -122,7 +122,7 @@ export default function AchievementsGallery() {
     <section 
       id="gallery" 
       ref={sectionRef}
-      className="py-10 md:py-16 relative overflow-hidden bg-background/50 selection:bg-primary selection:text-primary-foreground"
+      className="py-10 md:py-16 relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
     >
       {/* Optimized Atmosphere - Simple Blurred Blobs */}
       <motion.div 
@@ -235,33 +235,40 @@ export default function AchievementsGallery() {
 
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
         <DialogContent 
-          className="max-w-full w-full max-h-screen h-screen flex flex-col justify-center items-center p-0 border-none bg-transparent shadow-none z-[999] outline-none"
+          className="max-w-full w-full max-h-screen h-screen flex flex-col justify-center items-center p-0 border-none bg-black/80 backdrop-blur-3xl z-[999] outline-none"
           showCloseButton={true}
-          overlayClassName="bg-transparent px-0"
+          overlayClassName="bg-black/40 backdrop-blur-sm"
         >
           <DialogTitle className="sr-only">Image Preview</DialogTitle>
           {selectedImage && (
-            <div className="relative w-full h-full flex flex-col items-center justify-center p-0 cursor-zoom-out" onClick={() => setSelectedImage(null)}>
+            <div className="relative w-full h-full flex flex-col items-center justify-center p-4 md:p-12 cursor-zoom-out" onClick={() => setSelectedImage(null)}>
               <div 
-                className="relative w-full h-full flex flex-col justify-center p-1 md:p-4"
-                style={{ maxWidth: '100vw', maxHeight: '100vh' }}
+                className="relative max-w-[95vw] max-h-[85vh] flex flex-col justify-center"
+                style={{ aspectRatio: `${selectedImage.width} / ${selectedImage.height}` }}
               >
                 <Image
                   src={selectedImage.src}
                   alt={selectedImage.alt}
                   width={selectedImage.width}
                   height={selectedImage.height}
-                  className="object-contain w-full h-full shadow-2xl transition-transform duration-500 ease-out p-1"
+                  className="object-contain w-full h-full rounded-xl shadow-[0_0_100px_rgba(0,0,0,1)] border border-white/5"
                   priority
                   unoptimized
                 />
               </div>
 
-              <div className="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
-                <span className="inline-block bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-[10px] md:text-xs font-bold uppercase tracking-widest border border-white/10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute bottom-10 left-0 right-0 text-center pointer-events-none"
+              >
+                <span className="inline-block bg-white/5 backdrop-blur-2xl border border-white/10 px-8 py-3 rounded-full text-white text-sm font-bold uppercase tracking-widest shadow-2xl">
                   {selectedImage.alt}
                 </span>
-              </div>
+                <p className="mt-2 text-white/30 text-[10px] font-mono tracking-widest uppercase">
+                  ESC to close • Click anywhere to exit
+                </p>
+              </motion.div>
             </div>
           )}
         </DialogContent>
