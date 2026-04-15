@@ -61,6 +61,21 @@ const nextConfig = {
       },
     ];
   },
+
+  // --- Headers for Streaming ---
+  async headers() {
+    return [
+      {
+        source: "/gallery/(.*)",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value: "inline",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withSentryConfig(nextConfig, {

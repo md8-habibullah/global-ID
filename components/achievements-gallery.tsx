@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import Image from "next/image"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { Calendar, ChevronDown, Sparkles, Terminal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Calendar, ChevronDown, Sparkles } from "lucide-react"
 
 import galleryData from "./data/gallery-data.json"
+import { Button } from "@/components/ui/button"
 
 // Type matches our JSON structure
 type GalleryItem = {
@@ -22,7 +22,6 @@ type GalleryItem = {
 
 const ITEMS_PER_PAGE = 12;
 
-// Utility to reliably shuffle an array
 const shuffleArray = (array: GalleryItem[]) => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -32,17 +31,76 @@ const shuffleArray = (array: GalleryItem[]) => {
   return shuffled;
 };
 
+// --- Optimized Component: Interactive Card ---
+const InteractiveCard = ({ item, index, onClick }: { item: GalleryItem, index: number, onClick: () => void }) => {
+  // We remove the heavy 3D Tilt calculation to save RAM/CPU, using simpler CSS hover instead
+  return (
+    <motion.div
+      layout="position"
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.4, delay: (index % 6) * 0.05 }}
+      className="relative group block overflow-hidden bg-muted/5 rounded-2xl md:rounded-[2rem] border border-white/5 cursor-pointer break-inside-avoid shadow-lg shadow-black/10 transition-all duration-300 hover:shadow-primary/20 hover:border-primary/30"
+      onClick={onClick}
+    >
+      <div 
+        style={{ position: "relative", width: "100%", aspectRatio: `${item.width} / ${item.height}` }}
+        className="overflow-hidden"
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          loading={index < 4 ? "eager" : "lazy"}
+          unoptimized
+        />
+      </div>
+
+      {/* Simplified Overlay for Mobile performance */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+        <p className="text-white font-bold text-sm md:text-base leading-tight mb-1 drop-shadow-md">{item.alt}</p>
+        <div className="flex items-center text-white/70 text-[10px] md:text-xs">
+          <Calendar className="w-3 h-3 mr-1.5 opacity-70" />
+          {new Date(item.date).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'short'
+          })}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function AchievementsGallery() {
   const [activeTab, setActiveTab] = useState<"blessings" | "memories">("blessings")
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
-  const [visibleCounts, setVisibleCounts] = useState({ blessings: ITEMS_PER_PAGE, memories: ITEMS_PER_PAGE })
-  const [shuffledData, setShuffledData] = useState<Record<string, GalleryItem[]>>({ blessings: [], memories: [] })
+  const [visibleCounts, setVisibleCounts] = useState({ "blessings": ITEMS_PER_PAGE, memories: ITEMS_PER_PAGE })
+  
+  const [shuffledData, setShuffledData] = useState<Record<string, GalleryItem[]>>({
+    blessings: [],
+    memories: []
+  })
   const [isClient, setIsClient] = useState(false)
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   useEffect(() => {
     const bless = (galleryData as GalleryItem[]).filter(item => item.category === "blessings")
     const mem = (galleryData as GalleryItem[]).filter(item => item.category === "memories")
-    setShuffledData({ blessings: shuffleArray(bless), memories: shuffleArray(mem) })
+    
+    setShuffledData({
+      blessings: shuffleArray(bless),
+      memories: shuffleArray(mem)
+    })
     setIsClient(true)
   }, [])
 
@@ -50,7 +108,10 @@ export default function AchievementsGallery() {
   const hasMore = isClient && visibleCounts[activeTab] < shuffledData[activeTab].length
 
   const handleLoadMore = () => {
-    setVisibleCounts(prev => ({ ...prev, [activeTab]: prev[activeTab] + ITEMS_PER_PAGE }))
+    setVisibleCounts(prev => ({
+      ...prev,
+      [activeTab]: prev[activeTab] + ITEMS_PER_PAGE
+    }))
   }
 
   const handleTabSwitch = (tab: "blessings" | "memories") => {
@@ -58,142 +119,148 @@ export default function AchievementsGallery() {
   }
 
   return (
-    <section id="gallery" className="section-spacing relative overflow-hidden bg-background/50 border-t border-border/50">
-      {/* Background Grid - Matching Projects Theme */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: "linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-
+    <section 
+      id="gallery" 
+      ref={sectionRef}
+      className="py-10 md:py-16 relative overflow-hidden bg-background/50 selection:bg-primary selection:text-primary-foreground"
+    >
+      {/* Optimized Atmosphere - Simple Blurred Blobs */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0 z-0 pointer-events-none"
+      >
+        <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-primary/5 rounded-full blur-[80px]" />
+        <div className="absolute bottom-0 right-0 w-[40%] h-[40%] bg-primary/3 rounded-full blur-[80px]" />
+      </motion.div>
+      
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+          className="text-center mb-10 md:mb-14"
         >
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 text-primary font-mono text-xs uppercase tracking-[0.2em]">
-              <Terminal className="w-4 h-4" />
-              <span>system.archives.visualizer</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-              Captured <span className="text-primary italic">Moments</span>
-            </h2>
+          <div className="inline-flex items-center space-x-2 bg-primary/10 px-3 py-1 rounded-full mb-4 border border-primary/20">
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">Gallery Archive</span>
           </div>
+          
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight uppercase">
+            Captured <span className="text-primary italic">Moments</span>
+          </h2>
+          
+          <p className="text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto mb-8">
+            A randomized visual timeline of technical growth and personal milestones.
+          </p>
 
-          {/* Theme-Synced Tabs */}
-          <div className="flex p-1 bg-muted/20 backdrop-blur-md rounded-lg border border-border/50 shadow-sm">
-            {["blessings", "memories"].map((tab) => (
+          {/* Consistent Tab Switcher - Using your theme variable borders */}
+          <div className="flex justify-center mb-8">
+            <div className="relative flex p-1 bg-muted/20 backdrop-blur-md rounded-full border border-border/50">
               <button
-                key={tab}
-                onClick={() => handleTabSwitch(tab as any)}
-                className={`relative px-6 py-2 text-xs font-bold uppercase tracking-widest transition-all duration-300 rounded-md ${
-                  activeTab === tab ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                onClick={() => handleTabSwitch("blessings")}
+                className={`relative z-10 px-5 py-2 text-xs md:text-sm font-bold transition-all duration-300 rounded-full uppercase tracking-widest ${
+                  activeTab === "blessings" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {tab}
-                {activeTab === tab && (
+                Blessings
+                {activeTab === "blessings" && (
                   <motion.div
-                    layoutId="active-tab-bg"
-                    className="absolute inset-0 bg-primary rounded-md -z-10"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    layoutId="tab-pill"
+                    className="absolute inset-0 bg-primary rounded-full -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                   />
                 )}
               </button>
-            ))}
+              
+              <button
+                onClick={() => handleTabSwitch("memories")}
+                className={`relative z-10 px-5 py-2 text-xs md:text-sm font-bold transition-all duration-300 rounded-full uppercase tracking-widest ${
+                  activeTab === "memories" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Memories
+                {activeTab === "memories" && (
+                  <motion.div
+                    layoutId="tab-pill"
+                    className="absolute inset-0 bg-primary rounded-full -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                  />
+                )}
+              </button>
+            </div>
           </div>
         </motion.div>
 
-        {/* Performance-Optimized Grid */}
+        {/* Improved Mosaic - 2 Columns on Mobile to reduce scroll length */}
         <AnimatePresence mode="wait">
           {!isClient ? (
-            <div className="h-64 flex items-center justify-center">
+            <div className="py-20 flex justify-center items-center">
               <div className="w-6 h-6 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
             </div>
           ) : (
-            <motion.div
+            <motion.div 
               key={activeTab}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-4 space-y-4"
+              className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-3 md:gap-4 space-y-3 md:space-y-4"
             >
               {visibleData.map((item, index) => (
-                <motion.div
-                  key={`${activeTab}-${item.id}`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.2, delay: (index % 6) * 0.05 }}
-                  whileHover={{ y: -5 }}
-                  className="relative group overflow-hidden bg-card rounded-xl border border-border shadow-sm cursor-pointer break-inside-avoid transition-all duration-300 hover:border-primary/50 hover:shadow-md"
+                <InteractiveCard 
+                  key={`${activeTab}-${item.id}`} 
+                  item={item} 
+                  index={index} 
                   onClick={() => setSelectedImage(item)}
-                >
-                  <div style={{ position: "relative", width: "100%", aspectRatio: `${item.width} / ${item.height}` }}>
-                    <Image
-                      src={item.src}
-                      alt={item.alt}
-                      fill
-                      sizes="(max-width: 768px) 50vw, 20vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading={index < 8 ? "eager" : "lazy"}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <p className="text-[10px] md:text-xs text-white font-mono uppercase tracking-wider mb-1 truncate">{item.alt}</p>
-                    <div className="flex items-center text-white/60 text-[8px] md:text-[10px]">
-                      <Calendar className="w-2.5 h-2.5 mr-1" />
-                      {new Date(item.date).toLocaleDateString()}
-                    </div>
-                  </div>
-                </motion.div>
+                />
               ))}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Hacker-Style Button Sync */}
+        {/* Load More - Using fire-button style for consistency */}
         {hasMore && (
           <div className="flex justify-center mt-12">
-            <button
+            <Button
               onClick={handleLoadMore}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-primary/30 bg-primary/5 text-primary font-mono text-sm hover:bg-primary/10 hover:border-primary transition-all duration-300 relative overflow-hidden active:scale-95"
+              variant="outline"
+              className="group rounded-full px-8 py-6 h-auto text-xs font-bold tracking-[0.3em] uppercase transition-all duration-300 hover:border-primary/50"
             >
-              <div className="absolute inset-0 bg-primary/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              <span className="relative z-10">&gt; fetch next_gallery_batch</span>
-              <ChevronDown className="w-4 h-4 relative z-10 group-hover:translate-y-1 transition-transform" />
-            </button>
+              Load More Gallery
+              <ChevronDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            </Button>
           </div>
         )}
       </div>
 
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
-        <DialogContent className="max-w-5xl w-[95vw] h-[90vh] bg-black/95 border-border/50 backdrop-blur-xl p-0 overflow-hidden">
-          <DialogTitle className="sr-only">Visual Detail</DialogTitle>
+        <DialogContent 
+          className="max-w-full w-full max-h-screen h-screen flex flex-col justify-center items-center p-0 border-none bg-transparent shadow-none z-[999] outline-none"
+          showCloseButton={true}
+          overlayClassName="bg-transparent px-0"
+        >
+          <DialogTitle className="sr-only">Image Preview</DialogTitle>
           {selectedImage && (
-            <div className="relative w-full h-full flex items-center justify-center p-4">
-              <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full flex flex-col items-center justify-center p-0 cursor-zoom-out" onClick={() => setSelectedImage(null)}>
+              <div 
+                className="relative w-full h-full flex flex-col justify-center p-1 md:p-4"
+                style={{ maxWidth: '100vw', maxHeight: '100vh' }}
+              >
                 <Image
                   src={selectedImage.src}
                   alt={selectedImage.alt}
-                  fill
-                  className="object-contain"
+                  width={selectedImage.width}
+                  height={selectedImage.height}
+                  className="object-contain w-full h-full shadow-2xl transition-transform duration-500 ease-out p-1"
                   priority
+                  unoptimized
                 />
               </div>
-              <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-                <div className="bg-background/80 backdrop-blur-md border border-border px-5 py-2 rounded-full flex flex-col items-center">
-                  <span className="font-mono text-[10px] md:text-sm uppercase tracking-widest">{selectedImage.alt}</span>
-                  <div className="flex items-center text-muted-foreground text-[8px] md:text-[10px] uppercase mt-1">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {new Date(selectedImage.date).toLocaleDateString()}
-                  </div>
-                </div>
+
+              <div className="absolute bottom-4 left-0 right-0 text-center pointer-events-none">
+                <span className="inline-block bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-[10px] md:text-xs font-bold uppercase tracking-widest border border-white/10">
+                  {selectedImage.alt}
+                </span>
               </div>
             </div>
           )}
