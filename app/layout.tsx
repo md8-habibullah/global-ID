@@ -125,7 +125,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning={true}>
+      <body className="font-sans antialiased bg-background text-foreground">
 
         {/* Inject JSON-LD for SEO */}
         <script

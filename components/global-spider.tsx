@@ -1,17 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getSecureRandom } from "@/lib/crypto-utils";
 
 interface GlobalSpiderProps {
     color?: string; // e.g., "0, 255, 200"
 }
 
-const getSecureRandom = () => {
-    if (typeof window === "undefined") return 0.5;
-    const values = new Uint32Array(1);
-    window.crypto.getRandomValues(values);
-    return values[0] / 4294967296;
-};
 
 class Particle {
     x: number;

@@ -8,6 +8,7 @@ import { Calendar, ChevronDown, Sparkles, ChevronLeft, ChevronRight, X } from "l
 
 import galleryData from "./data/gallery-data.json"
 import { Button } from "@/components/ui/button"
+import { getSecureRandom } from "@/lib/crypto-utils"
 
 // Type matches our JSON structure
 type GalleryItem = {
@@ -25,7 +26,7 @@ const ITEMS_PER_PAGE = 12;
 const shuffleArray = (array: GalleryItem[]) => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(getSecureRandom() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
@@ -54,7 +55,7 @@ const InteractiveCard = ({ item, index, onClick }: { item: GalleryItem, index: n
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           loading={index < 4 ? "eager" : "lazy"}
-          unoptimized
+          priority={index < 2}
         />
       </div>
 
@@ -340,7 +341,6 @@ export default function AchievementsGallery() {
                       height={selectedImage.height}
                       className="object-contain w-full h-full shadow-2xl"
                       priority
-                      unoptimized
                     />
                   </div>
 
