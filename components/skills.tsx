@@ -81,14 +81,6 @@ export default function Skills() {
       id="skills"
       className="section-spacing relative overflow-hidden cursor-target"
     >
-      {/* Matrix Background */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(#10b981 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
 
       <div className="max-w-6xl mx-auto relative z-10 space-y-12">
         {/* Terminal Header */}

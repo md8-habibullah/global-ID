@@ -10,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Toaster } from "sonner";
 import ScrollProgress from "@/components/scroll-progress";
 import GlobalSpider from "@/components/global-spider";
+import GlobalBackground from "@/components/global-background";
 import Script from 'next/script'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -138,7 +139,8 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {/* === 1. GLOBAL SPIDER (z-index: 0) === */}
+          {/* === 1. GLOBAL BACKGROUND & SPIDER (z-index: 0) === */}
+          <GlobalBackground />
           <GlobalSpider color="0, 255, 200" />
 
           {/* <MouseCursor /> */}
