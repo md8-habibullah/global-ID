@@ -135,14 +135,18 @@ export default function Hero() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fire-button relative px-8 py-4 flex items-center justify-center gap-3 group !bg-transparent hover:!bg-primary border border-primary/20 hover:border-primary transition-all duration-500 rounded-lg overflow-hidden"
+                className="liquid-button relative px-8 py-4 flex items-center justify-center gap-3 group bg-transparent border border-primary/20 hover:border-primary transition-all duration-500 rounded-lg overflow-hidden"
               >
-                {/* Shimmer / Hover Fill Effect handled by fire-button + custom bg override */}
-                <span className="text-xs font-black tracking-[0.3em] uppercase text-primary group-hover:text-primary-foreground transition-colors duration-500">
+                {/* Magical Liquid Waves */}
+                <div className="wave"></div>
+                <div className="wave"></div>
+                <div className="wave"></div>
+
+                <span className="relative z-10 text-xs font-black tracking-[0.3em] uppercase text-primary group-hover:text-primary-foreground transition-colors duration-500">
                   Download_CV
                 </span>
-                <div className="w-8 h-px bg-primary/30 group-hover:bg-primary-foreground/30 group-hover:w-12 transition-all duration-500" />
-                <Download className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-all duration-500 group-hover:animate-bounce" />
+                <div className="relative z-10 w-8 h-px bg-primary/30 group-hover:bg-primary-foreground/30 group-hover:w-12 transition-all duration-500" />
+                <Download className="relative z-10 w-5 h-5 text-primary group-hover:text-primary-foreground transition-all duration-500 group-hover:animate-bounce" />
               </a>
             </div>
           </div>
