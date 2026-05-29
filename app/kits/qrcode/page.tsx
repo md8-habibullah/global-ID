@@ -43,6 +43,10 @@ interface ScanHistoryItem {
   timestamp: number;
 }
 
+// --- Constants ---
+// Max characters for QR code at error correction level H (alphanumeric capacity)
+const MAX_QR_CHARS = 1273;
+
 // --- Storage Keys ---
 const GEN_STORAGE_KEY = "habibullah-dev-qr-gen-state";
 const SCAN_HISTORY_KEY = "habibullah-dev-qr-scan-history";
@@ -109,6 +113,7 @@ function GeneratorView() {
   });
 
   const [qrValue, setQrValue] = useState("");
+  const [isPayloadTooLong, setIsPayloadTooLong] = useState(false);
 
   // 1. Load State on Mount
   useEffect(() => {
@@ -148,6 +153,7 @@ function GeneratorView() {
         break;
     }
     setQrValue(payload);
+    setIsPayloadTooLong(payload.length > MAX_QR_CHARS);
   }, [state]);
 
   const updateState = (field: keyof GenState, value: string) => {
@@ -237,11 +243,20 @@ function GeneratorView() {
               <textarea
                 value={state.value}
                 onChange={(e) => updateState("value", e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-primary focus:ring-1 focus:ring-primary/50 outline-none min-h-[100px]"
+                className={`w-full bg-black/40 border rounded-lg p-3 text-white focus:ring-1 outline-none min-h-[100px] ${
+                  isPayloadTooLong
+                    ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/50"
+                    : "border-white/10 focus:border-primary focus:ring-primary/50"
+                }`}
                 placeholder={
                   state.mode === "url" ? "https://..." : "Enter text..."
                 }
               />
+              <div className={`text-xs text-right ${
+                isPayloadTooLong ? "text-red-400" : "text-muted-foreground"
+              }`}>
+                {state.value.length} / {MAX_QR_CHARS} characters
+              </div>
             </div>
           )}
 
@@ -321,6 +336,11 @@ function GeneratorView() {
                   onChange={(e) => updateState("body", e.target.value)}
                   className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white outline-none focus:border-primary min-h-[80px]"
                 />
+                {isPayloadTooLong && (
+                  <div className="text-xs text-red-400 text-right">
+                    Payload too long ({qrValue.length} / {MAX_QR_CHARS} characters)
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -329,23 +349,37 @@ function GeneratorView() {
 
       {/* Preview Output */}
       <div className="md:col-span-5 flex flex-col items-center justify-center p-8 bg-white/[0.02] border border-white/5 rounded-xl text-center">
-        <div className="bg-white p-4 rounded-xl shadow-2xl mb-6">
-          <QRCodeCanvas
-            id="qr-canvas"
-            value={qrValue}
-            size={200}
-            level={"H"}
-            bgColor={"#ffffff"}
-            fgColor={"#000000"}
-            includeMargin={true}
-          />
-        </div>
-        <button
-          onClick={downloadQr}
-          className="flex items-center gap-2 px-6 py-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-lg transition-colors"
-        >
-          <Download className="w-4 h-4" /> Download .PNG
-        </button>
+        {isPayloadTooLong ? (
+          <div className="flex flex-col items-center gap-4 p-6">
+            <XCircle className="w-12 h-12 text-red-400" />
+            <div className="space-y-2">
+              <p className="text-red-400 font-bold text-sm uppercase">Data Too Long</p>
+              <p className="text-muted-foreground text-sm">
+                Your input is {qrValue.length.toLocaleString()} characters, but QR codes support a maximum of {MAX_QR_CHARS.toLocaleString()} characters at this error correction level. Please shorten your content.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="bg-white p-4 rounded-xl shadow-2xl mb-6">
+              <QRCodeCanvas
+                id="qr-canvas"
+                value={qrValue}
+                size={200}
+                level={"H"}
+                bgColor={"#ffffff"}
+                fgColor={"#000000"}
+                includeMargin={true}
+              />
+            </div>
+            <button
+              onClick={downloadQr}
+              className="flex items-center gap-2 px-6 py-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-lg transition-colors"
+            >
+              <Download className="w-4 h-4" /> Download .PNG
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
