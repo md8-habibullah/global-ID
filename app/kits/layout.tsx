@@ -86,11 +86,11 @@ export default function KitsLayout({
       <div className="scan-overlay cursor-target" />
       <Header />
 
-      <main className="flex-1 px-4 py-8 md:px-8 max-w-7xl mx-auto w-full z-10 cursor-target">
+      <main className="flex-1 px-4 pt-24 pb-8 md:px-8 md:pt-28 max-w-7xl mx-auto w-full z-10 cursor-target">
         {/* Page Title */}
         <div className="mb-8 cursor-target">
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-2 cursor-target">
-            Tools <span className="text-primary">Kit</span>
+            Tools & <span className="text-primary">Kit</span>
           </h1>
           <p className="text-muted-foreground max-w-lg cursor-target">
             A collection of utilities for diagnostics, calculation, and data.
