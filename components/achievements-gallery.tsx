@@ -148,7 +148,7 @@ export default function AchievementsGallery() {
     <section
       id="gallery"
       ref={sectionRef}
-      className="py-5 md:py-10 relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
+      className="section-spacing relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
     >
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">

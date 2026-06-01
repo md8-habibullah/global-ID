@@ -6,7 +6,7 @@ import Footer from "@/components/footer";
 import { Calendar as CalIcon, List, Clock, Loader2, Globe, LayoutGrid } from "lucide-react";
 
 export default function CalendarPage() {
-    const [view, setView] = useState<"month" | "week" | "schedule">("month");
+    const [view, setView] = useState<"month" | "week" | "schedule">("schedule");
     const [isLoading, setIsLoading] = useState(true);
 
     // Fake loading delay to ensure smooth transition
@@ -71,14 +71,14 @@ export default function CalendarPage() {
                         {/* View Switcher */}
                         <div className="flex bg-black/40 p-1 rounded-lg border border-white/5 overflow-x-auto max-w-full">
                             <button
-                                onClick={() => setView("month")}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-300 whitespace-nowrap ${view === "month"
+                                onClick={() => setView("schedule")}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-300 whitespace-nowrap ${view === "schedule"
                                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                                     : "text-muted-foreground hover:text-white hover:bg-white/5"
                                     }`}
                             >
-                                <CalIcon className="w-4 h-4" />
-                                Month
+                                <List className="w-4 h-4" />
+                                Agenda
                             </button>
                             <button
                                 onClick={() => setView("week")}
@@ -91,14 +91,14 @@ export default function CalendarPage() {
                                 Week
                             </button>
                             <button
-                                onClick={() => setView("schedule")}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-300 whitespace-nowrap ${view === "schedule"
+                                onClick={() => setView("month")}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold transition-all duration-300 whitespace-nowrap ${view === "month"
                                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
                                     : "text-muted-foreground hover:text-white hover:bg-white/5"
                                     }`}
                             >
-                                <List className="w-4 h-4" />
-                                Agenda
+                                <CalIcon className="w-4 h-4" />
+                                Month
                             </button>
                         </div>
                     </div>

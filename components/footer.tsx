@@ -86,7 +86,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-border/50 bg-transparent overflow-hidden cursor-target">
+    <footer className="relative border-t border-border/50 bg-transparent overflow-hidden cursor-target mt-16">
 
       <motion.div
         variants={containerVariants}

@@ -43,7 +43,7 @@ export default function Roadmap() {
     ];
 
     return (
-        <section id="roadmap" className="section-spacing relative overflow-hidden py-12 cursor-target">
+        <section id="roadmap" className="section-spacing relative overflow-hidden cursor-target">
 
             <div className="max-w-6xl mx-auto px-4 relative z-10 cursor-target">
                 {/* Header */}
