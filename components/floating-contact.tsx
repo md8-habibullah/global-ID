@@ -244,7 +244,7 @@ export default function FloatingContact() {
 
             {/* CASUAL TEXT */}
             <div className="hidden md:flex flex-col items-start leading-none font-sans">
-              <span className="text-sm font-bold">{isOpen ? "Close Menu" : "Let\u2019s Connect"}</span>
+              <span className="text-sm font-bold">{isOpen ? "Close Menu" : "Let's Connect"}</span>
               <span className="text-xs opacity-80">{isOpen ? "Hide contact" : "Let\u2019s talk"}</span>
             </div>
           </div>
@@ -322,7 +322,7 @@ export default function FloatingContact() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Let\u2019s Connect
+                        Let's Connect
                       </h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Reach out on your favorite platform
