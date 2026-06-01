@@ -728,6 +728,48 @@
 .prose a:hover {
   border-bottom-style: solid;
 }
+
+/* =========================================
+   MORPHING LIQUID BLOB ANIMATION
+   ========================================= */
+
+@keyframes morphing-blob {
+  0% {
+    border-radius: 30% 70% 70% 30% / 30% 60% 40% 70%;
+  }
+  33% {
+    border-radius: 40% 60% 80% 20% / 40% 70% 30% 60%;
+  }
+  66% {
+    border-radius: 20% 80% 60% 40% / 30% 50% 50% 70%;
+  }
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 60% 40% 70%;
+  }
+}
+
+@keyframes morphing-blob-reverse {
+  0% {
+    border-radius: 40% 60% 50% 50% / 50% 60% 40% 50%;
+  }
+  33% {
+    border-radius: 20% 80% 60% 40% / 40% 50% 50% 60%;
+  }
+  66% {
+    border-radius: 50% 50% 70% 30% / 30% 70% 30% 70%;
+  }
+  100% {
+    border-radius: 40% 60% 50% 50% / 50% 60% 40% 50%;
+  }
+}
+
+.animate-morphing-blob {
+  animation: morphing-blob 6s ease-in-out infinite;
+}
+
+.animate-morphing-blob-reverse {
+  animation: morphing-blob-reverse 7s ease-in-out infinite;
+}
 /* ... existing code in globals.css ... */
 
 /* =========================================

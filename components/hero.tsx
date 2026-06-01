@@ -64,21 +64,21 @@ export default function Hero() {
 
         {/* Left: Profile Image with SPIDER Effect */}
         <div
-          className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10"
+          className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10 mt-8 md:mt-0"
           style={{ animationDelay: "0.1s" }}
         >
           <div className="relative cursor-target w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] group">
 
             {/* Rotating Tech Ring */}
-            <div className="absolute inset-[-15px] md:inset-[-20px] rounded-full border border-primary/20 border-dashed md:animate-[spin_10s_linear_infinite] pointer-events-none" />
-            <div className="absolute inset-[-8px] md:inset-[-10px] rounded-full border border-primary/10 md:animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
+            <div className="absolute inset-[-15px] md:inset-[-20px] animate-morphing-blob border border-primary/20 border-dashed pointer-events-none" />
+            <div className="absolute inset-[-8px] md:inset-[-10px] animate-morphing-blob-reverse border border-primary/10 pointer-events-none" />
 
             {/* Background Glow */}
-            <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl md:blur-3xl md:animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
+            <div className="absolute inset-0 bg-primary/20 animate-morphing-blob blur-xl md:blur-3xl md:animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
 
             {/* Image Container with Mask */}
             <div 
-              className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background cursor-pointer"
+              className="relative w-full h-full animate-morphing-blob overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background cursor-pointer"
               onClick={() => setIsModalOpen(true)}
             >
               <Image
@@ -92,10 +92,7 @@ export default function Hero() {
 
             </div>
 
-            {/* Tech Brackets */}
-            <div className="absolute top-0 right-0 w-6 h-6 md:w-8 md:h-8 border-t-2 border-r-2 border-primary/60 rounded-tr-xl opacity-80" />
-            <div className="absolute bottom-0 left-0 w-6 h-6 md:w-8 md:h-8 border-b-2 border-l-2 border-primary/60 rounded-bl-xl opacity-80" />
-
+            {/* Tech Brackets Removed */}
           </div>
         </div>
 
