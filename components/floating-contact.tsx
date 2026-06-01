@@ -7,7 +7,6 @@ import {
   Linkedin,
   Mail,
   MessageCircle,
-  Facebook,
   Instagram,
   X,
   Copy,
@@ -18,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { DevToIcon } from "@/components/icon/dev.to";
+import { FacebookIcon } from "@/components/icon/facebook";
 import { MediumIcon } from "@/components/icon/medium";
 
 // Renamed to 'connectList' for better semantics
@@ -101,7 +101,7 @@ const connectList = [
     value: "md8.habibullah",
     copyValue: "https://www.facebook.com/md8.habibullah/",
     href: "https://www.facebook.com/md8.habibullah/",
-    icon: Facebook,
+    icon: FacebookIcon,
     color: "text-blue-600",
     bgColor: "bg-blue-50",
     darkBg: "dark:bg-blue-900/30",
