@@ -8,7 +8,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "eslint .",
+    "lint": "eslint --config eslint.config.mjs .",
     "start": "next start"
   },
   "dependencies": {
@@ -76,6 +76,8 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
     "@types/react": "^19",
@@ -83,7 +85,7 @@
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "baseline-browser-mapping": "^2.10.18",
-    "eslint": "^10.2.0",
+    "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.3",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
