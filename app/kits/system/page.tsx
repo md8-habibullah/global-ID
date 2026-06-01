@@ -123,7 +123,7 @@ export default function DeviceInfoPage() {
 
   return (
     <div className="space-y-6 cursor-target">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 cursor-target">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-6 cursor-target">
         <div className="cursor-target">
           <h2 className="text-2xl font-bold">System Intelligence</h2>
           <p className="text-muted-foreground text-sm">

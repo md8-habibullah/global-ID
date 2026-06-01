@@ -88,17 +88,17 @@ export default function KitsLayout({
 
       <main className="flex-1 px-4 pt-24 pb-8 md:px-8 md:pt-28 max-w-7xl mx-auto w-full z-10 cursor-target">
         {/* Page Title */}
-        <div className="mb-8 cursor-target">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-2 cursor-target">
+        <div className="mb-4 cursor-target">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-1 cursor-target">
             Tools & <span className="text-primary">Kit</span>
           </h1>
-          <p className="text-muted-foreground max-w-lg cursor-target">
+          <p className="text-muted-foreground max-w-lg cursor-target text-sm">
             A collection of utilities for diagnostics, calculation, and data.
           </p>
         </div>
 
         {/* Tools Navigation Bar */}
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-border/20 pb-4 cursor-target">
+        <div className="flex flex-wrap gap-2 mb-4 border-b border-border/20 pb-3 cursor-target">
           {tools.map((tool) => {
             const isActive = pathname === tool.path;
             return (
