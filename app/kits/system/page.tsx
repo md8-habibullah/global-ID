@@ -62,7 +62,7 @@ export default function DeviceInfoPage() {
       if (gl && debugInfo) {
         gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
       }
-    } catch (e) {}
+    } catch (e) { }
 
     let battery = { level: "N/A", status: "N/A" };
     if (nav.getBattery) {
@@ -72,7 +72,7 @@ export default function DeviceInfoPage() {
           level: `${Math.round(b.level * 100)}%`,
           status: b.charging ? "Charging" : "Discharging",
         };
-      } catch (e) {}
+      } catch (e) { }
     }
 
     setSysData({
@@ -104,13 +104,19 @@ export default function DeviceInfoPage() {
     try {
       const res = await fetch("https://ipwho.is/");
       const ipJson = await res.json();
-      setNetData(ipJson);
-      if (ipJson.timezone?.id) {
-        const systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        setTzMatch(systemTz === ipJson.timezone.id);
+
+      if (ipJson.success === false) {
+        setNetData({ failed: true, message: ipJson.message });
+      } else {
+        setNetData(ipJson);
+        if (ipJson.timezone?.id) {
+          const systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          setTzMatch(systemTz === ipJson.timezone.id);
+        }
       }
     } catch (e) {
       console.error("IP Analysis failed");
+      setNetData({ failed: true, message: "Network blocked or failed" });
     }
     setLoading(false);
   };
@@ -181,7 +187,9 @@ export default function DeviceInfoPage() {
             <InfoItem
               label="Location"
               value={
-                netData ? `${netData.city}, ${netData.country_code}` : null
+                netData && !netData.failed && netData.city
+                  ? `${netData.city}, ${netData.country_code}`
+                  : netData?.failed ? "API Blocked" : null
               }
               loading={loading}
             />
@@ -199,16 +207,19 @@ export default function DeviceInfoPage() {
               label="VPN Tunnel"
               isDetected={netData?.security?.vpn}
               loading={loading}
+              failed={netData?.failed || !netData?.security}
             />
             <SecurityRow
               label="Proxy Server"
               isDetected={netData?.security?.proxy}
               loading={loading}
+              failed={netData?.failed || !netData?.security}
             />
             <SecurityRow
               label="Tor Exit Node"
               isDetected={netData?.security?.tor}
               loading={loading}
+              failed={netData?.failed || !netData?.security}
             />
 
             <div className="pt-4 border-t border-border/10 mt-2">
@@ -221,6 +232,10 @@ export default function DeviceInfoPage() {
                 <span className="text-xs text-muted-foreground">
                   Checking...
                 </span>
+              ) : netData?.failed || tzMatch === null ? (
+                <div className="flex items-center gap-2 text-gray-500 text-xs font-bold">
+                  UNKNOWN
+                </div>
               ) : tzMatch === false ? (
                 <div className="flex items-center gap-2 text-yellow-500 text-xs font-bold">
                   <AlertTriangle className="w-3 h-3" /> MISMATCH
@@ -319,13 +334,15 @@ const InfoItem = ({ label, value, loading, highlight, className }: any) => (
   </div>
 );
 
-const SecurityRow = ({ label, isDetected, loading }: any) => (
+const SecurityRow = ({ label, isDetected, loading, failed }: any) => (
   <div className="flex justify-between items-center cursor-target">
     <span className="text-sm text-muted-foreground font-medium">{label}</span>
     {loading ? (
       <span className="text-xs text-muted-foreground animate-pulse">
         Scanning...
       </span>
+    ) : failed ? (
+      <span className="text-gray-500 text-xs font-bold opacity-70" title="API blocked or failed">UNKNOWN</span>
     ) : isDetected ? (
       <span className="text-red-500 text-xs font-bold">DETECTED</span>
     ) : (
