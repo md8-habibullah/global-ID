@@ -26,18 +26,22 @@ export default function AgePage() {
 
   // 1. Load Preferences on Mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const { dob: savedDob } = JSON.parse(saved);
-        if (savedDob) setDob(savedDob);
-        // Always keep target date as current date, don't load from localStorage
+    const frame = requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const { dob: savedDob } = JSON.parse(saved);
+          if (savedDob) setDob(savedDob);
+          // Always keep target date as current date, don't load from localStorage
+        }
+      } catch (e) {
+        console.error("Failed to load age preferences", e);
+      } finally {
+        setIsLoaded(true);
       }
-    } catch (e) {
-      console.error("Failed to load age preferences", e);
-    } finally {
-      setIsLoaded(true);
-    }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // 2. Save Preferences on Change
@@ -54,41 +58,45 @@ export default function AgePage() {
 
   // Calculation Effect - Runs whenever dob or targetDate changes
   useEffect(() => {
-    if (!dob || !targetDate) {
-      setStats(null);
-      return;
-    }
+    const frame = requestAnimationFrame(() => {
+      if (!dob || !targetDate) {
+        setStats(null);
+        return;
+      }
 
-    const birth = parseISO(dob);
-    const target = parseISO(targetDate);
+      const birth = parseISO(dob);
+      const target = parseISO(targetDate);
 
-    // Validate dates
-    if (!isValid(birth) || !isValid(target)) return;
+      // Validate dates
+      if (!isValid(birth) || !isValid(target)) return;
 
-    // Ensure target is after birth to avoid negative calculations
-    if (target < birth) {
-      setStats("error"); // Simple flag to show error state
-      return;
-    }
+      // Ensure target is after birth to avoid negative calculations
+      if (target < birth) {
+        setStats("error"); // Simple flag to show error state
+        return;
+      }
 
-    // Core Calculation Logic
-    const years = differenceInYears(target, birth);
-    const months = differenceInMonths(target, birth);
-    const days = differenceInDays(target, birth);
-    const hours = differenceInHours(target, birth);
+      // Core Calculation Logic
+      const years = differenceInYears(target, birth);
+      const months = differenceInMonths(target, birth);
+      const days = differenceInDays(target, birth);
+      const hours = differenceInHours(target, birth);
 
-    // Detailed Breakdown (Years -> Remaining Months -> Remaining Days)
-    let tempDate = new Date(birth);
-    tempDate.setFullYear(tempDate.getFullYear() + years);
-    const extraMonths = differenceInMonths(target, tempDate);
+      // Detailed Breakdown (Years -> Remaining Months -> Remaining Days)
+      let tempDate = new Date(birth);
+      tempDate.setFullYear(tempDate.getFullYear() + years);
+      const extraMonths = differenceInMonths(target, tempDate);
 
-    tempDate.setMonth(tempDate.getMonth() + extraMonths);
-    const extraDays = differenceInDays(target, tempDate);
+      tempDate.setMonth(tempDate.getMonth() + extraMonths);
+      const extraDays = differenceInDays(target, tempDate);
 
-    setStats({
-      full: { years, months: extraMonths, days: extraDays },
-      total: { months, days, hours },
+      setStats({
+        full: { years, months: extraMonths, days: extraDays },
+        total: { months, days, hours },
+      });
     });
+
+    return () => cancelAnimationFrame(frame);
   }, [dob, targetDate]);
 
   const handleResetTarget = () => {

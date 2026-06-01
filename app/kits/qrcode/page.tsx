@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, ChangeEvent } from "react";
+import { useState, useRef, useEffect, useMemo, ChangeEvent } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Html5Qrcode } from "html5-qrcode";
 import {
@@ -65,21 +65,19 @@ export default function QrPage() {
         <div className="flex bg-white/5 p-1 rounded-lg border border-white/10">
           <button
             onClick={() => setActiveTab("generate")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              activeTab === "generate"
-                ? "bg-primary text-primary-foreground shadow-lg"
-                : "text-muted-foreground hover:text-white"
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === "generate"
+              ? "bg-primary text-primary-foreground shadow-lg"
+              : "text-muted-foreground hover:text-white"
+              }`}
           >
             <QrCode className="w-4 h-4" /> Generate
           </button>
           <button
             onClick={() => setActiveTab("scan")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              activeTab === "scan"
-                ? "bg-primary text-primary-foreground shadow-lg"
-                : "text-muted-foreground hover:text-white"
-            }`}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === "scan"
+              ? "bg-primary text-primary-foreground shadow-lg"
+              : "text-muted-foreground hover:text-white"
+              }`}
           >
             <Scan className="w-4 h-4" /> Scanner
           </button>
@@ -112,21 +110,37 @@ function GeneratorView() {
     body: "",
   });
 
-  const [qrValue, setQrValue] = useState("");
-  const [isPayloadTooLong, setIsPayloadTooLong] = useState(false);
+  const qrValue = useMemo(() => {
+    switch (state.mode) {
+      case "wifi":
+        return `WIFI:T:${state.encryption};S:${state.ssid};P:${state.password};;`;
+      case "email":
+        return `mailto:${state.email}?subject=${encodeURIComponent(state.subject)}&body=${encodeURIComponent(state.body)}`;
+      case "url":
+      case "text":
+      default:
+        return state.value;
+    }
+  }, [state]);
+
+  const isPayloadTooLong = qrValue.length > MAX_QR_CHARS;
 
   // 1. Load State on Mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(GEN_STORAGE_KEY);
-      if (saved) {
-        setState({ ...state, ...JSON.parse(saved) });
+    const frame = requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem(GEN_STORAGE_KEY);
+        if (saved) {
+          setState((prev) => ({ ...prev, ...JSON.parse(saved) }));
+        }
+      } catch (e) {
+        console.error("Failed to load QR gen state", e);
+      } finally {
+        setIsLoaded(true);
       }
-    } catch (e) {
-      console.error("Failed to load QR gen state", e);
-    } finally {
-      setIsLoaded(true);
-    }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // 2. Save State on Change
@@ -135,26 +149,6 @@ function GeneratorView() {
       localStorage.setItem(GEN_STORAGE_KEY, JSON.stringify(state));
     }
   }, [state, isLoaded]);
-
-  // 3. Construct Payload
-  useEffect(() => {
-    let payload = "";
-    switch (state.mode) {
-      case "wifi":
-        payload = `WIFI:T:${state.encryption};S:${state.ssid};P:${state.password};;`;
-        break;
-      case "email":
-        payload = `mailto:${state.email}?subject=${encodeURIComponent(state.subject)}&body=${encodeURIComponent(state.body)}`;
-        break;
-      case "url":
-      case "text":
-      default:
-        payload = state.value;
-        break;
-    }
-    setQrValue(payload);
-    setIsPayloadTooLong(payload.length > MAX_QR_CHARS);
-  }, [state]);
 
   const updateState = (field: keyof GenState, value: string) => {
     setState((prev) => ({ ...prev, [field]: value }));
@@ -219,11 +213,10 @@ function GeneratorView() {
             <button
               key={type.id}
               onClick={() => updateState("mode", type.id as GenMode)}
-              className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all ${
-                state.mode === type.id
-                  ? "bg-primary/20 border-primary text-primary"
-                  : "bg-white/5 border-white/5 text-muted-foreground hover:bg-white/10"
-              }`}
+              className={`flex flex-col items-center justify-center p-3 rounded-xl border transition-all ${state.mode === type.id
+                ? "bg-primary/20 border-primary text-primary"
+                : "bg-white/5 border-white/5 text-muted-foreground hover:bg-white/10"
+                }`}
             >
               <type.icon className="w-5 h-5 mb-1" />
               <span className="text-[10px] font-bold uppercase">
@@ -243,18 +236,16 @@ function GeneratorView() {
               <textarea
                 value={state.value}
                 onChange={(e) => updateState("value", e.target.value)}
-                className={`w-full bg-black/40 border rounded-lg p-3 text-white focus:ring-1 outline-none min-h-[100px] ${
-                  isPayloadTooLong
-                    ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/50"
-                    : "border-white/10 focus:border-primary focus:ring-primary/50"
-                }`}
+                className={`w-full bg-black/40 border rounded-lg p-3 text-white focus:ring-1 outline-none min-h-[100px] ${isPayloadTooLong
+                  ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/50"
+                  : "border-white/10 focus:border-primary focus:ring-primary/50"
+                  }`}
                 placeholder={
                   state.mode === "url" ? "https://..." : "Enter text..."
                 }
               />
-              <div className={`text-xs text-right ${
-                isPayloadTooLong ? "text-red-400" : "text-muted-foreground"
-              }`}>
+              <div className={`text-xs text-right ${isPayloadTooLong ? "text-red-400" : "text-muted-foreground"
+                }`}>
                 {state.value.length} / {MAX_QR_CHARS} characters
               </div>
             </div>
@@ -398,14 +389,18 @@ function ScannerView() {
 
   // 1. Load History on Mount
   useEffect(() => {
-    const saved = localStorage.getItem(SCAN_HISTORY_KEY);
-    if (saved) {
-      try {
-        setHistory(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse scan history");
+    const frame = requestAnimationFrame(() => {
+      const saved = localStorage.getItem(SCAN_HISTORY_KEY);
+      if (saved) {
+        try {
+          setHistory(JSON.parse(saved));
+        } catch (e) {
+          console.error("Failed to parse scan history");
+        }
       }
-    }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // 2. Clean up Scanner on unmount
@@ -538,15 +533,15 @@ function ScannerView() {
             </div>
             {(scannedResult.startsWith("http") ||
               scannedResult.startsWith("www")) && (
-              <a
-                href={scannedResult}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase text-green-400 hover:underline"
-              >
-                Open Link <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
+                <a
+                  href={scannedResult}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase text-green-400 hover:underline"
+                >
+                  Open Link <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
           </div>
         )}
 
@@ -648,15 +643,15 @@ function ScannerView() {
                       </button>
                       {(item.text.startsWith("http") ||
                         item.text.startsWith("www")) && (
-                        <a
-                          href={item.text}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="hover:text-primary"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      )}
+                          <a
+                            href={item.text}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:text-primary"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
                     </div>
                   </div>
                 </div>

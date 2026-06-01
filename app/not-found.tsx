@@ -96,7 +96,7 @@ export default function NotFound() {
             />
 
             <p className="text-lg text-muted-foreground cursor-target">
-              The entity you're tracking has vanished.
+              The entity you{'\''}re tracking has vanished.
               <br />
               The matrix has been altered, or the path is corrupted.
             </p>

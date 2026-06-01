@@ -121,7 +121,7 @@ export default function About() {
 
             {/* Quote Block */}
             <div className="bg-primary/5 border border-primary/20 p-4 rounded-md font-mono text-sm text-primary/80 flex gap-3 items-start cursor-target">
-              <span className="text-xl leading-none">"</span>
+              <span className="text-xl leading-none">&quot;</span>
               <span>
                 Code with purpose, learn with curiosity, build with ethics.
               </span>
@@ -178,7 +178,7 @@ export default function About() {
                 <div className="mt-8 pt-4 border-t border-dashed border-border/40 grid grid-cols-2 gap-4 text-[10px] font-mono text-muted-foreground/60 uppercase cursor-target relative z-10">
                   <div className="cursor-target">
                     <span className="block text-primary/40">KERNEL</span>
-                    Linux 7.x.5-custom-y
+                    Linux MOD-custom-y
                   </div>
                   <div className="text-right cursor-target">
                     <span className="block text-primary/40">UPTIME</span>

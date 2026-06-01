@@ -85,14 +85,24 @@ export default function SiteFakeUptime({ compact = false }) {
   const popoverRef = useRef(null);
 
   useEffect(() => {
-    setPageLoadTime(Math.round(performance.now()));
-    setPlatform(navigator.platform || "Unknown");
-    setLanguage(navigator.language || "Unknown");
+    const frame = requestAnimationFrame(() => {
+      setPageLoadTime(Math.round(performance.now()));
+      setPlatform(navigator.platform || "Unknown");
+      setLanguage(navigator.language || "Unknown");
+    });
 
     const visits = safeGetStorage("habibullah:pageVisits") || 0;
     const newVisits = visits + 1;
     safeSetStorage("habibullah:pageVisits", newVisits);
-    setPageVisits(newVisits);
+
+    const statsFrame = requestAnimationFrame(() => {
+      setPageVisits(newVisits);
+    });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(statsFrame);
+    };
 
     const initialTotal = safeGetStorage("habibullah:totalUptime") || 0;
     setTotalUptime(initialTotal);
@@ -137,7 +147,6 @@ export default function SiteFakeUptime({ compact = false }) {
 
   return (
     <div className="relative group" ref={popoverRef}>
-      
       {/* --- 1. The Visible Timer (Now a Link) --- */}
       {/* CHANGED: Swapped div for 'a' tag, added href, removed onClick state toggle */}
       <a
@@ -152,10 +161,12 @@ export default function SiteFakeUptime({ compact = false }) {
           cursor-pointer no-underline
         `}
       >
-        <div className={`relative flex items-center justify-center ${compact ? 'w-4 h-4' : 'w-6 h-6'}`}>
-          <div 
-            className="broadcast-dot" 
-            style={{ width: compact ? 6 : 8, height: compact ? 6 : 8 }} 
+        <div
+          className={`relative flex items-center justify-center ${compact ? "w-4 h-4" : "w-6 h-6"}`}
+        >
+          <div
+            className="broadcast-dot"
+            style={{ width: compact ? 6 : 8, height: compact ? 6 : 8 }}
           />
         </div>
         <span>{formatUptime(totalUptime)}</span>
@@ -165,7 +176,7 @@ export default function SiteFakeUptime({ compact = false }) {
       <div
         className={`
           ${popoverPositionClass}
-          z-50 max-w-[90vw] sm:w-56 ${compact ? 'p-2' : 'p-3'}
+          z-50 max-w-[90vw] sm:w-56 ${compact ? "p-2" : "p-3"}
           bg-neutral-800 border border-neutral-700 rounded-lg shadow-xl 
           text-xs text-muted-foreground
           transition-all duration-200 ease-in-out

@@ -26,15 +26,12 @@ export default function DeviceInfoPage() {
 
   // Real-time clock
   useEffect(() => {
-    // Set initial time only on client mount
-    setTime(new Date());
+    const frame = requestAnimationFrame(() => setTime(new Date()));
     const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Main Data Fetcher
-  useEffect(() => {
-    runDiagnostics();
+    return () => {
+      cancelAnimationFrame(frame);
+      clearInterval(timer);
+    };
   }, []);
 
   const runDiagnostics = async () => {
@@ -58,62 +55,76 @@ export default function DeviceInfoPage() {
     try {
       const canvas = document.createElement("canvas");
       const gl = canvas.getContext("webgl");
-      const debugInfo = gl?.getExtension("WEBGL_debug_renderer_info");
-      if (gl && debugInfo) {
-        gpu = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      if (gl) {
+        const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+        gpu = debugInfo
+          ? (gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) as string)
+          : "WebGL Enabled";
       }
-    } catch (e) {}
+    } catch (e) {
+      gpu = "Unknown GPU";
+    }
 
-    let battery = { level: "N/A", status: "N/A" };
-    if (nav.getBattery) {
+    const screenData = {
+      width: window.screen.width,
+      height: window.screen.height,
+      touch:
+        "ontouchstart" in window || navigator.maxTouchPoints > 0
+          ? "Yes"
+          : "No",
+    };
+
+    const batteryData = { level: "Unknown", status: "Unavailable" };
+    const batteryApi = (navigator as any).getBattery;
+    if (typeof batteryApi === "function") {
       try {
-        const b = await nav.getBattery();
-        battery = {
-          level: `${Math.round(b.level * 100)}%`,
-          status: b.charging ? "Charging" : "Discharging",
-        };
-      } catch (e) {}
+        const battery = await batteryApi.call(navigator);
+        batteryData.level = battery.level != null ? `${Math.round(
+          battery.level * 100,
+        )}%` : "Unknown";
+        batteryData.status = battery.charging ? "Charging" : "Discharging";
+      } catch (e) {
+        // ignore battery info failure
+      }
     }
 
     setSysData({
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      language: navigator.language,
+      gpu,
+      connection,
+      screen: screenData,
+      battery: batteryData,
       os: {
-        platform: nav.platform,
-        userAgent: nav.userAgent,
-        cores: nav.hardwareConcurrency || 2,
-        memory: nav.deviceMemory ? `~${nav.deviceMemory} GB` : "Unknown",
-        gpu: gpu,
+        platform: navigator.platform,
+        cores: navigator.hardwareConcurrency || "Unknown",
+        memory: (navigator as any).deviceMemory || "Unknown",
+        gpu,
       },
-      screen: {
-        width: window.screen.width,
-        height: window.screen.height,
-        depth: window.screen.colorDepth,
-        pixelRatio: window.devicePixelRatio,
-        touch: nav.maxTouchPoints > 0 ? "Yes" : "No",
-        orientation: window.screen.orientation?.type || "Unknown",
-      },
-      netAPI: {
-        type: connection?.effectiveType?.toUpperCase() || "WIFI/LAN",
-        downlink: connection?.downlink
-          ? `~${connection.downlink} Mbps`
-          : "Unknown",
-      },
-      battery: battery,
     });
 
-    // 3. IP & Security
-    try {
-      const res = await fetch("https://ipwho.is/");
-      const ipJson = await res.json();
-      setNetData(ipJson);
-      if (ipJson.timezone?.id) {
-        const systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        setTzMatch(systemTz === ipJson.timezone.id);
-      }
-    } catch (e) {
-      console.error("IP Analysis failed");
-    }
+    setNetData({
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      online: navigator.onLine,
+    });
+
+    setTzMatch(
+      Intl.DateTimeFormat().resolvedOptions().timeZone ===
+      Intl.DateTimeFormat("en-US", { timeZoneName: "short" }).resolvedOptions().timeZone,
+    );
+
     setLoading(false);
   };
+
+  // Main Data Fetcher
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      runDiagnostics();
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   return (
     <div className="space-y-6 cursor-target">

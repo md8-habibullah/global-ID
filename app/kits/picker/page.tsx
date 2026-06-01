@@ -198,12 +198,16 @@ function NumberView() {
 
   // Load Preferences
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_NUMBER);
-    if (saved) {
-      const { min: sMin, max: sMax } = JSON.parse(saved);
-      if (sMin !== undefined) setMin(sMin);
-      if (sMax !== undefined) setMax(sMax);
-    }
+    const frame = requestAnimationFrame(() => {
+      const saved = localStorage.getItem(STORAGE_KEY_NUMBER);
+      if (saved) {
+        const { min: sMin, max: sMax } = JSON.parse(saved);
+        if (sMin !== undefined) setMin(sMin);
+        if (sMax !== undefined) setMax(sMax);
+      }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Save Preferences
@@ -305,8 +309,12 @@ function ListView() {
 
   // Load Items
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY_LIST);
-    if (saved) setItems(saved);
+    const frame = requestAnimationFrame(() => {
+      const saved = localStorage.getItem(STORAGE_KEY_LIST);
+      if (saved) setItems(saved);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Save Items

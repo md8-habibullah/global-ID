@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Github,
-  Linkedin,
+  Briefcase,
   Mail,
   MessageCircle,
-  Facebook,
-  Instagram,
+  Globe,
+  Camera,
   X,
   Copy,
   ExternalLink,
   Check,
   ShieldCheck, // Secure icon
   MessageSquare,
+  GitBranch,
 } from "lucide-react";
 import { toast } from "sonner";
 import { DevToIcon } from "@/components/icon/dev.to";
@@ -52,7 +52,7 @@ const connectList = [
     value: "linkedin.com/in/md-habibullahs",
     copyValue: "https://www.linkedin.com/in/md-habibullahs",
     href: "https://www.linkedin.com/in/md-habibullahs",
-    icon: Linkedin,
+    icon: Briefcase,
     color: "text-blue-700",
     bgColor: "bg-blue-50",
     darkBg: "dark:bg-blue-950/30",
@@ -64,7 +64,7 @@ const connectList = [
     value: "github.com/md8-habibullah",
     copyValue: "https://github.com/md8-habibullah",
     href: "https://github.com/md8-habibullah",
-    icon: Github,
+    icon: GitBranch,
     color: "text-gray-700",
     bgColor: "bg-gray-50",
     darkBg: "dark:bg-gray-950/30",
@@ -101,7 +101,7 @@ const connectList = [
     value: "md8.habibullah",
     copyValue: "https://www.facebook.com/md8.habibullah/",
     href: "https://www.facebook.com/md8.habibullah/",
-    icon: Facebook,
+    icon: Globe,
     color: "text-blue-600",
     bgColor: "bg-blue-50",
     darkBg: "dark:bg-blue-900/30",
@@ -113,7 +113,7 @@ const connectList = [
     value: "@md8.habibullah",
     copyValue: "https://www.instagram.com/md8.habibullah",
     href: "https://www.instagram.com/md8.habibullah",
-    icon: Instagram,
+    icon: Camera,
     color: "text-pink-600",
     bgColor: "bg-pink-50",
     darkBg: "dark:bg-pink-900/30",
@@ -144,10 +144,10 @@ export default function FloatingContact() {
     if (external) {
       window.open(href, '_blank', 'noopener,noreferrer');
     } else {
-      window.location.href = href;
+      window.location.assign(href);
     }
   };
-  
+
   // Handle ESC key to close
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -155,11 +155,11 @@ export default function FloatingContact() {
         setIsOpen(false);
       }
     };
-    
+
     if (isOpen) {
       window.addEventListener("keydown", handleEsc);
     }
-    
+
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
@@ -244,8 +244,8 @@ export default function FloatingContact() {
 
             {/* CASUAL TEXT */}
             <div className="hidden md:flex flex-col items-start leading-none font-sans">
-              <span className="text-sm font-bold">{isOpen ? "Close Menu" : "Let's Connect"}</span>
-              <span className="text-xs opacity-80">{isOpen ? "Hide contact" : "Let's talk"}</span>
+              <span className="text-sm font-bold">{isOpen ? "Close Menu" : "Let\u2019s Connect"}</span>
+              <span className="text-xs opacity-80">{isOpen ? "Hide contact" : "Let\u2019s talk"}</span>
             </div>
           </div>
 
@@ -286,7 +286,7 @@ export default function FloatingContact() {
               ease: "easeInOut",
             }}
           >
-            Let's talk
+            Let\u2019s talk
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-primary/20" />
           </motion.div>
         )}
@@ -322,7 +322,7 @@ export default function FloatingContact() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Let's Connect
+                        Let\u2019s Connect
                       </h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Reach out on your favorite platform

@@ -3,15 +3,13 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Github,
-  Linkedin,
+  Briefcase,
   Mail,
   Terminal,
-  Facebook,
-  Instagram,
+  Globe,
+  Camera,
   MessageCircle,
   GitBranch,
-  Globe,
   Clock,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,9 +20,9 @@ const socialLinks = [
   {
     href: "https://www.linkedin.com/in/md-habibullahs",
     label: "LinkedIn",
-    Icon: Linkedin,
+    Icon: Briefcase,
   },
-  { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },
+  { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: GitBranch },
   // === Swapped Facebook for Dev.to ===
   {
     href: "https://dev.to/md8_habibullah",
@@ -44,12 +42,12 @@ const socialLinks = [
   {
     href: "https://www.facebook.com/md8.habibullah/",
     label: "Facebook",
-    Icon: Facebook,
+    Icon: Globe,
   },
   {
     href: "https://www.instagram.com/md8.habibullah",
     label: "Instagram",
-    Icon: Instagram,
+    Icon: Camera,
   },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ];
@@ -116,9 +114,9 @@ export default function Footer() {
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs font-mono">
                 &gt; chmod +x habibullah.sh
                 <br />
-                &gt; Running security_scan... [SECURE]
+                &gt; Running security_scan...
                 <br />
-                &gt; Initializing scalable_architecture...
+                &gt; Initializing architecture...
                 <br />
                 &gt; Ready to deploy...
               </p>

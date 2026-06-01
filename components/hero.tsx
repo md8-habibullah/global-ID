@@ -3,8 +3,8 @@
 import HackerText from "./HackerText";
 // import SpiderCanvas from "./spider-canvas";
 import {
-  Github,
-  Linkedin,
+  GitBranch,
+  Briefcase,
   Mail,
   MessageCircle,
   Terminal,
@@ -15,11 +15,11 @@ import { motion } from "framer-motion";
 import { DevToIcon } from "@/components/icon/dev.to";
 
 const socialLinks = [
-  { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: Github },
+  { href: "https://github.com/md8-habibullah", label: "GitHub", Icon: GitBranch },
   {
     href: "https://www.linkedin.com/in/md-habibullahs",
     label: "LinkedIn",
-    Icon: Linkedin,
+    Icon: Briefcase,
   },
   // === Swapped Facebook for Dev.to ===
   {

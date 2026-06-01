@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Copy,
   RefreshCw,
@@ -39,17 +39,21 @@ export default function PasswordPage() {
 
   // --- Persistence ---
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("genpass-prefs-v2");
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        if (data.mode) setMode(data.mode);
-        if (data.length) setLength(data.length);
-        if (data.options) setOptions(data.options);
-        if (data.wordCount) setWordCount(data.wordCount);
-      } catch (e) {}
-    }
+    const frame = requestAnimationFrame(() => {
+      setMounted(true);
+      const saved = localStorage.getItem("genpass-prefs-v2");
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          if (data.mode) setMode(data.mode);
+          if (data.length) setLength(data.length);
+          if (data.options) setOptions(data.options);
+          if (data.wordCount) setWordCount(data.wordCount);
+        } catch (e) { }
+      }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -62,7 +66,36 @@ export default function PasswordPage() {
   }, [mode, length, options, wordCount, mounted]);
 
   // --- Logic ---
-  const generate = () => {
+  const calculateStrength = useCallback(
+    (pass: string) => {
+      let score = 0;
+      if (!pass) {
+        setStrength(0);
+        return;
+      }
+
+      if (mode === "passphrase") {
+        // Passphrase logic: length + word count
+        score = 2; // Baseline
+        if (pass.length > 15) score++;
+        if (pass.length > 25) score++;
+        if (/[0-9]/.test(pass) || /[^a-zA-Z0-9]/.test(pass)) score++; // Special separator
+        if (/[A-Z]/.test(pass)) score++; // Capitalization
+      } else {
+        // Standard entropy logic
+        if (pass.length > 8) score++;
+        if (pass.length > 12) score++;
+        if (/[A-Z]/.test(pass)) score++;
+        if (/[0-9]/.test(pass)) score++;
+        if (/[^A-Za-z0-9]/.test(pass)) score++;
+        if (pass.length > 20) score = Math.min(score + 1, 5);
+      }
+      setStrength(Math.min(score, 6));
+    },
+    [mode],
+  );
+
+  const generate = useCallback(() => {
     if (mode === "analyze") return;
 
     if (mode === "passphrase") {
@@ -217,33 +250,7 @@ export default function PasswordPage() {
       setOutput(generated);
       calculateStrength(generated);
     }
-  };
-
-  const calculateStrength = (pass: string) => {
-    let score = 0;
-    if (!pass) {
-      setStrength(0);
-      return;
-    }
-
-    if (mode === "passphrase") {
-      // Passphrase logic: length + word count
-      score = 2; // Baseline
-      if (pass.length > 15) score++;
-      if (pass.length > 25) score++;
-      if (/[0-9]/.test(pass) || /[^a-zA-Z0-9]/.test(pass)) score++; // Special separator
-      if (/[A-Z]/.test(pass)) score++; // Capitalization
-    } else {
-      // Standard entropy logic
-      if (pass.length > 8) score++;
-      if (pass.length > 12) score++;
-      if (/[A-Z]/.test(pass)) score++;
-      if (/[0-9]/.test(pass)) score++;
-      if (/[^A-Za-z0-9]/.test(pass)) score++;
-      if (pass.length > 20) score = Math.min(score + 1, 5);
-    }
-    setStrength(Math.min(score, 6));
-  };
+  }, [mode, options, length, separator, capitalize, wordCount, calculateStrength]);
 
   const copyToClipboard = async () => {
     try {
@@ -264,8 +271,11 @@ export default function PasswordPage() {
 
   // Initial Generate
   useEffect(() => {
-    if (mounted && mode !== "analyze") generate();
-  }, [mode, mounted, length, options, wordCount, separator, capitalize]);
+    if (mounted && mode !== "analyze") {
+      const frame = requestAnimationFrame(generate);
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [generate, mounted, mode]);
 
   if (!mounted) return null;
 

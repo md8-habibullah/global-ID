@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Github, ExternalLink, Activity } from "lucide-react"
+import { GitBranch, ExternalLink, Activity } from "lucide-react"
 import TargetCard from "./target-card"
 
 interface ProjectCardProps {
@@ -77,7 +77,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors duration-300 font-medium group/link"
               >
-                <Github className="w-4 h-4 group-hover/link:animate-bounce" />
+                <GitBranch className="w-4 h-4 group-hover/link:animate-bounce" />
                 <span className="font-mono">Code</span>
               </a>
 

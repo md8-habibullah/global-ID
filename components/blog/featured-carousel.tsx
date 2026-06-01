@@ -39,7 +39,7 @@ export default function FeaturedCarousel({ posts }: { posts: BlogPost[] }) {
 
     useEffect(() => {
         if (!emblaApi) return;
-        onSelect();
+        const frame = requestAnimationFrame(() => onSelect());
         emblaApi.on("select", onSelect);
 
         // Auto-scroll timer

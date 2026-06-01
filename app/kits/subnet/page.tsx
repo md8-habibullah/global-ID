@@ -15,18 +15,22 @@ export default function SubnetPage() {
 
   // 1. Load Preferences on Mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const { ip: savedIp, cidr: savedCidr } = JSON.parse(saved);
-        if (savedIp) setIp(savedIp);
-        if (typeof savedCidr === "number") setCidr(savedCidr);
+    const frame = requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const { ip: savedIp, cidr: savedCidr } = JSON.parse(saved);
+          if (savedIp) setIp(savedIp);
+          if (typeof savedCidr === "number") setCidr(savedCidr);
+        }
+      } catch (e) {
+        console.error("Failed to load subnet preferences", e);
+      } finally {
+        setIsLoaded(true);
       }
-    } catch (e) {
-      console.error("Failed to load subnet preferences", e);
-    } finally {
-      setIsLoaded(true);
-    }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // 2. Save Preferences on Change
@@ -43,68 +47,72 @@ export default function SubnetPage() {
 
   // 3. Core Logic: Subnet Calculation
   useEffect(() => {
-    // Validate IP format
-    const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
-    if (!ipPattern.test(ip) || cidr < 0 || cidr > 32) {
-      setResults(null);
-      return;
-    }
+    const frame = requestAnimationFrame(() => {
+      // Validate IP format
+      const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+      if (!ipPattern.test(ip) || cidr < 0 || cidr > 32) {
+        setResults(null);
+        return;
+      }
 
-    try {
-      // Convert IP to Long (Binary Integer)
-      const ipParts = ip.split(".").map(Number);
-      if (ipParts.some((part) => part > 255 || part < 0)) return;
+      try {
+        // Convert IP to Long (Binary Integer)
+        const ipParts = ip.split(".").map(Number);
+        if (ipParts.some((part) => part > 255 || part < 0)) return;
 
-      // Bitwise shift to get long value (unsigned >>> 0)
-      const ipLong =
-        ((ipParts[0] << 24) |
-          (ipParts[1] << 16) |
-          (ipParts[2] << 8) |
-          ipParts[3]) >>>
-        0;
+        // Bitwise shift to get long value (unsigned >>> 0)
+        const ipLong =
+          ((ipParts[0] << 24) |
+            (ipParts[1] << 16) |
+            (ipParts[2] << 8) |
+            ipParts[3]) >>>
+          0;
 
-      // Generate Mask from CIDR
-      const maskLong = cidr === 0 ? 0 : (-1 << (32 - cidr)) >>> 0;
+        // Generate Mask from CIDR
+        const maskLong = cidr === 0 ? 0 : (-1 << (32 - cidr)) >>> 0;
 
-      // Calculate Network & Broadcast
-      const networkLong = (ipLong & maskLong) >>> 0;
-      const broadcastLong = (networkLong | ~maskLong) >>> 0;
+        // Calculate Network & Broadcast
+        const networkLong = (ipLong & maskLong) >>> 0;
+        const broadcastLong = (networkLong | ~maskLong) >>> 0;
 
-      // Calculate Usable Range
-      const firstHostLong = (networkLong + 1) >>> 0;
-      const lastHostLong = (broadcastLong - 1) >>> 0;
+        // Calculate Usable Range
+        const firstHostLong = (networkLong + 1) >>> 0;
+        const lastHostLong = (broadcastLong - 1) >>> 0;
 
-      // Total Hosts
-      const totalHosts = Math.pow(2, 32 - cidr) - 2;
+        // Total Hosts
+        const totalHosts = Math.pow(2, 32 - cidr) - 2;
 
-      // Helper to convert Long back to IP String
-      const longToIp = (long: number) => {
-        return [
-          (long >>> 24) & 255,
-          (long >>> 16) & 255,
-          (long >>> 8) & 255,
-          long & 255,
-        ].join(".");
-      };
+        // Helper to convert Long back to IP String
+        const longToIp = (long: number) => {
+          return [
+            (long >>> 24) & 255,
+            (long >>> 16) & 255,
+            (long >>> 8) & 255,
+            long & 255,
+          ].join(".");
+        };
 
-      setResults({
-        networkAddress: longToIp(networkLong),
-        broadcastAddress: longToIp(broadcastLong),
-        subnetMask: longToIp(maskLong),
-        firstHost: cidr >= 31 ? "N/A" : longToIp(firstHostLong),
-        lastHost: cidr >= 31 ? "N/A" : longToIp(lastHostLong),
-        totalHosts: cidr >= 31 ? 0 : totalHosts,
-        wildcardMask: longToIp(~maskLong >>> 0),
-        binaryIp: ipLong
-          .toString(2)
-          .padStart(32, "0")
-          .match(/.{1,8}/g)
-          ?.join("."),
-      });
-    } catch (error) {
-      console.error(error);
-      setResults(null);
-    }
+        setResults({
+          networkAddress: longToIp(networkLong),
+          broadcastAddress: longToIp(broadcastLong),
+          subnetMask: longToIp(maskLong),
+          firstHost: cidr >= 31 ? "N/A" : longToIp(firstHostLong),
+          lastHost: cidr >= 31 ? "N/A" : longToIp(lastHostLong),
+          totalHosts: cidr >= 31 ? 0 : totalHosts,
+          wildcardMask: longToIp(~maskLong >>> 0),
+          binaryIp: ipLong
+            .toString(2)
+            .padStart(32, "0")
+            .match(/.{1,8}/g)
+            ?.join("."),
+        });
+      } catch (error) {
+        console.error(error);
+        setResults(null);
+      }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [ip, cidr]);
 
   return (
@@ -220,11 +228,10 @@ const StatBox = ({
   highlight?: boolean;
 }) => (
   <div
-    className={`p-4 rounded-xl border transition-colors cursor-default ${
-      highlight
-        ? "bg-red-500/5 border-red-500/20 hover:border-red-500/40"
-        : "bg-white/5 border-white/5 hover:bg-white/10"
-    }`}
+    className={`p-4 rounded-xl border transition-colors cursor-default ${highlight
+      ? "bg-red-500/5 border-red-500/20 hover:border-red-500/40"
+      : "bg-white/5 border-white/5 hover:bg-white/10"
+      }`}
   >
     <div
       className={`text-lg font-bold font-mono truncate ${highlight ? "text-red-400" : "text-white"}`}

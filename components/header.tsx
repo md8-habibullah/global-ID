@@ -28,7 +28,8 @@ export default function Header() {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Handle Click Outside & Scroll to close menu
@@ -58,8 +59,8 @@ export default function Header() {
   // Scroll Spy Logic
   useEffect(() => {
     if (pathname !== "/") {
-      setActiveSection("");
-      return;
+      const frame = requestAnimationFrame(() => setActiveSection(""));
+      return () => cancelAnimationFrame(frame);
     }
 
     const handleScrollSpy = () => {

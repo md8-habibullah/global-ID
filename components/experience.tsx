@@ -89,7 +89,7 @@ export default function Experience() {
                   <div className="space-y-1 cursor-target">
                     <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground/60 mb-1 cursor-target">
                       <span className="text-primary tracking-wider">
-                        // {exp.type}
+                        {'//'} {exp.type}
                       </span>
                     </div>
                     <h3 className="text-xl font-bold font-mono text-foreground group-hover:text-primary transition-colors">

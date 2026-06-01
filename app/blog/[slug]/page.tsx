@@ -289,7 +289,7 @@ export default async function BlogPostPage({
           </div>
 
           <div className="mt-8 text-center text-xs text-muted-foreground font-mono opacity-50 cursor-target">
-            // END_OF_FILE
+            {/* END_OF_FILE */}
           </div>
         </div>
       </article>

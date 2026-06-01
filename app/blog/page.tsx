@@ -104,11 +104,12 @@ export default async function BlogPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 cursor-target">
           <div className="space-y-4 cursor-target">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono mb-2 cursor-target">
-              <span className="relative flex h-2 w-2 cursor-target">
+              {/* <span className="relative flex h-2 w-2 cursor-target">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-              </span>
-              System_Online: Fetching Articles...
+              </span> */}
+              {/* System_Online: */}
+              Fetched Articles...
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight font-mono">

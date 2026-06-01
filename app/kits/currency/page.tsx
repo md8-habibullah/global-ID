@@ -38,24 +38,28 @@ export default function CurrencyPage() {
 
   // 1. Load Preferences on Mount (Including Amount)
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const {
-          from: savedFrom,
-          to: savedTo,
-          amount: savedAmount,
-        } = JSON.parse(saved);
-        if (savedFrom) setFrom(savedFrom);
-        if (savedTo) setTo(savedTo);
-        // Load the saved amount if it exists
-        if (savedAmount) setAmountStr(savedAmount);
+    const frame = requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const {
+            from: savedFrom,
+            to: savedTo,
+            amount: savedAmount,
+          } = JSON.parse(saved);
+          if (savedFrom) setFrom(savedFrom);
+          if (savedTo) setTo(savedTo);
+          // Load the saved amount if it exists
+          if (savedAmount) setAmountStr(savedAmount);
+        }
+      } catch (e) {
+        console.error("Failed to load currency preferences", e);
+      } finally {
+        setIsLoaded(true);
       }
-    } catch (e) {
-      console.error("Failed to load currency preferences", e);
-    } finally {
-      setIsLoaded(true);
-    }
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // 2. Save Preferences on Change (Including Amount)
@@ -126,9 +130,9 @@ export default function CurrencyPage() {
   const parsedAmount = parseFloat(amountStr) || 0;
   const convertedAmount = rate
     ? (parsedAmount * rate).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
     : "---";
 
   const handleSwap = () => {
@@ -249,14 +253,14 @@ export default function CurrencyPage() {
             <span className="text-muted-foreground/70">
               Last Update:{" "}
               {lastUpdate
-                  ? new Intl.DateTimeFormat("en-GB", {
-                      timeZone: "UTC",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                      hour12: false,
-                    }).format(new Date(lastUpdate)) + " UTC"
-                  : "Syncing..."}
+                ? new Intl.DateTimeFormat("en-GB", {
+                  timeZone: "UTC",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: false,
+                }).format(new Date(lastUpdate)) + " UTC"
+                : "Syncing..."}
             </span>
           </div>
         </div>

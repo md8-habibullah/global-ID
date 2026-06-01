@@ -167,7 +167,7 @@ export default function PrayerDashboard() {
 
   // Time Sync
   useEffect(() => {
-    setNow(new Date());
+    const frame = requestAnimationFrame(() => setNow(new Date()));
     const sync = async () => {
       try {
         const res = await fetch(
@@ -182,6 +182,7 @@ export default function PrayerDashboard() {
       }
     };
     sync();
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   // Clock Tick

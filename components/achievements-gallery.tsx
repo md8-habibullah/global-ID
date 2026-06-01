@@ -93,14 +93,18 @@ export default function AchievementsGallery() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   useEffect(() => {
-    const bless = (galleryData as GalleryItem[]).filter(item => item.category === "blessings")
-    const mem = (galleryData as GalleryItem[]).filter(item => item.category === "memories")
+    const frame = requestAnimationFrame(() => {
+      const bless = (galleryData as GalleryItem[]).filter(item => item.category === "blessings")
+      const mem = (galleryData as GalleryItem[]).filter(item => item.category === "memories")
 
-    setShuffledData({
-      blessings: shuffleArray(bless),
-      memories: shuffleArray(mem)
-    })
-    setIsClient(true)
+      setShuffledData({
+        blessings: shuffleArray(bless),
+        memories: shuffleArray(mem)
+      })
+      setIsClient(true)
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, [])
 
   const currentGallery = shuffledData[activeTab]
@@ -256,7 +260,7 @@ export default function AchievementsGallery() {
                 LOAD_STATE: STABLE
               </span>
               <span className="w-px h-3 bg-white/10" />
-              <span>SYNCED: {visibleData.length} // {currentGallery.length}</span>
+              <span>SYNCED: {visibleData.length} {'//'} {currentGallery.length}</span>
             </div>
           </div>
         )}

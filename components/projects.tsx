@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import ProjectCard from "./project-card";
-import { Terminal, Github } from "lucide-react";
+import { Terminal, GitBranch } from "lucide-react";
 
 export default function Projects() {
   const projects = [
@@ -112,7 +112,7 @@ export default function Projects() {
                 &gt; git checkout all_repositories
               </span>
               <div className="w-8 h-px bg-primary/30 group-hover:w-12 transition-all duration-500" />
-              <Github className="w-5 h-5 text-primary transition-all duration-500 group-hover:scale-110" />
+              <GitBranch className="w-5 h-5 text-primary transition-all duration-500 group-hover:scale-110" />
             </a>
           </div>
         </div>
