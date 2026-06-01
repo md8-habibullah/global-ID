@@ -74,6 +74,26 @@ const nextConfig = {
           },
         ],
       },
+      // Force Vercel/CDN edge TTL for blog pages to 1 hour (s-maxage=3600)
+      // Keeps Next.js ISR revalidate in code (60s) but shows "Expire: 1h" in Vercel
+      {
+        source: "/blog",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=3600, stale-while-revalidate=59",
+          },
+        ],
+      },
+      {
+        source: "/blog/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=3600, stale-while-revalidate=59",
+          },
+        ],
+      },
     ];
   },
 };
