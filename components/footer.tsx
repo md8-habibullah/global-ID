@@ -107,10 +107,6 @@ export default function Footer() {
                   <h3 className="text-lg font-bold tracking-tighter font-mono">
                     MD.Habibullah
                   </h3>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono cursor-target">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                    <span>System Online</span>
-                  </div>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs font-mono">

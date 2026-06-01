@@ -104,7 +104,6 @@ export default function About() {
 
                     <div className="relative z-10 flex flex-col sm:flex-row sm:items-baseline gap-2 cursor-target">
                       <span className="font-mono text-primary text-sm whitespace-nowrap flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                         <span className="font-bold">{title}</span>
                       </span>
                       <span className="hidden sm:inline text-muted-foreground/30">

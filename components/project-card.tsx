@@ -34,22 +34,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {/* Content */}
           <div className="relative z-10 flex flex-col h-full gap-4">
 
-            {/* Header: Title + Status Light */}
+            {/* Header: Title */}
             <div className="flex justify-between items-start">
               <h3 className="text-lg sm:text-xl font-bold font-mono text-foreground group-hover:text-primary transition-colors duration-300">
                 {project.title}
               </h3>
-
-              {/* STATUS INDICATOR */}
-              <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-primary/5 border border-primary/10">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
-                </span>
-                <span className="text-[9px] font-mono text-primary/70 tracking-wider uppercase">
-                  ONLINE
-                </span>
-              </div>
             </div>
 
             {/* Description */}

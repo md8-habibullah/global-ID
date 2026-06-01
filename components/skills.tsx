@@ -114,14 +114,6 @@ export default function Skills() {
                     {category.icon}
                     {category.name.replace(/_/g, " ")}
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono cursor-target">
-                    {/* Blinking Status Light */}
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                    <span className="hidden sm:inline">ACTIVE</span>
-                  </div>
                 </div>
 
                 {/* Skills List */}
