@@ -73,7 +73,7 @@ export default function About() {
               {/* Decorative Square top-left */}
               <div className="absolute top-0 left-[-4px] w-2 h-2 border border-primary bg-background z-10" />
 
-              <p className="text-lg text-muted-foreground leading-relaxed font-mono relative z-10">
+              <p className="text-lg text-muted-foreground/80 leading-relaxed font-mono relative z-10">
                 &gt; Initializing user profile... <br />
                 <br />I am{" "}
                 <strong className="text-foreground">Habibullah</strong>, a
@@ -97,7 +97,7 @@ export default function About() {
                 {whatIDo.map(({ title, desc }) => (
                   <li
                     key={title}
-                    className="group relative bg-card/40 p-4 rounded-lg border border-border/40 hover:border-primary/50 transition-all duration-300 cursor-target overflow-hidden"
+                    className="group relative bg-card/20 backdrop-blur-md p-4 rounded-lg border border-border/30 hover:border-primary/40 hover:bg-card/30 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-500 cursor-target overflow-hidden"
                   >
                     {/* Hover Glow Effect */}
                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -109,7 +109,7 @@ export default function About() {
                       <span className="hidden sm:inline text-muted-foreground/30">
                         --
                       </span>
-                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                      <span className="text-sm text-muted-foreground/70 group-hover:text-foreground transition-colors duration-500">
                         {desc}
                       </span>
                     </div>
@@ -134,14 +134,9 @@ export default function About() {
               style={{ animationDelay: "0.2s" }}
             >
               {/* Stats Panel with SCANNER Effect */}
-              <div className="bg-card md:bg-card/50 md:backdrop-blur-sm border border-border/50 rounded-xl p-6 relative overflow-hidden group cursor-target">
+              <div className="bg-card/30 backdrop-blur-md border border-border/30 rounded-xl p-6 relative overflow-hidden group hover:border-primary/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] transition-all duration-500 cursor-target">
 
-                {/* SCANNER ANIMATION */}
-                <motion.div
-                  animate={{ top: ["-10%", "110%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="hidden md:block absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_0_20px_rgba(0,255,200,0.5)] z-0 pointer-events-none"
-                />
+                {/* Removed Scanner Animation */}
 
                 <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-6 flex items-center gap-2 relative z-10">
                   <Cpu className="w-4 h-4" /> System_Diagnostics

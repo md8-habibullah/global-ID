@@ -75,7 +75,7 @@ export default function Experience() {
               </div>
 
               {/* Card Content */}
-              <div className="relative bg-card md:bg-card/30 border border-border/40 p-6 rounded-lg md:backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.05)] overflow-hidden cursor-target">
+              <div className="relative bg-card/20 backdrop-blur-md border border-border/30 p-6 rounded-lg transition-all duration-500 hover:border-primary/40 hover:bg-card/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] overflow-hidden cursor-target">
                 {/* Tech Deco Corner */}
                 <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
                   <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary cursor-target" />
@@ -105,7 +105,7 @@ export default function Experience() {
 
                   {/* Metadata Right Side */}
                   <div className="text-right flex flex-col items-start md:items-end gap-2 font-mono text-xs text-muted-foreground mt-2 md:mt-0 cursor-target">
-                    <div className="flex items-center gap-2 bg-card/50 px-2 py-1 rounded border border-border/50 group-hover:border-primary/30 transition-colors cursor-target">
+                    <div className="flex items-center gap-2 bg-background/40 backdrop-blur-sm px-2 py-1 rounded border border-border/30 group-hover:border-primary/30 transition-colors cursor-target">
                       <Calendar className="w-3 h-3 text-primary/70" />
                       {exp.period}
                     </div>
@@ -117,7 +117,7 @@ export default function Experience() {
                 </div>
 
                 {/* Description Log */}
-                <div className="font-mono text-sm leading-relaxed mb-6 pl-4 border-l-2 border-primary/20 text-muted-foreground group-hover:text-muted-foreground/80 transition-colors cursor-target">
+                <div className="font-mono text-sm leading-relaxed mb-6 pl-4 border-l-2 border-primary/20 text-muted-foreground/70 group-hover:text-muted-foreground/90 transition-colors cursor-target">
                   <span className="text-primary mr-2 opacity-50 select-none">
                     &gt;
                   </span>

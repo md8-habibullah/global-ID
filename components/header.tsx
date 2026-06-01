@@ -98,7 +98,7 @@ export default function Header() {
 
   // Helper for Link Classes
   const getNavLinkClass = (id: string) =>
-    `nav-link relative px-3 py-1.5 text-sm font-mono font-medium transition-colors rounded-md hover:bg-primary/10 hover:text-primary ${pathname === "/" && activeSection === id
+    `nav-link whitespace-nowrap relative px-3 py-1.5 text-sm font-mono font-medium transition-colors rounded-md hover:bg-primary/10 hover:text-primary ${pathname === "/" && activeSection === id
       ? "active text-primary bg-primary/5"
       : "text-muted-foreground"
     }`;
@@ -153,7 +153,7 @@ export default function Header() {
 
           <Link
             href={blog}
-            className="px-3 py-1.5 text-sm font-mono font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+            className="px-3 py-1.5 text-sm font-mono font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 whitespace-nowrap"
           >
             <NotebookPen className="w-3.5 h-3.5" />
             blog.sh
@@ -161,7 +161,7 @@ export default function Header() {
 
           <Link
             href="/kits"
-            className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 ${isKitsPage
+            className={`px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-500 flex items-center gap-2 group relative border-2 whitespace-nowrap ${isKitsPage
               ? "bg-gradient-to-r from-primary/20 to-green-400/20 text-primary border-primary/50 shadow-lg shadow-primary/25"
               : "text-muted-foreground hover:text-primary hover:bg-gradient-to-r hover:from-primary/10 hover:to-green-400/10 border-transparent hover:border-primary/30 hover:shadow-md hover:shadow-primary/20"
               }`}

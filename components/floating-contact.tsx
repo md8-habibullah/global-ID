@@ -195,7 +195,7 @@ export default function FloatingContact() {
             h-14 w-14 flex items-center justify-center rounded-full
             md:h-auto md:w-auto md:px-6 md:py-4 md:rounded-2xl
             
-            md:backdrop-blur-xl bg-background/30 md:bg-background/20
+            backdrop-blur-xl bg-card/20
             font-mono text-sm font-semibold
             transition-all duration-500 ease-out
             shadow-xl hover:shadow-primary/10
@@ -313,7 +313,7 @@ export default function FloatingContact() {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <div className="bg-background/95 md:bg-background/80 md:backdrop-blur-2xl rounded-3xl border border-primary/20 shadow-2xl overflow-hidden flex flex-col max-h-[75vh]">
+              <div className="bg-card/20 backdrop-blur-2xl rounded-3xl border border-primary/30 shadow-[0_0_40px_rgba(16,185,129,0.1)] overflow-hidden flex flex-col max-h-[75vh]">
                 {/* Header - Compact on mobile */}
                 <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200/50 dark:border-gray-700/50 shrink-0">
                   <div className="flex items-center gap-4">

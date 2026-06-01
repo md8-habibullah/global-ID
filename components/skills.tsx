@@ -106,10 +106,10 @@ export default function Skills() {
               className="animate-fade-in-up group cursor-target"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <div className="bg-card md:bg-card/30 border border-border/40 rounded-xl overflow-hidden hover:border-primary/50 transition-colors duration-300 cursor-target md:backdrop-blur-sm h-full">
+              <div className="bg-card/20 backdrop-blur-md border border-border/30 rounded-xl overflow-hidden hover:border-primary/40 hover:bg-card/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] transition-all duration-500 cursor-target h-full">
 
                 {/* Category Header */}
-                <div className="bg-muted/10 border-b border-border/40 px-6 py-3 flex items-center justify-between cursor-target">
+                <div className="bg-primary/5 border-b border-border/30 px-6 py-3 flex items-center justify-between cursor-target">
                   <div className="flex items-center gap-2 font-mono text-primary font-bold tracking-wide cursor-target">
                     {category.icon}
                     {category.name.replace(/_/g, " ")}
@@ -121,8 +121,8 @@ export default function Skills() {
                   {category.skills.map((skill, sIdx) => (
                     <div key={skill.name} className="space-y-1.5 cursor-target">
                       <div className="flex justify-between text-sm font-mono cursor-target">
-                        <span className="text-foreground/90">{skill.name}</span>
-                        <span className="text-muted-foreground text-xs font-bold opacity-70">
+                        <span className="text-foreground/80 group-hover:text-foreground transition-colors duration-300">{skill.name}</span>
+                        <span className="text-muted-foreground/60 text-xs font-bold">
                           {skill.progress}%
                         </span>
                       </div>

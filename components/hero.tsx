@@ -122,7 +122,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <p className="section-subtitle text-sm sm:text-lg cursor-target max-w-lg leading-relaxed text-muted-foreground/80 mx-auto md:mx-0">
+          <p className="section-subtitle text-sm sm:text-lg cursor-target max-w-lg leading-relaxed text-muted-foreground/60 mx-auto md:mx-0">
             Building scalable, secure web applications with modern technologies.
             Full-stack development expertise combined with DevOps automation and
             security-first mindset.
@@ -167,22 +167,22 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border/20 bg-card/60
+                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border/20 bg-card/20 backdrop-blur-md
                              overflow-hidden transition-all duration-500 ease-out
-                             hover:w-auto hover:border-primary hover:bg-primary hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                             hover:w-auto hover:border-primary/50 hover:bg-primary/10 hover:shadow-[0_0_25px_rgba(16,185,129,0.2)]"
                 >
                   <div className="relative z-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 cursor-target">
-                    <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-black" />
+                    <Icon className="w-5 h-5 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
                   </div>
 
                   <div className="flex items-center max-w-0 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:max-w-[200px] group-hover:ml-1 cursor-target">
-                    <span className="text-sm font-medium text-foreground whitespace-nowrap opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-hover:text-black font-bold font-mono">
+                    <span className="text-sm font-medium text-foreground whitespace-nowrap opacity-0 transition-opacity duration-300 delay-75 group-hover:opacity-100 group-hover:text-primary font-bold font-mono">
                       {label}
                     </span>
                   </div>
 
-                  <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
-                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-black/50 cursor-target" />
+                  <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/0 transition-all duration-300 group-hover:border-primary/50 cursor-target" />
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/0 transition-all duration-300 group-hover:border-primary/50 cursor-target" />
                 </a>
               ))}
             </div>
