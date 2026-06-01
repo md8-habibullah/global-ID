@@ -735,31 +735,31 @@
 
 @keyframes morphing-blob {
   0% {
-    border-radius: 30% 70% 70% 30% / 30% 60% 40% 70%;
+    border-radius: 70% 30% 30% 70% / 60% 30% 70% 40%;
   }
   33% {
-    border-radius: 40% 60% 80% 20% / 40% 70% 30% 60%;
+    border-radius: 60% 40% 20% 80% / 70% 40% 60% 30%;
   }
   66% {
-    border-radius: 20% 80% 60% 40% / 30% 50% 50% 70%;
+    border-radius: 80% 20% 40% 60% / 50% 30% 70% 50%;
   }
   100% {
-    border-radius: 30% 70% 70% 30% / 30% 60% 40% 70%;
+    border-radius: 70% 30% 30% 70% / 60% 30% 70% 40%;
   }
 }
 
 @keyframes morphing-blob-reverse {
   0% {
-    border-radius: 40% 60% 50% 50% / 50% 60% 40% 50%;
+    border-radius: 60% 40% 50% 50% / 60% 50% 50% 40%;
   }
   33% {
-    border-radius: 20% 80% 60% 40% / 40% 50% 50% 60%;
+    border-radius: 80% 20% 40% 60% / 50% 40% 60% 50%;
   }
   66% {
-    border-radius: 50% 50% 70% 30% / 30% 70% 30% 70%;
+    border-radius: 50% 50% 30% 70% / 70% 30% 70% 30%;
   }
   100% {
-    border-radius: 40% 60% 50% 50% / 50% 60% 40% 50%;
+    border-radius: 60% 40% 50% 50% / 60% 50% 50% 40%;
   }
 }
 

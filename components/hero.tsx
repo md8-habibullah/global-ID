@@ -69,27 +69,26 @@ export default function Hero() {
         >
           <div className="relative cursor-target w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] group">
 
-            {/* Rotating Tech Ring */}
-            <div className="absolute inset-[-15px] md:inset-[-20px] animate-morphing-blob border border-primary/20 border-dashed pointer-events-none" />
-            <div className="absolute inset-[-8px] md:inset-[-10px] animate-morphing-blob-reverse border border-primary/10 pointer-events-none" />
+            {/* Rotating Tech Rings - Softened for modern feel */}
+            <div className="absolute inset-[-15px] md:inset-[-20px] animate-morphing-blob border border-primary/20 border-dashed pointer-events-none opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
+            <div className="absolute inset-[-8px] md:inset-[-10px] animate-morphing-blob-reverse border border-primary/10 pointer-events-none opacity-50 group-hover:opacity-80 transition-opacity duration-700" />
 
-            {/* Background Glow */}
-            <div className="absolute inset-0 bg-primary/20 animate-morphing-blob blur-xl md:blur-3xl md:animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
+            {/* Background Glow - More elegant and diffuse */}
+            <div className="absolute inset-0 bg-primary/10 animate-morphing-blob blur-2xl md:blur-[60px] md:animate-pulse-slow group-hover:bg-primary/20 transition-all duration-700 cursor-target" />
 
-            {/* Image Container with Mask */}
+            {/* Image Container with Mask - Premium Glass/Modern feel */}
             <div 
-              className="relative w-full h-full animate-morphing-blob overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background cursor-pointer"
+              className="relative w-full h-full animate-morphing-blob overflow-hidden border border-primary/30 shadow-[0_0_40px_rgba(16,185,129,0.15)] group-hover:shadow-[0_0_60px_rgba(16,185,129,0.25)] group-hover:border-primary/50 group-hover:scale-[1.02] transition-all duration-700 bg-background/40 backdrop-blur-sm cursor-pointer"
               onClick={() => setIsModalOpen(true)}
             >
               <Image
                 src="/logo.png"
                 alt="MD. HABIBULLAH SHARIF"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 fill
                 sizes="(max-width: 768px) 50vw, 30vw"
                 priority
               />
-
             </div>
 
             {/* Tech Brackets Removed */}

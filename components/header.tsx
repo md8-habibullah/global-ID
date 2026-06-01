@@ -109,9 +109,9 @@ export default function Header() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between cursor-target">
         {/* === LEFT: SYSTEM IDENTITY === */}
-        <Link href="/#" className="group block">
+        <Link href="/#" className="group block focus:outline-none">
           <div className="flex items-center gap-3 cursor-target">
-            <div className="relative w-9 h-9 overflow-hidden rounded-lg border border-primary/20 group-hover:border-primary/50 transition-colors shadow-sm cursor-target">
+            <div className="relative w-10 h-10 overflow-hidden rounded-xl border border-primary/20 group-hover:border-primary/50 transition-colors shadow-sm cursor-target shrink-0">
               <Image
                 src="/logo.png"
                 alt="MD. Habibullah Sharif"
@@ -122,13 +122,13 @@ export default function Header() {
               {/* Scanline overlay */}
               <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
             </div>
-            <div className="flex flex-col cursor-target">
-              <span className="text-sm font-bold tracking-tight font-mono group-hover:text-primary transition-colors">
+            <div className="flex flex-col justify-center cursor-target">
+              <span className="text-[13px] md:text-sm font-bold tracking-tight font-mono group-hover:text-primary transition-colors leading-none mb-1">
                 ~/MD.HABIBULLAH
               </span>
-              <div className="flex items-center cursor-target text-[10px] font-mono mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                <span className="text-primary/70 mr-1.5">#</span>
-                <span className="text-muted-foreground tracking-wider uppercase">SysAdmin_Dev</span>
+              <div className="flex items-center cursor-target text-[9px] md:text-[10px] font-mono opacity-70 group-hover:opacity-100 transition-opacity leading-none">
+                <span className="text-primary mr-1 font-bold">#</span>
+                <span className="text-muted-foreground tracking-[0.2em] uppercase">SysAdmin_Dev</span>
               </div>
             </div>
           </div>
