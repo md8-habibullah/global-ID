@@ -1,4 +1,4 @@
-# MD. HABIBULLAH SHARIF - Professional Global-ID Portfolio
+# MD. HABIBULLAH SHARIF - Professional Global-ID Portfolio 
 
 A high-performance, cinematic personal portfolio engineered for a Full-Stack Developer and DevOps specialist. This project transcends traditional portfolio design by implementing advanced real-time physics animations, highly scalable Next.js Server Components, aggressive automated SEO integrations, and an expansive Git LFS media distribution architecture. 
 
