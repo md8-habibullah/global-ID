@@ -123,15 +123,12 @@ export default function Header() {
               <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
             </div>
             <div className="flex flex-col cursor-target">
-              <span className="text-sm font-bold tracking-tight font-mono flex items-center gap-2 group-hover:text-primary transition-colors">
-                <Terminal className="w-3 h-3 text-primary" />
+              <span className="text-sm font-bold tracking-tight font-mono group-hover:text-primary transition-colors">
                 ~/MD.HABIBULLAH
               </span>
-              <div className="flex items-center gap-1.5 cursor-target">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">
-                  System_Ready
-                </p>
+              <div className="flex items-center cursor-target text-[10px] font-mono mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                <span className="text-primary/70 mr-1.5">#</span>
+                <span className="text-muted-foreground tracking-wider uppercase">SysAdmin_Dev</span>
               </div>
             </div>
           </div>
@@ -208,14 +205,26 @@ export default function Header() {
             <Calendar className="w-5 h-5 transition-transform group-hover:scale-110" />
           </Link>
 
-          {/* === 2. THEME TOGGLE === */}
+          {/* === 2. THEME TOGGLE (CONDITIONAL LOCK) === */}
           <button
-            className="relative p-2 rounded-lg border border-border/40 hover:border-primary/50 hover:bg-primary/5 transition-all group"
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-            aria-label="Toggle theme"
+            className={`relative p-2 rounded-lg border transition-all group ${
+              isDark 
+                ? "border-border/40 opacity-70 cursor-not-allowed hover:border-red-500/50 hover:bg-red-500/10"
+                : "border-border/40 hover:border-primary/50 hover:bg-primary/5"
+            }`}
+            onClick={(e) => {
+              if (isDark) {
+                e.preventDefault();
+                // Locked: Do not change theme if already dark
+              } else {
+                setTheme("dark");
+              }
+            }}
+            title={isDark ? "System Locked: You haven't permission to change theme." : "Switch to Dark Mode"}
+            aria-label={isDark ? "Toggle theme (Locked)" : "Toggle theme"}
           >
             {isDark ? (
-              <Moon className="w-5 h-5 text-primary group-hover:rotate-12 transition-transform" />
+              <Moon className="w-5 h-5 text-primary/60 group-hover:text-red-400 transition-colors" />
             ) : (
               <Sun className="w-5 h-5 text-yellow-500 group-hover:rotate-90 transition-transform" />
             )}

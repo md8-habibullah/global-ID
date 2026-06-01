@@ -10,7 +10,7 @@ import {
 import { ChevronUp } from "lucide-react";
 
 export default function ScrollProgress() {
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState(1);
 
     // Scroll Progress Logic
     const { scrollYProgress } = useScroll();
@@ -27,7 +27,8 @@ export default function ScrollProgress() {
                 document.documentElement.scrollHeight - window.innerHeight;
             if (scrollHeight) {
                 const percent = Number((currentProgress / scrollHeight).toFixed(2));
-                setProgress(Math.round(percent * 100));
+                // Ensure it shows at least 1% instead of 0%
+                setProgress(Math.max(1, Math.round(percent * 100)));
             }
         };
 
