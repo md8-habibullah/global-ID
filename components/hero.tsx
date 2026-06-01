@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import HackerText from "./HackerText";
 // import SpiderCanvas from "./spider-canvas";
 import {
@@ -8,7 +9,8 @@ import {
   Mail,
   MessageCircle,
   Terminal,
-  Download
+  Download,
+  X
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -36,6 +38,24 @@ const socialLinks = [
 ];
 
 export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+    
+    if (isModalOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen]);
+
   return (
     <section className="section-spacing min-h-[calc(100vh-80px)] flex items-center justify-center cursor-target overflow-hidden relative py-12 md:py-0">
 
@@ -47,7 +67,7 @@ export default function Hero() {
           className="relative flex justify-center md:justify-end animate-fade-in-up cursor-target order-first md:order-last p-10"
           style={{ animationDelay: "0.1s" }}
         >
-          <div className="relative cursor-target w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 group">
+          <div className="relative cursor-target w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] group">
 
             {/* Rotating Tech Ring */}
             <div className="absolute inset-[-15px] md:inset-[-20px] rounded-full border border-primary/20 border-dashed md:animate-[spin_10s_linear_infinite] pointer-events-none" />
@@ -57,7 +77,10 @@ export default function Hero() {
             <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl md:blur-3xl md:animate-pulse-slow group-hover:bg-primary/30 transition-all duration-500 cursor-target" />
 
             {/* Image Container with Mask */}
-            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background">
+            <div 
+              className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary/50 shadow-[0_0_30px_rgba(0,255,200,0.2)] group-hover:scale-105 transition-transform duration-500 bg-background cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+            >
               <Image
                 src="/logo.png"
                 alt="MD. HABIBULLAH SHARIF"
@@ -67,24 +90,12 @@ export default function Hero() {
                 priority
               />
 
-              {/* FACE ID SCANNER LINE */}
-              <motion.div
-                animate={{ top: ["-10%", "110%"] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="absolute left-0 right-0 h-[2px] bg-primary shadow-[0_0_20px_#00ffc8] z-20 opacity-0 group-hover:opacity-100"
-              />
-              <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none mix-blend-overlay" />
             </div>
 
             {/* Tech Brackets */}
             <div className="absolute top-0 right-0 w-6 h-6 md:w-8 md:h-8 border-t-2 border-r-2 border-primary/60 rounded-tr-xl opacity-80" />
             <div className="absolute bottom-0 left-0 w-6 h-6 md:w-8 md:h-8 border-b-2 border-l-2 border-primary/60 rounded-bl-xl opacity-80" />
 
-            {/* System Status Tag */}
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/80 backdrop-blur border border-primary/30 rounded-full text-[10px] font-mono text-primary flex items-center gap-2 whitespace-nowrap z-20">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              SYSTEM_ONLINE
-            </div>
           </div>
         </div>
 
@@ -182,6 +193,41 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Full Size Image Modal */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <button 
+            className="absolute top-4 right-4 md:top-8 md:right-8 p-3 bg-white/10 hover:bg-primary/40 rounded-full text-white transition-colors border border-white/20 z-[110]"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsModalOpen(false);
+            }}
+          >
+            <X className="w-6 h-6 md:w-8 md:h-8" />
+          </button>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full h-[60vh] sm:h-[75vh] md:h-[90vh] max-w-6xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src="/logo.png"
+              alt="MD. HABIBULLAH SHARIF Full Size"
+              className="object-contain"
+              fill
+              sizes="100vw"
+              priority
+            />
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 }
