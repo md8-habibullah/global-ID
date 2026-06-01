@@ -307,15 +307,15 @@ export default function FloatingContact() {
 
             {/* Connect Panel */}
             <motion.div
-              className="fixed bottom-32 left-4 right-4 md:left-auto md:right-10 md:w-96 z-50"
+              className="fixed bottom-24 left-4 right-4 sm:left-auto sm:right-6 sm:w-80 md:w-96 md:right-10 md:bottom-28 z-50"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <div className="bg-background/80 md:backdrop-blur-2xl rounded-3xl border border-primary/20 shadow-2xl overflow-hidden">
-                {/* Header - Updated */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+              <div className="bg-background/95 md:bg-background/80 md:backdrop-blur-2xl rounded-3xl border border-primary/20 shadow-2xl overflow-hidden flex flex-col max-h-[75vh]">
+                {/* Header - Compact on mobile */}
+                <div className="flex items-center justify-between p-4 md:p-6 border-b border-gray-200/50 dark:border-gray-700/50 shrink-0">
                   <div className="flex items-center gap-4">
                     <div className="p-2.5 bg-primary/10 rounded-2xl">
                       <ShieldCheck className="w-5 h-5 text-primary" />
@@ -341,8 +341,8 @@ export default function FloatingContact() {
                   </motion.button>
                 </div>
 
-                {/* Connect List */}
-                <div className="p-4 space-y-3 max-h-[60vh] md:max-h-96 overflow-y-auto">
+                {/* Connect List - Scrollable */}
+                <div className="p-3 md:p-4 space-y-2 md:space-y-3 overflow-y-auto flex-1 min-h-0">
                   {connectList.map((contact, index) => (
                     <motion.div
                       key={contact.id}
@@ -350,29 +350,29 @@ export default function FloatingContact() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
                       className={`
-                        group relative p-4 rounded-2xl border border-gray-200/50 dark:border-gray-700/50
+                        group relative p-3 md:p-4 rounded-2xl border border-gray-200/50 dark:border-gray-700/50
                         ${contact.bgColor} ${contact.darkBg}
                         transition-all duration-200 hover:shadow-md hover:scale-[1.02]
                         cursor-pointer
                       `}
                       onClick={() => handleDirectClick(contact.href)}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 flex-1 min-w-0">
-                          <div className={`p-3 rounded-2xl ${contact.color} bg-white dark:bg-gray-800 shadow-sm`}>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                          <div className={`p-2 md:p-3 rounded-2xl ${contact.color} bg-white dark:bg-gray-800 shadow-sm shrink-0`}>
                             <contact.icon className="w-5 h-5" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-base font-semibold text-gray-900 dark:text-white">
+                            <div className="flex items-center gap-2 mb-0.5 md:mb-1">
+                              <span className="text-sm md:text-base font-semibold text-gray-900 dark:text-white truncate">
                                 {contact.label}
                               </span>
-                              <ExternalLink className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <ExternalLink className="w-3 h-3 md:w-4 md:h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                             </div>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 truncate mb-1">
+                            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300 truncate">
                               {contact.value}
                             </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 hidden sm:block mt-1">
                               {contact.description}
                             </p>
                           </div>
@@ -385,9 +385,9 @@ export default function FloatingContact() {
                             handleCopy(contact.copyValue, contact.id, contact.label);
                           }}
                           className="
-                            p-3 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
+                            p-2.5 md:p-3 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700
                             hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200
-                            shadow-sm hover:shadow-md
+                            shadow-sm hover:shadow-md shrink-0
                           "
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
@@ -405,11 +405,11 @@ export default function FloatingContact() {
                 </div>
 
                 {/* Footer with Polished Pulse */}
-                <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50 space-y-4">
-                  <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <span className="relative flex h-2.5 w-2.5">
+                <div className="p-3 md:p-4 border-t border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-800/50 space-y-3 shrink-0">
+                  <div className="flex items-center justify-center gap-2 text-[10px] md:text-sm text-gray-600 dark:text-gray-400">
+                    <span className="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-green-500"></span>
                     </span>
                     <span>Available for new opportunities</span>
                   </div>
