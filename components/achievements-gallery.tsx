@@ -54,8 +54,7 @@ const InteractiveCard = ({ item, index, onClick }: { item: GalleryItem, index: n
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
-          loading={index < 4 ? "eager" : "lazy"}
-          priority={index < 2}
+          loading="lazy"
         />
       </div>
 
