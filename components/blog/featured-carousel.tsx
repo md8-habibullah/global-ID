@@ -105,7 +105,7 @@ export default function FeaturedCarousel({ posts }: { posts: BlogPost[] }) {
                                             <div className="flex gap-2 mb-2">
                                                 {post.tag_list.slice(0, 3).map((tag) => (
                                                     <span key={tag} className="px-2 py-0.5 text-[10px] md:text-xs font-mono bg-primary/20 border border-primary/30 text-primary rounded-md uppercase tracking-wider backdrop-blur-md">
-                                                        System.tag: {tag}
+                                                        #{tag}
                                                     </span>
                                                 ))}
                                             </div>

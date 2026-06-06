@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import { DevToIcon } from "@/components/icon/dev.to";
 import { MediumIcon } from "@/components/icon/medium";
+import { DiscordIcon } from "@/components/icon/discord";
 
 const socialLinks = [
   {
@@ -47,9 +48,9 @@ const socialLinks = [
     Icon: Facebook,
   },
   {
-    href: "https://www.instagram.com/md8.habibullah",
-    label: "Instagram",
-    Icon: Instagram,
+    href: "https://discord.com/users/md8_habibullah",
+    label: "Discord",
+    Icon: DiscordIcon,
   },
   { href: "mailto:hello@habibullah.dev", label: "Email", Icon: Mail },
 ];
