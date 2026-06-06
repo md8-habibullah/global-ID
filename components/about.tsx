@@ -48,7 +48,6 @@ export default function About() {
             <span className="text-muted-foreground">:</span>
             <span className="text-blue-500">~/about</span>
             <span className="text-muted-foreground">$</span>
-            <span className="ml-2 animate-blink-cursor inline-block w-3 h-5 bg-primary align-middle" />
           </h2>
         </div>
 
