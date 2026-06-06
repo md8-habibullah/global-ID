@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "https://avatars.githubusercontent.com/u/149287500?s=64",
+    icon: "/icon",
   },
   keywords: [
     "Full-Stack Developer",
