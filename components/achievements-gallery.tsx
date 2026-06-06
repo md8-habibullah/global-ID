@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useCallback } from "react"
+import { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
@@ -64,6 +64,7 @@ const InteractiveCard = ({ item, index, onClick }: { item: GalleryItem, index: n
 };
 
 export default function AchievementsGallery() {
+  const sectionRef = useRef<HTMLElement>(null)
   const [activeTab, setActiveTab] = useState<"blessings" | "memories">("blessings")
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [visibleCounts, setVisibleCounts] = useState({ "blessings": ITEMS_PER_PAGE, memories: ITEMS_PER_PAGE })
