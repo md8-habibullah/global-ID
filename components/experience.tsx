@@ -44,9 +44,7 @@ export default function Experience() {
             <span className="text-muted-foreground">:</span>
             <span className="text-blue-500">~/experience</span>
             <span className="text-muted-foreground">$</span>
-            <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
-              ./show_log.sh --verbose
-            </span>
+
             <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
           </h2>
         </div>
@@ -74,15 +72,7 @@ export default function Experience() {
                 <div className="w-1.5 h-1.5 rounded-full bg-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-target" />
               </div>
 
-              {/* Card Content */}
-              <div className="relative bg-card/20 backdrop-blur-md border border-border/30 p-6 rounded-lg transition-all duration-500 hover:border-primary/40 hover:bg-card/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] overflow-hidden cursor-target">
-                {/* Tech Deco Corner */}
-                <div className="absolute top-0 right-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary cursor-target" />
-                </div>
-                <div className="absolute bottom-0 left-0 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none cursor-target">
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary cursor-target" />
-                </div>
+              <div className="relative bg-card/20 backdrop-blur-md border border-border/30 p-6 rounded-lg transition-all duration-500 hover:border-border/50 hover:bg-card/30 overflow-hidden cursor-target">
 
                 {/* Header Row */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4 cursor-target">

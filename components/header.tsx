@@ -156,7 +156,7 @@ export default function Header() {
             className="px-3 py-1.5 text-sm font-mono font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 whitespace-nowrap"
           >
             <NotebookPen className="w-3.5 h-3.5" />
-            blog.sh
+            Blog
           </Link>
 
           <Link
@@ -335,7 +335,7 @@ export default function Header() {
                 className="flex flex-col items-center justify-center gap-1 p-3 rounded-lg border border-border/40 bg-card/50 hover:border-primary/30 hover:text-primary font-mono text-xs"
               >
                 <NotebookPen className="w-4 h-4" />
-                <span>blog.sh</span>
+                <span>Blog</span>
               </Link>
               <Link
                 href="/kits"

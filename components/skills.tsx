@@ -91,9 +91,7 @@ export default function Skills() {
             <span className="text-muted-foreground">:</span>
             <span className="text-blue-500">~/skills</span>
             <span className="text-muted-foreground">$</span>
-            <span className="ml-3 text-sm text-muted-foreground/60 font-normal hidden sm:inline-block">
-              ./list_packages.sh --count=300+
-            </span>
+
             <span className="ml-2 animate-blink-cursor inline-block w-2 h-4 bg-primary align-middle" />
           </h2>
         </div>

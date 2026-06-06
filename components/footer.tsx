@@ -109,14 +109,8 @@ export default function Footer() {
                   </h3>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs font-mono">
-                &gt; chmod +x habibullah.sh
-                <br />
-                &gt; Running security_scan... [SECURE]
-                <br />
-                &gt; Initializing scalable_architecture...
-                <br />
-                &gt; Ready to deploy...
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+                Building scalable architectures, ensuring robust security, and deploying modern full-stack web applications.
               </p>
             </motion.div>
 
@@ -132,9 +126,6 @@ export default function Footer() {
                       href={`#${link.toLowerCase()}`}
                       className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                     >
-                      <span className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary">
-                        &gt;
-                      </span>
                       <span className="group-hover:translate-x-1 transition-transform duration-300">
                         ~/ {link.toLowerCase()}
                       </span>
@@ -149,8 +140,8 @@ export default function Footer() {
                     <span className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary">
                       &gt;
                     </span>
-                    <span className="group-hover:translate-x-1 transition-transform duration-300">
-                      ~/ blog.sh
+                    <span className="font-mono text-xs opacity-50 group-hover:opacity-100 transition-opacity">
+                      Blog
                     </span>
                   </Link>
                 </li>

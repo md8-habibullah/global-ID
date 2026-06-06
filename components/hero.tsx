@@ -103,7 +103,7 @@ export default function Hero() {
           <div className="space-y-4 cursor-target">
             <div className="flex items-center justify-center md:justify-start gap-2 text-primary/80 font-mono text-sm tracking-widest uppercase">
               <Terminal className="w-4 h-4" />
-              <span>Initialize_Portfolio.sh</span>
+              <span>WELCOME TO MY PORTFOLIO</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
