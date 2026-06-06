@@ -16,7 +16,6 @@ export default async function Icon() {
 
   return new ImageResponse(
     (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={avatarUrl}
         width="64"

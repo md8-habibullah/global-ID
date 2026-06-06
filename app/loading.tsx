@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Loading() {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(10);
 
-  // Fake fast progress counter to make it feel "real" and powerful
+  // Fake progress counter: starts fast, slows down as it reaches 99
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -14,9 +14,16 @@ export default function Loading() {
           clearInterval(interval);
           return 99; // Hangs at 99 until navigation actually completes
         }
-        return Math.min(99, prev + Math.floor(Math.random() * 12) + 1);
+        
+        let increment = 1;
+        if (prev < 50) increment = Math.floor(Math.random() * 15) + 8; // Very fast early on
+        else if (prev < 80) increment = Math.floor(Math.random() * 8) + 4; // Slows down in middle
+        else if (prev < 95) increment = Math.floor(Math.random() * 3) + 1; // Creeps up near the end
+        else increment = 1; // Drops to 1 at the very end
+
+        return Math.min(99, prev + increment);
       });
-    }, 80);
+    }, 60); // 60ms interval for smooth but fast ticks
     return () => clearInterval(interval);
   }, []);
 
