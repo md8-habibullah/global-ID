@@ -4,6 +4,7 @@ const nextConfig = {
   // output: "export",
   // --- Image settings ---
   images: {
+    contentDispositionType: "inline",
     remotePatterns: [
       {
         protocol: "https",
