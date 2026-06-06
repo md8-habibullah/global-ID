@@ -82,7 +82,7 @@ export default function Hero() {
               onClick={() => setIsModalOpen(true)}
             >
               <Image
-                src="/logo.png"
+                src="https://avatars.githubusercontent.com/u/149287500?s=800"
                 alt="MD. HABIBULLAH SHARIF"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 fill
@@ -214,7 +214,7 @@ export default function Hero() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src="/logo.png"
+              src="https://avatars.githubusercontent.com/u/149287500?s=1200"
               alt="MD. HABIBULLAH SHARIF Full Size"
               className="object-contain"
               fill

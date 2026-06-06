@@ -222,7 +222,7 @@ export default async function BlogPostPage({
                 name: "Habibullah.dev",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://habibullah.dev/logo.png", // Replace with your logo URL
+                  url: "https://avatars.githubusercontent.com/u/149287500?s=400", // Replace with your logo URL
                 },
               },
               mainEntityOfPage: {

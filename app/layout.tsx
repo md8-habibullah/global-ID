@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "https://avatars.githubusercontent.com/u/149287500?s=64",
   },
   keywords: [
     "Full-Stack Developer",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/PICTURE of the Year - 2025.png",
+        url: "https://avatars.githubusercontent.com/u/149287500?s=1200",
         width: 1200,
         height: 630,
         alt: "MD. HABIBULLAH SHARIF",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     title: "MD. HABIBULLAH SHARIF - Full-Stack Developer",
     description:
       "Full-Stack Developer & DevOps Engineer | React, Node.js, Docker, Kubernetes",
-    images: ["/PICTURE of the Year - 2025.png"],
+    images: ["https://avatars.githubusercontent.com/u/149287500?s=1200"],
   },
 };
 
@@ -98,7 +98,7 @@ const jsonLd = [
     "@type": "Person",
     "name": "MD. HABIBULLAH SHARIF",
     "url": "https://habibullah.dev",
-    "image": "https://habibullah.dev/PICTURE%20of%20the%20Year%20-%202025.png",
+    "image": "https://avatars.githubusercontent.com/u/149287500?s=800",
     "jobTitle": "Full-Stack Developer & DevOps Engineer",
     "sameAs": [
       "https://github.com/md8-habibullah",
