@@ -48,10 +48,7 @@ export default function Roadmap() {
             <div className="max-w-6xl mx-auto px-4 relative z-10 cursor-target">
                 {/* Header */}
                 <div className="text-center mb-12 space-y-2 cursor-target">
-                    <div className="inline-flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase opacity-80">
-                        <Zap className="w-4 h-4" />
-                        <span>Kernel_Update_Schedule</span>
-                    </div>
+
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
                         System <span className="text-primary">Evolution_Path</span>
                     </h2>
