@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { useTheme } from "next-themes";
 import {
   Sun,
   Moon,
@@ -18,7 +17,6 @@ import { usePathname } from "next/navigation";
 import SiteFakeUptime from "./SiteFakeUptime";
 
 export default function Header() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -92,7 +90,7 @@ export default function Header() {
   if (!mounted) return null;
 
   const blog = "/blog";
-  const isDark = theme === "dark";
+  const isDark = true;
   const isKitsPage = pathname?.startsWith("/kits");
   const isCalendarPage = pathname === "/calendar";
 
@@ -187,13 +185,7 @@ export default function Header() {
 
         {/* === RIGHT: UTILITIES === */}
         <div className="flex items-center gap-3 sm:gap-4 cursor-target">
-          <div className="hidden sm:block cursor-target">
-            <SiteFakeUptime />
-          </div>
-
-          <div className="h-6 w-px bg-border/40 hidden sm:block cursor-target" />
-
-          {/* === 1. CALENDAR BUTTON (Next to Theme Switcher) === */}
+          {/* === 1. CALENDAR BUTTON === */}
           <Link
             href="/calendar"
             title="Global Schedule"
@@ -205,31 +197,11 @@ export default function Header() {
             <Calendar className="w-5 h-5 transition-transform group-hover:scale-110" />
           </Link>
 
-          {/* === 2. THEME TOGGLE (CONDITIONAL LOCK) === */}
-          <button
-            className={`relative p-2 rounded-lg border transition-all group ${
-              isDark 
-                ? "border-border/40 opacity-70 cursor-not-allowed hover:border-red-500/50 hover:bg-red-500/10"
-                : "border-border/40 hover:border-primary/50 hover:bg-primary/5"
-            }`}
-            onClick={(e) => {
-              if (isDark) {
-                e.preventDefault();
-                // Locked: Do not change theme if already dark
-              } else {
-                setTheme("dark");
-              }
-            }}
-            title={isDark ? "System Locked: You haven't permission to change theme." : "Switch to Dark Mode"}
-            aria-label={isDark ? "Toggle theme (Locked)" : "Toggle theme"}
-          >
-            {isDark ? (
-              <Moon className="w-5 h-5 text-primary/60 group-hover:text-red-400 transition-colors" />
-            ) : (
-              <Sun className="w-5 h-5 text-yellow-500 group-hover:rotate-90 transition-transform" />
-            )}
-          </button>
+          <div className="h-6 w-px bg-border/40 hidden sm:block cursor-target" />
 
+          <div className="hidden sm:block cursor-target">
+            <SiteFakeUptime />
+          </div>
           {/* Mobile Menu Button */}
           <button
             ref={buttonRef}

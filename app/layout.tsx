@@ -2,7 +2,6 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 // import { GoogleTagManager } from "@next/third-parties/google"; // Uncomment if you have a GTM ID
@@ -133,12 +132,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+
           {/* === 1. GLOBAL BACKGROUND & SPIDER (z-index: 0) === */}
           <GlobalBackground />
           <GlobalSpider color="0, 255, 200" />
@@ -163,7 +157,6 @@ export default function RootLayout({
             closeButton
             duration={3000}
           />
-        </ThemeProvider>
         <SpeedInsights />
 
         {/* Google Analytics can go here if needed */}

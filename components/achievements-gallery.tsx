@@ -1,14 +1,13 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef, useCallback } from "react"
+import { useState, useMemo, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Calendar, ChevronDown, Sparkles, ChevronLeft, ChevronRight, X } from "lucide-react"
 
 import galleryData from "./data/gallery-data.json"
 import { Button } from "@/components/ui/button"
-import { getSecureRandom } from "@/lib/crypto-utils"
 
 // Type matches our JSON structure
 type GalleryItem = {
@@ -23,14 +22,6 @@ type GalleryItem = {
 
 const ITEMS_PER_PAGE = 12;
 
-const shuffleArray = (array: GalleryItem[]) => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(getSecureRandom() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
 
 // --- Optimized Component: Interactive Card ---
 const InteractiveCard = ({ item, index, onClick }: { item: GalleryItem, index: number, onClick: () => void }) => {
@@ -77,34 +68,16 @@ export default function AchievementsGallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [visibleCounts, setVisibleCounts] = useState({ "blessings": ITEMS_PER_PAGE, memories: ITEMS_PER_PAGE })
 
-  const [shuffledData, setShuffledData] = useState<Record<string, GalleryItem[]>>({
-    blessings: [],
-    memories: []
-  })
-  const [isClient, setIsClient] = useState(false)
+  // Pre-filter data for SEO-friendly static rendering
+  const blessingsData = useMemo(() => (galleryData as GalleryItem[]).filter(item => item.category === "blessings"), []);
+  const memoriesData = useMemo(() => (galleryData as GalleryItem[]).filter(item => item.category === "memories"), []);
 
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
-
-  useEffect(() => {
-    const bless = (galleryData as GalleryItem[]).filter(item => item.category === "blessings")
-    const mem = (galleryData as GalleryItem[]).filter(item => item.category === "memories")
-
-    setShuffledData({
-      blessings: shuffleArray(bless),
-      memories: shuffleArray(mem)
-    })
-    setIsClient(true)
-  }, [])
-
-  const currentGallery = shuffledData[activeTab]
-  const visibleData = isClient ? currentGallery.slice(0, visibleCounts[activeTab]) : []
-  const hasMore = isClient && visibleCounts[activeTab] < currentGallery.length
+  const currentGallery = useMemo(() => {
+    const galleryMap = { blessings: blessingsData, memories: memoriesData };
+    return galleryMap[activeTab];
+  }, [activeTab, blessingsData, memoriesData]);
+  const visibleData = currentGallery.slice(0, visibleCounts[activeTab])
+  const hasMore = visibleCounts[activeTab] < currentGallery.length
 
   const handleLoadMore = () => {
     setVisibleCounts(prev => ({
@@ -146,7 +119,6 @@ export default function AchievementsGallery() {
   return (
     <section
       id="gallery"
-      ref={sectionRef}
       className="section-spacing relative overflow-hidden bg-transparent selection:bg-primary selection:text-primary-foreground"
     >
 
@@ -201,29 +173,23 @@ export default function AchievementsGallery() {
         </motion.div>
 
         <AnimatePresence mode="wait">
-          {!isClient ? (
-            <div className="py-20 flex justify-center items-center">
-              <div className="w-6 h-6 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
-            </div>
-          ) : (
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-3 md:gap-4 space-y-3 md:space-y-4"
-            >
-              {visibleData.map((item, index) => (
-                <InteractiveCard
-                  key={`${activeTab}-${item.id}`}
-                  item={item}
-                  index={index}
-                  onClick={() => setSelectedIndex(index)}
-                />
-              ))}
-            </motion.div>
-          )}
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-3 md:gap-4 space-y-3 md:space-y-4"
+          >
+            {visibleData.map((item, index) => (
+              <InteractiveCard
+                key={`${activeTab}-${item.id}`}
+                item={item}
+                index={index}
+                onClick={() => setSelectedIndex(index)}
+              />
+            ))}
+          </motion.div>
         </AnimatePresence>
 
         {/* --- Unified Tech-Styled Load More Button --- */}
