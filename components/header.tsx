@@ -189,7 +189,7 @@ export default function Header() {
           <Link
             href="/calendar"
             title="Global Schedule"
-            className={`relative p-2 rounded-lg border transition-all group ${isCalendarPage
+            className={`hidden sm:flex relative p-2 rounded-lg border transition-all group ${isCalendarPage
               ? "border-primary/50 bg-primary/10 text-primary"
               : "border-border/40 hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-primary"
               }`}
@@ -199,8 +199,8 @@ export default function Header() {
 
           <div className="h-6 w-px bg-border/40 hidden sm:block cursor-target" />
 
-          <div className="hidden sm:block cursor-target">
-            <SiteFakeUptime />
+          <div className="cursor-target">
+            <SiteFakeUptime compact />
           </div>
           {/* Mobile Menu Button */}
           <button
@@ -233,9 +233,8 @@ export default function Header() {
       >
         <div className="p-4 space-y-4">
           {/* Mobile Header Stat */}
-          <div className="flex items-center justify-between px-4 pb-4 border-b border-border/30 text-xs font-mono text-muted-foreground">
-            <span>STATUS: ONLINE</span>
-            <SiteFakeUptime compact />
+          <div className="flex items-center justify-center px-4 pb-4 border-b border-border/30 text-xs font-mono text-muted-foreground">
+            <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span> SYSTEM: ONLINE</span>
           </div>
 
           <nav className="flex flex-col gap-2">
