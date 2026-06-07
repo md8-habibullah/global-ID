@@ -108,7 +108,7 @@ export default async function BlogPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span> */}
-              System_Online: Fetching Articles...
+              Fetching Articles From Online...
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight font-mono">
