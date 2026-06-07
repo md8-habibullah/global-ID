@@ -29,18 +29,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/kits/qrcode",
     "/kits/subnet",
     "/kits/system",
-    "/blog", // Include blog index
+    "/articles", // Include articles index
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : route === "/blog" ? 0.9 : 0.8,
+    priority: route === "" ? 1 : route === "/articles" ? 0.9 : 0.8,
   }));
 
   // Dynamic blog posts
   const posts = await getBlogPosts();
   const blogRoutes = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${baseUrl}/articles/${post.slug}`,
     lastModified: new Date(post.published_at),
     changeFrequency: "weekly" as const,
     priority: 0.7,

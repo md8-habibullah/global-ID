@@ -41,6 +41,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/blog",
+        destination: "/articles",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug*",
+        destination: "/articles/:slug*",
+        permanent: true,
+      },
+      {
         source: "/github",
         destination: "https://github.com/md8-habibullah",
         permanent: true,

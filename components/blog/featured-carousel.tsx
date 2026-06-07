@@ -74,7 +74,7 @@ export default function FeaturedCarousel({ posts }: { posts: BlogPost[] }) {
                     <div className="flex touch-pan-y">
                         {posts.map((post) => (
                             <div className="flex-[0_0_100%] min-w-0 relative" key={post.id}>
-                                <Link href={`/blog/${post.slug}`} className="block relative h-[400px] md:h-[500px] w-full">
+                                <Link href={`/articles/${post.slug}`} className="block relative h-[400px] md:h-[500px] w-full">
 
                                     {/* Background Image with Overlay */}
                                     {post.cover_image ? (

@@ -13,7 +13,7 @@ export default function ShareButton({ slug }: ShareButtonProps) {
 
   const handleCopy = async () => {
     // Construct the full URL dynamically
-    const url = `${window.location.origin}/blog/${slug}`;
+    const url = `${window.location.origin}/articles/${slug}`;
 
     try {
       await navigator.clipboard.writeText(url);

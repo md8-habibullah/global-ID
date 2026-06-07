@@ -56,10 +56,10 @@ async function getBlogPosts(): Promise<BlogPost[]> {
 export async function generateMetadata(): Promise<Metadata> {
   const posts = await getBlogPosts();
 
-  const title = "Blog | MD. Habibullah Sharif";
+  const title = "Articles | MD. Habibullah Sharif";
   const description =
     "Technical articles, tutorials, and insights on Full-Stack Development & DevOps.";
-  const localUrl = "https://habibullah.dev/blog";
+  const localUrl = "https://habibullah.dev/articles";
   const devToProfile = "https://dev.to/md8_habibullah";
 
   return {
@@ -112,7 +112,7 @@ export default async function BlogPage() {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight font-mono">
-              ~/blog<span className="animate-pulse text-primary">_</span>
+              ~/articles<span className="animate-pulse text-primary">_</span>
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
@@ -162,7 +162,7 @@ export default async function BlogPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 cursor-target">
           {posts.map((post) => (
             <Link
-              href={`/blog/${post.slug}`}
+              href={`/articles/${post.slug}`}
               key={post.id}
               className="group flex flex-col h-full bg-card md:bg-card/30 md:backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-primary/50 hover:bg-card/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
             >

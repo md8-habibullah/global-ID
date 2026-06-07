@@ -135,14 +135,14 @@ export default function Footer() {
                 ))}
                 <li>
                   <Link
-                    href="/blog"
+                    href="/articles"
                     className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                   >
                     <span className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary">
                       &gt;
                     </span>
                     <span className="font-mono text-xs opacity-50 group-hover:opacity-100 transition-opacity">
-                      Blog
+                      Articles
                     </span>
                   </Link>
                 </li>

@@ -60,8 +60,7 @@ export async function generateMetadata({
 
   if (!post) return { title: "Post Not Found" };
 
-  // const url = `https://habibullah.dev/blog/${slug}`;
-  const localUrl = `https://habibullah.dev/blog/${slug}`;
+  const localUrl = `https://habibullah.dev/articles/${slug}`;
 
   return {
     title: `${post.title} | MD. Habibullah Sharif`,
@@ -120,7 +119,7 @@ export default async function BlogPostPage({
       {/* Navigation Bar */}
       <div className="flex items-center justify-between mb-8 cursor-target">
         <Link
-          href="/blog"
+          href="/articles"
           className="inline-flex items-center gap-2 text-sm font-mono text-muted-foreground hover:text-primary transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -128,7 +127,7 @@ export default async function BlogPostPage({
         </Link>
         <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-muted-foreground/50 cursor-target">
           <Terminal className="w-3 h-3" />
-          <span>/blog/{slug.substring(0, 20)}...</span>
+          <span>/articles/{slug.substring(0, 20)}...</span>
         </div>
       </div>
 
@@ -227,7 +226,7 @@ export default async function BlogPostPage({
               },
               mainEntityOfPage: {
                 "@type": "WebPage",
-                // "@id": `https://habibullah.dev/blog/${post.slug}`, 
+                // "@id": `https://habibullah.dev/articles/${post.slug}`, 
                 "@id": post.url
               },
               wordCount: Math.ceil(post.reading_time_minutes * 200), // Approximate

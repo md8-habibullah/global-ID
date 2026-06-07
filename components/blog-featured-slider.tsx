@@ -84,7 +84,7 @@ export function BlogFeaturedSlider({ posts }: { posts: BlogPost[] }) {
                 <div className="flex touch-pan-y">
                     {posts.map((post, index) => (
                         <div className="flex-[0_0_100%] min-w-0 relative" key={post.id}>
-                            <Link href={`/blog/${post.slug}`} className="block relative aspect-[21/9] md:aspect-[2.5/1] overflow-hidden group/slide">
+                            <Link href={`/articles/${post.slug}`} className="block relative aspect-[21/9] md:aspect-[2.5/1] overflow-hidden group/slide">
                                 {/* Background Image with Overlay */}
                                 <div className="absolute inset-0 z-0">
                                     {post.cover_image ? (
