@@ -34,6 +34,7 @@ interface BlogPost {
 
   user: {
     name: string;
+    username: string;
     profile_image_90: string;
   };
 }

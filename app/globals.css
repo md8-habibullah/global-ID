@@ -662,21 +662,6 @@
 .prose h3 {
   font-size: 1.4em;
 }
-/* Add hash prefixes for dev feel */
-.prose h2::before {
-  content: "## ";
-  color: hsl(var(--primary));
-  opacity: 0.6;
-  margin-right: 0.3rem;
-  font-family: monospace;
-}
-.prose h3::before {
-  content: "### ";
-  color: hsl(var(--primary));
-  opacity: 0.6;
-  margin-right: 0.3rem;
-  font-family: monospace;
-}
 
 /* 2. LINKS (Animated Underline) */
 .prose a {
