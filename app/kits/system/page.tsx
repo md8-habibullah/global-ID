@@ -43,7 +43,7 @@ export default function DeviceInfoPage() {
     // 1. Run Ping Test
     const start = performance.now();
     try {
-      await fetch("/favicon.ico", { method: "HEAD", cache: "no-store" });
+      await fetch(`/favicon.ico?t=${new Date().getTime()}`, { method: "HEAD", cache: "no-store" });
       setPing(Math.round(performance.now() - start));
     } catch (e) {
       setPing(null);
@@ -92,28 +92,62 @@ export default function DeviceInfoPage() {
         orientation: window.screen.orientation?.type || "Unknown",
       },
       netAPI: {
-        type: connection?.effectiveType?.toUpperCase() || "WIFI/LAN",
+        type: connection?.effectiveType 
+          ? connection.effectiveType.toUpperCase() 
+          : "Unsupported",
         downlink: connection?.downlink
           ? `~${connection.downlink} Mbps`
-          : "Unknown",
+          : "Unsupported",
       },
       battery: battery,
     });
 
     // 3. IP & Security
     try {
-      const res = await fetch("https://ipwho.is/");
-      const ipJson = await res.json();
+      let ipData: any = { failed: true };
 
-      if (ipJson.success === false) {
-        setNetData({ failed: true, message: ipJson.message });
-      } else {
-        setNetData(ipJson);
-        if (ipJson.timezone?.id) {
-          const systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          setTzMatch(systemTz === ipJson.timezone.id);
+      try {
+        // Primary highly-accurate API
+        const res = await fetch("https://api.ipapi.is/");
+        const ipJson = await res.json();
+        
+        ipData = {
+          ip: ipJson.ip,
+          connection: { isp: ipJson.company?.name || ipJson.asn?.org },
+          city: ipJson.location?.city,
+          country_code: ipJson.location?.country_code,
+          security: {
+            vpn: ipJson.is_vpn || false,
+            proxy: ipJson.is_proxy || false,
+            tor: ipJson.is_tor || false
+          },
+          timezone: { id: ipJson.location?.timezone }
+        };
+      } catch (e1) {
+        // Fallback to ipwho.is if blocked
+        const res = await fetch("https://ipwho.is/");
+        const ipJson = await res.json();
+        if (ipJson.success !== false) {
+           ipData = {
+             ip: ipJson.ip,
+             connection: { isp: ipJson.connection?.isp },
+             city: ipJson.city,
+             country_code: ipJson.country_code,
+             security: null, // Unknown on free tier
+             timezone: { id: ipJson.timezone?.id }
+           };
         }
       }
+
+      setNetData(ipData);
+      
+      if (ipData.timezone?.id) {
+        const systemTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setTzMatch(systemTz === ipData.timezone.id);
+      } else {
+        setTzMatch(null);
+      }
+
     } catch (e) {
       console.error("IP Analysis failed");
       setNetData({ failed: true, message: "Network blocked or failed" });
