@@ -152,7 +152,7 @@ export default async function BlogPostPage({
           </h1>
 
           {/* Author & Meta Grid */}
-          <div className="flex flex-wrap items-center gap-6 py-4 border-y border-border/40 text-sm cursor-target">
+          <div className="flex flex-wrap items-center gap-6 p-4 rounded-2xl bg-card/40 border border-border/50 backdrop-blur-sm shadow-xl shadow-black/20 text-sm cursor-target">
             {/* Author */}
             <div className="flex items-center gap-3 pr-6 sm:border-r border-border/40 cursor-target">
               <div className="relative w-8 h-8 rounded-full overflow-hidden border border-primary/20 cursor-target">
@@ -237,7 +237,7 @@ export default async function BlogPostPage({
 
         {/* === COVER IMAGE === */}
         {post.cover_image && (
-          <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-border/40 shadow-2xl mb-12 group cursor-target">
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_40px_-15px_rgba(var(--primary),0.3)] mb-12 group cursor-target">
             <Image
               src={post.cover_image}
               alt={post.title}
@@ -246,18 +246,24 @@ export default async function BlogPostPage({
               className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
             {/* Scanline Effect Overlay (Optional aesthetic) */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none cursor-target" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent pointer-events-none cursor-target" />
+            <div className="absolute inset-0 border border-white/5 rounded-2xl mix-blend-overlay pointer-events-none" />
           </div>
         )}
 
         {/* === CONTENT BODY === */}
         <div
           className="prose prose-invert prose-lg max-w-none
-            prose-headings:font-bold prose-headings:tracking-tight prose-headings:scroll-mt-20
-            prose-p:text-muted-foreground prose-p:leading-8
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-            prose-code:text-primary prose-code:bg-primary/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-            prose-pre:bg-card prose-pre:border prose-pre:border-border/50
+            prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground prose-headings:scroll-mt-24
+            prose-p:text-muted-foreground prose-p:leading-relaxed
+            prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4
+            prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-code:font-mono prose-code:text-sm
+            prose-pre:bg-black/80 prose-pre:backdrop-blur-xl prose-pre:border prose-pre:border-border/50 prose-pre:shadow-2xl prose-pre:shadow-black/50 prose-pre:rounded-xl
+            prose-blockquote:border-l-primary prose-blockquote:bg-primary/5 prose-blockquote:px-6 prose-blockquote:py-3 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-muted-foreground
+            [&_blockquote_p:first-of-type]:before:content-none [&_blockquote_p:last-of-type]:after:content-none
+            [&_.highlight__panel]:hidden [&_.highlight-action]:hidden [&_.clipboard-button]:hidden [&_button]:hidden
+            prose-img:rounded-2xl prose-img:border prose-img:border-border/50 prose-img:shadow-2xl
+            prose-hr:border-border/40
             marker:text-primary"
           dangerouslySetInnerHTML={{ __html: post.body_html }}
         />
