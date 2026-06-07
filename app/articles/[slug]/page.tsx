@@ -154,7 +154,12 @@ export default async function BlogPostPage({
           {/* Author & Meta Grid */}
           <div className="flex flex-wrap items-center gap-6 p-4 rounded-2xl bg-card/40 border border-border/50 backdrop-blur-sm shadow-xl shadow-black/20 text-sm cursor-target">
             {/* Author */}
-            <div className="flex items-center gap-3 pr-6 sm:border-r border-border/40 cursor-target">
+            <a 
+              href={`https://dev.to/${post.user.username}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 pr-6 sm:border-r border-border/40 cursor-target hover:opacity-75 transition-opacity"
+            >
               <div className="relative w-8 h-8 rounded-full overflow-hidden border border-primary/20 cursor-target">
                 <Image
                   src={post.user.profile_image_90}
@@ -164,14 +169,14 @@ export default async function BlogPostPage({
                 />
               </div>
               <div className="flex flex-col leading-none gap-1 cursor-target">
-                <span className="font-bold text-foreground">
+                <span className="font-bold text-foreground hover:text-primary transition-colors">
                   {post.user.name}
                 </span>
                 <span className="text-[10px] text-muted-foreground font-mono">
                   AUTHOR
                 </span>
               </div>
-            </div>
+            </a>
 
             {/* Date */}
             <div className="flex items-center gap-2 text-muted-foreground cursor-target">
@@ -187,14 +192,24 @@ export default async function BlogPostPage({
 
             {/* Stats Badge */}
             <div className="ml-auto flex items-center gap-4 cursor-target">
-              <div className="flex items-center gap-1.5 text-red-400 font-mono text-xs bg-red-500/5 px-2 py-1 rounded-full border border-red-500/10 cursor-target">
+              <a 
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-red-400 font-mono text-xs bg-red-500/5 px-2 py-1 rounded-full border border-red-500/10 cursor-target hover:bg-red-500/10 hover:scale-105 transition-all"
+              >
                 <Heart className="w-3.5 h-3.5" />
                 <span>{post.public_reactions_count}</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-blue-400 font-mono text-xs bg-blue-500/5 px-2 py-1 rounded-full border border-blue-500/10 cursor-target">
+              </a>
+              <a 
+                href={`${post.url}#comments`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-blue-400 font-mono text-xs bg-blue-500/5 px-2 py-1 rounded-full border border-blue-500/10 cursor-target hover:bg-blue-500/10 hover:scale-105 transition-all"
+              >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>{post.comments_count}</span>
-              </div>
+              </a>
               {/* <ShareButton slug={post.slug} /> */}
             </div>
           </div>
@@ -263,7 +278,7 @@ export default async function BlogPostPage({
             [&_blockquote_p:first-of-type]:before:content-none [&_blockquote_p:last-of-type]:after:content-none
             [&_.highlight__panel]:hidden [&_.highlight-action]:hidden [&_.clipboard-button]:hidden [&_button]:hidden
             prose-img:rounded-2xl prose-img:border prose-img:border-border/50 prose-img:shadow-2xl
-            prose-hr:border-border/40
+            [&_hr]:w-64 [&_hr]:mx-auto [&_hr]:border-t-2 [&_hr]:border-primary/50 [&_hr]:my-12 [&_hr]:rounded-full
             marker:text-primary"
           dangerouslySetInnerHTML={{ __html: post.body_html }}
         />
