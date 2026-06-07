@@ -85,6 +85,11 @@ interface WeatherData {
 }
 
 // --- Utilities ---
+const getDhakaTime = () => {
+  const d = new Date();
+  return new Date(d.toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+};
+
 const to12h = (time: string | undefined) => {
   if (!time) return "--:--";
   const [h, m] = time.split(":").map(Number);
@@ -155,8 +160,7 @@ const getWeatherDesc = (code: number) => {
 // --- Main Component ---
 export default function PrayerDashboard() {
   const [now, setNow] = useState<Date | null>(null);
-  const [timeOffset, setTimeOffset] = useState(0);
-  const [isSynced, setIsSynced] = useState(false);
+  const [isSynced, setIsSynced] = useState(true);
   const [selectedCity, setSelectedCity] = useState("Dhaka");
   // Default Coords
   const [coords, setCoords] = useState(DISTRICT_DATA["Dhaka"]);
@@ -165,31 +169,13 @@ export default function PrayerDashboard() {
   const [hijri, setHijri] = useState<HijriDate | null>(null);
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
-  // Time Sync
+  // Time Sync & Clock Tick (Native Timezone Support)
   useEffect(() => {
-    setNow(new Date());
-    const sync = async () => {
-      try {
-        const res = await fetch(
-          "https://worldtimeapi.org/api/timezone/Asia/Dhaka",
-        );
-        const data = await res.json();
-        const offset = new Date(data.datetime).getTime() - Date.now();
-        setTimeOffset(offset);
-        setIsSynced(true);
-      } catch (e) {
-        setIsSynced(false);
-      }
-    };
-    sync();
-  }, []);
-
-  // Clock Tick
-  useEffect(() => {
-    const tick = () => setNow(new Date(Date.now() + timeOffset));
+    setNow(getDhakaTime());
+    const tick = () => setNow(getDhakaTime());
     const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
-  }, [timeOffset]);
+  }, []);
 
   // Handle Location Change (INSTANT UPDATE)
   const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -205,10 +191,9 @@ export default function PrayerDashboard() {
   useEffect(() => {
     const fetchPrayer = async () => {
       try {
-        const d = new Date();
-        // Use exact lat/lon for precision prayer times
+        // Use the /today endpoint to completely bypass client-side timezone bugs
         const res = await fetch(
-          `https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}?latitude=${coords.lat}&longitude=${coords.lon}&method=1&school=1`,
+          `https://api.aladhan.com/v1/timings/today?latitude=${coords.lat}&longitude=${coords.lon}&method=1&school=1`,
         );
         const json = await res.json();
         if (json.data) {
